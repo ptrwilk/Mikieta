@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li{
+    list-style: none;
+}
+
+p{
+    font-family: var(--ff);
+    font-size: var(--f-size-1);
+}
+
+button{
+    font-family: var(--ff);
+}

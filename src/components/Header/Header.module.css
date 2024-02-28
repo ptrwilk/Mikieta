@@ -1,0 +1,16 @@
+.Header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--p-1) var(--p-3);
+}
+
+.Header ul{
+    display: flex;
+    align-items: center;
+    gap: var(--p-2);
+}
+
+.Header .Logo{
+    font-weight: var(--fw-9);
+}
