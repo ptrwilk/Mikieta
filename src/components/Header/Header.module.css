@@ -14,3 +14,7 @@
 .Header .Logo{
     font-weight: var(--fw-9);
 }
+
+.Header p{
+    color: var(--color-black);
+}

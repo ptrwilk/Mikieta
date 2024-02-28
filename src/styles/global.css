@@ -13,6 +13,11 @@ p{
     font-size: var(--f-size-1);
 }
 
+h1{
+    font-family: var(--ff);
+    font-size: 4rem;
+}
+
 button{
     font-family: var(--ff);
 }

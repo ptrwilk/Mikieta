@@ -5,3 +5,8 @@
     color: var(--color-white);
     cursor: pointer;
 }
+
+.Button.Button-light{
+    background: transparent;
+    border: 1px solid var(--color-white);
+}
