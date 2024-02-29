@@ -1,4 +1,5 @@
 import { Header, Hero } from "./components";
+import { MenuView } from "./views/MenuView/MenuView";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
     >
       <Header />
       <Hero />
+      <MenuView />
     </div>
   );
 }

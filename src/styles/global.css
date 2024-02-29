@@ -5,6 +5,7 @@
 }
 
 li{
+    font-family: var(--ff);
     list-style: none;
 }
 
@@ -15,7 +16,16 @@ p{
 
 h1{
     font-family: var(--ff);
-    font-size: 4rem;
+    font-size: 4cqmin;
+}
+
+h2{
+    font-family: var(--ff);
+    font-size: 3cqmin;
+}
+
+input{
+    font-family: var(--ff);
 }
 
 button{
