@@ -32,9 +32,11 @@ const TextInput: React.FC<ITextInputProps> = ({
       case "Enter":
         var v = filteredPrompts[selectedIndex];
 
-        setValue(v);
+        setValue(undefined);
         setPromptVisible(false);
-        onSelect?.(v);
+        if (v) {
+          onSelect?.(v);
+        }
         break;
 
       case "ArrowDown":
@@ -52,7 +54,7 @@ const TextInput: React.FC<ITextInputProps> = ({
   const onItemClick = () => {
     var v = filteredPrompts[selectedIndex];
 
-    setValue(v);
+    setValue(undefined);
     onSelect?.(v);
   };
 
@@ -61,7 +63,7 @@ const TextInput: React.FC<ITextInputProps> = ({
   };
 
   const handleFocus = () => {
-    setPromptVisible(value?.length !== 0);
+    setPromptVisible((value?.length ?? 0) !== 0);
   };
 
   return (
