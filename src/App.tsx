@@ -1,7 +1,9 @@
+import { Outlet, useLoaderData } from "react-router-dom";
 import { Header, Hero } from "./components";
-import { MenuView } from "./views/MenuView/MenuView";
 
 function App() {
+  const filters = useLoaderData() as string[];
+
   return (
     <div
       style={{
@@ -11,7 +13,7 @@ function App() {
     >
       <Header />
       <Hero />
-      <MenuView />
+      <Outlet context={filters} />
     </div>
   );
 }

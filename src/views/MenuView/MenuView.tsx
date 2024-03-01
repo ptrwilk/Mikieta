@@ -1,19 +1,14 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import { Button, PizzaCard, TextInput, TreeView } from "../../components";
 import styles from "./MenuView.module.css";
 import { useState } from "react";
+import { PizzaModel } from "../../types";
 
 const MenuView = () => {
-  const filters = useLoaderData() as string[];
+  const filters = useOutletContext() as string[];
+  const pizzas = useLoaderData() as PizzaModel[];
 
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-
-  const pizzas = [
-    { name: "Margherita", price: 18, ingredients: ["ser", "sos pomidorowy"] },
-    { name: "Margherita", price: 1.23, ingredients: ["ser"] },
-    { name: "Margherita", price: 1.23, ingredients: ["ser"] },
-    { name: "Margherita", price: 1.23, ingredients: ["ser"] },
-  ];
 
   const handleFilterElementSelected = (value: string) => {
     setSelectedFilters([...selectedFilters, value]);
