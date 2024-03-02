@@ -1,12 +1,16 @@
-.TreeView{
-
-}
-
-.TreeView li:nth-child(1){
+.TreeView .TreeViewItem-selected{
     font-weight: 900;
 }
 
-.TreeView ul:nth-child(2){
+.TreeView .SubItem-selected{
+    font-weight: 900;
+}
+
+.TreeView .SubItems li{
+    cursor: pointer;
+}
+
+.TreeView .SubItems{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -15,7 +19,7 @@
     margin-left: 1rem;
 }
 
-.TreeView ul:nth-child(2)::before{
+.TreeView .SubItems::before{
     content: '';
     position: absolute;
     top: 0;
