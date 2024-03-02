@@ -1,15 +1,25 @@
 import styles from "./PizzaCard.module.css";
-import pizza from "../../assets/images/pizza2.jpg";
+import pizza from "../../assets/images/pizza3.webp";
 
 interface IPizzaCardProps {
   name?: string;
   ingredients?: string[];
   price?: number;
+  onClick?: () => void;
 }
 
-const PizzaCard: React.FC<IPizzaCardProps> = ({ name, ingredients, price }) => {
+const PizzaCard: React.FC<IPizzaCardProps> = ({
+  name,
+  ingredients,
+  price,
+  onClick,
+}) => {
   return (
-    <div className={styles["PizzaCard"]}>
+    <div
+      className={styles["PizzaCard"]}
+      title="Dodaj do koszyka"
+      onClick={onClick}
+    >
       <img src={pizza} />
       <div>
         <p className={styles["Name"]}>{name}</p>

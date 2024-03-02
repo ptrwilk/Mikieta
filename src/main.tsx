@@ -5,6 +5,7 @@ import "./styles/global.css";
 import "./styles/theme.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { MenuView } from "./views/MenuView/MenuView.tsx";
+import { AppContextProvider } from "./context/AppContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AppContextProvider>
+      <RouterProvider router={router} />
+    </AppContextProvider>
   </React.StrictMode>
 );

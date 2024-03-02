@@ -7,8 +7,11 @@ import { Button, PizzaCard, TextInput, TreeView } from "../../components";
 import styles from "./MenuView.module.css";
 import { useState } from "react";
 import { PizzaModel } from "../../types";
+import { useAppContext } from "../../context/AppContext";
 
 const MenuView = () => {
+  const [app, updateApp] = useAppContext();
+
   const filters = useOutletContext() as string[];
   const pizzas = useLoaderData() as PizzaModel[];
   const [searchParams] = useSearchParams();
@@ -16,14 +19,6 @@ const MenuView = () => {
   const size = searchParams.get("size");
 
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-
-  const handleFilterElementSelected = (value: string) => {
-    setSelectedFilters([...selectedFilters, value]);
-  };
-
-  const handleFilterElementClicked = (value: string) => {
-    setSelectedFilters([...selectedFilters].filter((x) => x !== value));
-  };
 
   const treeViewItems = [
     {
@@ -35,6 +30,20 @@ const MenuView = () => {
       ],
     },
   ];
+
+  const handleFilterElementSelected = (value: string) => {
+    setSelectedFilters([...selectedFilters, value]);
+  };
+
+  const handleFilterElementClicked = (value: string) => {
+    setSelectedFilters([...selectedFilters].filter((x) => x !== value));
+  };
+
+  const handlePizzaClick = (pizza: PizzaModel) => {
+    const newBasket = [...app!.basket, pizza];
+
+    updateApp("basket", newBasket);
+  };
 
   return (
     <div className={styles["MenuView"]}>
@@ -65,9 +74,14 @@ const MenuView = () => {
         items={treeViewItems}
       />
       <ul className={styles["PizzaCards"]}>
-        {pizzas.map(({ name, price, ingredients }, key) => (
+        {pizzas.map((pizza, key) => (
           <li key={key}>
-            <PizzaCard name={name} price={price} ingredients={ingredients} />
+            <PizzaCard
+              name={pizza.name}
+              price={pizza.price}
+              ingredients={pizza.ingredients}
+              onClick={() => handlePizzaClick(pizza)}
+            />
           </li>
         ))}
       </ul>

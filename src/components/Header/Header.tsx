@@ -1,7 +1,10 @@
 import { Basket, Button } from "..";
+import { useAppContext } from "../../context/AppContext";
 import styles from "./Header.module.css";
 
 const Header = () => {
+  const [app] = useAppContext();
+
   return (
     <div className={styles.Header}>
       <p className={styles.Logo}>LOGO</p>
@@ -15,9 +18,11 @@ const Header = () => {
         <li>
           <p>Kontakt</p>
         </li>
-        <li>
-          <Basket amount={1} />
-        </li>
+        {(app?.basket.length ?? 0) > 0 && (
+          <li>
+            <Basket amount={app?.basket.length} />
+          </li>
+        )}
         <li>
           <Button>Logowanie</Button>
         </li>
