@@ -1,4 +1,5 @@
 .Button{
+    display: flex;
     padding: var(--p-0_5) var(--p-1);
     border : 0;
     background: var(--color-black);
@@ -14,4 +15,10 @@
 .Button.Button-tab{
     background: #F8F8F8;
     color: var(--color-black);
+}
+
+.Button.Button-icon{
+    background: transparent;
+    color: var(--color-black);
+    padding: 0;
 }

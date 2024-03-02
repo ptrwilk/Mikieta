@@ -1,4 +1,4 @@
-import { Button } from "..";
+import { Basket, Button } from "..";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -14,6 +14,9 @@ const Header = () => {
         </li>
         <li>
           <p>Kontakt</p>
+        </li>
+        <li>
+          <Basket amount={1} />
         </li>
         <li>
           <Button>Logowanie</Button>
