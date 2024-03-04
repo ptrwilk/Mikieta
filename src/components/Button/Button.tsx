@@ -7,6 +7,7 @@ interface IButtonProps {
   dark?: boolean;
   tab?: boolean;
   icon?: boolean;
+  huge?: boolean;
   onClick?: () => void;
 }
 
@@ -17,6 +18,7 @@ const Button: React.FC<IButtonProps> = ({
   onClick,
   dark = true,
   icon = false,
+  huge = false,
 }) => {
   return (
     <button
@@ -25,6 +27,7 @@ const Button: React.FC<IButtonProps> = ({
         [styles["Button-light"]]: dark === false,
         [styles["Button-tab"]]: tab,
         [styles["Button-icon"]]: icon,
+        [styles["Button-huge"]]: huge,
       })}
     >
       {children}

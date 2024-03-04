@@ -1,5 +1,6 @@
 import { Outlet, useLoaderData } from "react-router-dom";
-import { Header, Hero } from "./components";
+import { BasketDrawer, Drawer, Header, Hero } from "./components";
+import { BasketDrawerView } from "./views/BasketDrawerView/BasketDrawerView";
 
 function App() {
   const filters = useLoaderData() as string[];
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Hero />
       <Outlet context={filters} />
+      <BasketDrawerView />
     </div>
   );
 }

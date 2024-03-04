@@ -30,6 +30,11 @@ h2{
     font-size: 3cqmin;
 }
 
+h3{
+    font-family: var(--ff);
+    font-size: 2rem;
+}
+
 input{
     font-family: var(--ff);
 }

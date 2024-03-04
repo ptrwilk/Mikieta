@@ -18,3 +18,11 @@ export function groupBy<T extends Groupable>(
 
   return Object.values(groups);
 }
+
+export const sum = (numbers: number[]) => {
+  const res = numbers.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  }, 0);
+
+  return res;
+};

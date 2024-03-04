@@ -3,7 +3,11 @@ import { useAppContext } from "../../context/AppContext";
 import styles from "./Header.module.css";
 
 const Header = () => {
-  const [app] = useAppContext();
+  const [app, updateApp] = useAppContext();
+
+  const handleBasketClick = () => {
+    updateApp("basketDrawerOpen", !app?.basketDrawerOpen);
+  };
 
   return (
     <div className={styles.Header}>
@@ -20,7 +24,7 @@ const Header = () => {
         </li>
         {(app?.basket.length ?? 0) > 0 && (
           <li>
-            <Basket amount={app?.basket.length} />
+            <Basket amount={app?.basket.length} onClick={handleBasketClick} />
           </li>
         )}
         <li>

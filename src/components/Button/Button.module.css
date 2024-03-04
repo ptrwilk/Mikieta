@@ -1,5 +1,6 @@
 .Button{
     display: flex;
+    justify-content: center;
     padding: var(--p-0_5) var(--p-1);
     border : 0;
     background: var(--color-black);
@@ -21,4 +22,8 @@
     background: transparent;
     color: var(--color-black);
     padding: 0;
+}
+
+.Button.Button-huge{
+    padding: 1rem;
 }
