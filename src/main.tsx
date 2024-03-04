@@ -24,12 +24,14 @@ const router = createBrowserRouter([
       },
       {
         element: <MenuView />,
-        path: "pizza",
+        path: ":pizza",
         loader: ({ request }) => {
           const url = new URL(request.url);
           const size = url.searchParams.get("size");
 
-          return fetch(`http://localhost:5105/pizza?size=${size}`);
+          console.log(url);
+
+          return fetch(`http://localhost:5105${url.pathname}${url.search}`);
         },
       },
     ],

@@ -1,8 +1,4 @@
-import {
-  useLoaderData,
-  useOutletContext,
-  useSearchParams,
-} from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import { Button, PizzaCard, TextInput, TreeView } from "../../components";
 import styles from "./MenuView.module.css";
 import { useState } from "react";
@@ -14,20 +10,41 @@ const MenuView = () => {
 
   const filters = useOutletContext() as string[];
   const pizzas = useLoaderData() as PizzaModel[];
-  const [searchParams] = useSearchParams();
-
-  const size = searchParams.get("size");
 
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   const treeViewItems = [
     {
       name: "Pizza",
+      path: "pizza",
       subItems: [
-        { name: "Mała", path: "/pizza?size=small" },
-        { name: "Średnia", path: "/pizza?size=medium" },
-        { name: "Duża", path: "/pizza?size=big" },
+        { name: "Mała", path: "size=small", index: 0 },
+        { name: "Średnia", path: "size=medium", index: 0 },
+        { name: "Duża", path: "size=big", index: 0 },
+        { name: "Cieńka", path: "crust=thin", index: 1 },
+        { name: "Gruba", path: "crust=thick", index: 1 },
       ],
+    },
+    {
+      name: "Napoje",
+      path: "drink",
+      subItems: [
+        { name: "Piwo", path: "type=beer", index: 0 },
+        { name: "Grzaniec", path: "type=mulled-wine", index: 0 },
+        { name: "Pozostałe", path: "type=other", index: 0 },
+      ],
+    },
+    //TODO: remove subItems and make parent selection working
+    {
+      name: "Przekąski",
+      path: "snack",
+      subItems: [{ name: "Przekąski", path: "type=snack", index: 0 }],
+    },
+    //TODO: remove subItems and make parent selection working
+    {
+      name: "Sosy",
+      path: "sauce",
+      subItems: [{ name: "Sosy", path: "type=sauce", index: 0 }],
     },
   ];
 
@@ -62,17 +79,7 @@ const MenuView = () => {
         prompts={filters.filter((item) => !selectedFilters.includes(item))}
         onSelect={handleFilterElementSelected}
       />
-      <TreeView
-        className={styles["TreeView"]}
-        defaultSubItemSelected={
-          size
-            ? treeViewItems[0].subItems.find(
-                (x) => x.path === `/pizza?size=${size}`
-              )
-            : treeViewItems[0].subItems[0]
-        }
-        items={treeViewItems}
-      />
+      <TreeView className={styles["TreeView"]} items={treeViewItems} />
       <ul className={styles["PizzaCards"]}>
         {pizzas.map((pizza, key) => (
           <li key={key}>
