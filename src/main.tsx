@@ -27,9 +27,6 @@ const router = createBrowserRouter([
         path: ":pizza",
         loader: ({ request }) => {
           const url = new URL(request.url);
-          const size = url.searchParams.get("size");
-
-          console.log(url);
 
           return fetch(`http://localhost:5105${url.pathname}${url.search}`);
         },

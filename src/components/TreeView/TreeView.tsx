@@ -27,7 +27,7 @@ const TreeView: React.FC<ITreeViewProps> = ({ className, items = [] }) => {
 
   const [myItems, _] = useState(
     items.map((x) => {
-      x.subItems!.forEach((z) => {
+      x.subItems?.forEach((z) => {
         z.parent = x;
       });
 
@@ -54,11 +54,11 @@ const TreeView: React.FC<ITreeViewProps> = ({ className, items = [] }) => {
   const getSelectedItems = () => {
     const selectedItems: (ItemModel | SubItemModel)[] = [];
 
-    myItems.forEach((myItem) => {
+    myItems?.forEach((myItem) => {
       if (isSelected(myItem)) {
         selectedItems.push(myItem);
 
-        myItem.subItems!.forEach((subItem) => {
+        myItem.subItems?.forEach((subItem) => {
           if (isSelected(subItem)) {
             selectedItems.push(subItem);
           }
@@ -118,7 +118,11 @@ const TreeView: React.FC<ITreeViewProps> = ({ className, items = [] }) => {
               },
             ])}
           >
-            {myItem.name}
+            {myItem.subItems ? (
+              myItem.name
+            ) : (
+              <Link to={`/${myItem.path}`}>{myItem.name}</Link>
+            )}
           </li>
           {groupBy(myItem.subItems!, ({ index }) => index).map((x, xKey) => (
             <ul key={xKey} className={styles["SubItems"]}>

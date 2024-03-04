@@ -38,13 +38,11 @@ const MenuView = () => {
     {
       name: "Przekąski",
       path: "snack",
-      subItems: [{ name: "Przekąski", path: "type=snack", index: 0 }],
     },
     //TODO: remove subItems and make parent selection working
     {
       name: "Sosy",
       path: "sauce",
-      subItems: [{ name: "Sosy", path: "type=sauce", index: 0 }],
     },
   ];
 

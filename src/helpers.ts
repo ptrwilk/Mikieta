@@ -8,7 +8,7 @@ export function groupBy<T extends Groupable>(
 ): T[][] {
   const groups: Record<string, T[]> = {};
 
-  items.forEach((item) => {
+  items?.forEach((item) => {
     const key = keyFunction(item);
     if (!groups[key]) {
       groups[key] = [];
