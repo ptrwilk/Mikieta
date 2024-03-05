@@ -1,0 +1,30 @@
+.TextInput{
+    position: relative;
+}
+
+.TextInput input{
+    padding: 1rem;
+    width: 100%;
+    border: 1.5px solid #d3d3d3;
+    font-size: 1rem;
+    outline: none;
+}
+
+.TextInput .Prompt{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.5rem;
+    height: 200px;
+    width: 100%;
+    background: white;
+    cursor: default;
+    overflow-y: auto;
+    border: 1.5px solid #d3d3d3;
+    border-top: 0;
+}
+
+.TextInput .Prompt .Selected{
+    background: #d3d3d3;
+}

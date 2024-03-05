@@ -1,0 +1,13 @@
+.OrderView{
+    padding: 2rem 3rem;
+}
+
+.OrderView .OrderList{
+    margin-top: 2rem;
+}
+
+.OrderView .Buttons{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}

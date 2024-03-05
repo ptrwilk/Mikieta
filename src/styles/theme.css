@@ -1,0 +1,100 @@
+body {
+  --p-0_5: 0.5rem;  
+  --p-1: 1rem;
+  --p-2: 2rem;
+  --p-3: 3rem;
+  --p-4: 4rem;
+
+  --ff: "Roboto", sans-serif;
+  --fw-1: 100;
+  --fw-3: 300;
+  --fw-4: 400;
+  --fw-5: 500;
+  --fw-7: 700;
+  --fw-9: 900;
+  --fs-n: normal;
+  --fs-i: italic;
+  --f-size-1: 16px;
+  --f-size-2: 16px;
+  --f-size-3: 16px;
+  --f-size-4: 16px;
+  --f-size-5: 16px;
+  --f-size-6: 16px;
+  --f-size-7: 16px;
+  --f-size-8: 64px;
+
+  --color-white: white;
+  --color-black: black;
+}
+
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}

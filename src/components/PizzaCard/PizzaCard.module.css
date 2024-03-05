@@ -1,0 +1,32 @@
+.PizzaCard{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    width: 250px;
+    border-radius: 0.5rem;
+    background: #F8F8F8;
+    cursor: pointer;
+}
+
+.PizzaCard img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.PizzaCard .Name{
+    font-weight: 900;
+    color: var(--color-black);
+}
+
+.PizzaCard .Ingredients{
+    font-size: 0.8rem;
+    color: var(--color-black);
+}
+
+.PizzaCard .Price{
+    margin-top: auto;
+    text-align: right;
+    color: var(--color-black);
+}

@@ -1,0 +1,24 @@
+.MenuView{
+    display: grid;
+    grid-template-columns: auto 1fr 300px;
+    gap: 1rem;
+    align-items: center;
+    padding: 3rem 3rem;
+}
+
+.MenuView .TreeView{
+    align-self: flex-start;
+}
+
+.MenuView .FilterTabs{
+    display: flex;
+    gap: 1rem;
+}
+
+.MenuView .PizzaCards{
+    align-self: flex-start;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    grid-column: 2 / span 2;
+}

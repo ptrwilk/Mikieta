@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    background-color: transparent;
+}
+
+li{
+    font-family: var(--ff);
+    list-style: none;
+}
+
+p{
+    font-family: var(--ff);
+    font-size: var(--f-size-1);
+}
+
+h1{
+    font-family: var(--ff);
+    font-size: 4cqmin;
+}
+
+h2{
+    font-family: var(--ff);
+    font-size: 3cqmin;
+}
+
+h3{
+    font-family: var(--ff);
+    font-size: 2rem;
+}
+
+input{
+    font-family: var(--ff);
+}
+
+button{
+    font-family: var(--ff);
+}
