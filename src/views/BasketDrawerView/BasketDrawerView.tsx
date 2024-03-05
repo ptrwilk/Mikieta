@@ -8,12 +8,20 @@ const BasketDrawerView = () => {
     updateApp("basketDrawerOpen", false);
   };
 
+  const handleRemove = (index: number) => {
+    updateApp(
+      "basket",
+      app!.basket.filter((_, i) => i !== index)
+    );
+  };
+
   console.log(app?.basket);
 
   return (
     <BasketDrawer
       open={app?.basketDrawerOpen}
       onClose={handleDrawerClose}
+      onRemove={handleRemove}
       items={app?.basket}
     />
   );

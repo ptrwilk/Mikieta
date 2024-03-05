@@ -9,12 +9,14 @@ interface IBasketDrawerProps {
   items?: PizzaModel[];
   open?: boolean;
   onClose?: () => void;
+  onRemove?: (index: number) => void;
 }
 
 const BasketDrawer: React.FC<IBasketDrawerProps> = ({
   open,
   items = [],
   onClose,
+  onRemove,
 }) => {
   return (
     <Drawer open={open}>
@@ -42,7 +44,12 @@ const BasketDrawer: React.FC<IBasketDrawerProps> = ({
                   </div>
                   <div className={styles["Price"]}>
                     <p className={styles["Text"]}>{price.toFixed(2)} zł</p>
-                    <p className={styles["Remove"]}>Usuń</p>
+                    <p
+                      className={styles["Remove"]}
+                      onClick={() => onRemove?.(key)}
+                    >
+                      Usuń
+                    </p>
                   </div>
                 </div>
                 <hr />
