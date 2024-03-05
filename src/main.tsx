@@ -6,6 +6,7 @@ import "./styles/theme.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { MenuView } from "./views/MenuView/MenuView.tsx";
 import { AppContextProvider } from "./context/AppContext.tsx";
+import { OrderView } from "./views/OrderView/OrderView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
 
           return fetch(`http://localhost:5105${url.pathname}${url.search}`);
         },
+      },
+      {
+        element: <OrderView />,
+        path: "order",
       },
     ],
   },

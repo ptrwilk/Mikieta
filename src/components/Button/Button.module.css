@@ -27,3 +27,9 @@
 .Button.Button-huge{
     padding: 1rem;
 }
+
+.Button.Button-light2{
+    background: transparent;
+    border: 1px solid var(--color-black);
+    color: var(--color-black);
+}

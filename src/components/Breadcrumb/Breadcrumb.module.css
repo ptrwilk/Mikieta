@@ -1,0 +1,15 @@
+.Breadcrumb{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.Breadcrumb .Content{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.Breadcrumb .Text{
+    color: var(--color-black);
+    font-weight: 700;
+}

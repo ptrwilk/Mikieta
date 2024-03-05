@@ -1,0 +1,63 @@
+.OrderList{
+    display: flex;
+    flex-direction:  column;
+    gap: 1rem;
+}
+
+.OrderList li{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #bababaab;
+    border-radius: 0.5rem;
+}
+
+.OrderList .Product{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.OrderList img{
+    width: 150px;
+}
+
+.OrderList .Name, .Price{
+    color: var(--color-black);
+}
+
+.OrderList .Name{
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.OrderList .Price{
+    font-size: 24px;
+}
+
+.OrderList .Details{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border-left: 1px solid #bababaab;
+}
+
+.OrderList .Details .Top, .Bottom{
+    flex : 1;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.OrderList .Details .Size, .Remove{
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.OrderList .Details .Hr{
+    border-top: 1px solid #bababaab;
+}
+
+.OrderList .Details .Remove{
+    margin-left: auto;
+}
