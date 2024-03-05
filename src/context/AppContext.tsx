@@ -20,7 +20,7 @@ export const useAppContext = () => useContext(AppContext);
 
 export const AppContextProvider = ({ children }: { children: any }) => {
   const [state, setState] = useState<AppState>({
-    basket: [],
+    basket: parse(localStorage.getItem("basket")) ?? [],
     basketDrawerOpen: false,
   });
 
@@ -28,6 +28,9 @@ export const AppContextProvider = ({ children }: { children: any }) => {
     stateKey: K,
     newValue: AppState[K]
   ) => {
+    if (stateKey === "basket") {
+      localStorage.setItem("basket", JSON.stringify(newValue));
+    }
     setState({ ...state, [stateKey]: newValue });
   };
 
@@ -36,4 +39,12 @@ export const AppContextProvider = ({ children }: { children: any }) => {
       {children}
     </AppContext.Provider>
   );
+};
+
+const parse = (value: string | null) => {
+  if (value == null) {
+    return undefined;
+  }
+
+  return JSON.parse(value);
 };
