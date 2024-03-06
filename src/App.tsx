@@ -1,5 +1,5 @@
 import { Outlet, useLoaderData } from "react-router-dom";
-import { BasketDrawer, Drawer, Header, Hero } from "./components";
+import { Header, Hero } from "./components";
 import { BasketDrawerView } from "./views/BasketDrawerView/BasketDrawerView";
 import { ContactView } from "./views/ContactView/ContactView";
 
