@@ -9,3 +9,4 @@ export * from "./Drawer/Drawer";
 export * from "./BasketDrawer/BasketDrawer";
 export * from "./Breadcrumb/Breadcrumb";
 export * from "./OrderList/OrderList";
+export * from "./Contact/Contact";
