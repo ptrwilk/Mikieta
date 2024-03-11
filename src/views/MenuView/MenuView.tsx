@@ -1,5 +1,5 @@
 import { useLoaderData, useOutletContext } from "react-router-dom";
-import { Button, PizzaCard, TextInput, TreeView } from "../../components";
+import { Button, FilterTextInput, PizzaCard, TreeView } from "../../components";
 import styles from "./MenuView.module.css";
 import { useState } from "react";
 import { PizzaModel } from "../../types";
@@ -72,7 +72,7 @@ const MenuView = () => {
           </li>
         ))}
       </ul>
-      <TextInput
+      <FilterTextInput
         placeholder="Filtruj"
         prompts={filters.filter((item) => !selectedFilters.includes(item))}
         onSelect={handleFilterElementSelected}

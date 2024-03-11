@@ -11,6 +11,7 @@ interface IButtonProps {
   huge?: boolean;
   light?: boolean;
   to?: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -23,6 +24,7 @@ const Button: React.FC<IButtonProps> = ({
   icon = false,
   huge = false,
   light = false,
+  disabled = false,
   to,
 }) => {
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ const Button: React.FC<IButtonProps> = ({
 
   return (
     <button
-      onClick={handleClick}
+      onClick={disabled ? undefined : handleClick}
       className={classNames(styles["Button"], className, {
         [styles["Button-light"]]: dark === false,
         [styles["Button-tab"]]: tab,
@@ -45,6 +47,7 @@ const Button: React.FC<IButtonProps> = ({
         [styles["Button-huge"]]: huge,
         //TODO: refactor this
         [styles["Button-light2"]]: light,
+        [styles["Button-disabled"]]: disabled,
       })}
     >
       {children}

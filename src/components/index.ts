@@ -3,7 +3,7 @@ export * from "./Button/Button";
 export * from "./Hero/Hero";
 export * from "./PizzaCard/PizzaCard";
 export * from "./TreeView/TreeView";
-export * from "./TextInput/TextInput";
+export * from "./TextInput";
 export * from "./Basket/Basket";
 export * from "./Drawer/Drawer";
 export * from "./BasketDrawer/BasketDrawer";

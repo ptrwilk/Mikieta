@@ -1,16 +1,8 @@
-.TextInput{
+.FilterTextInput{
     position: relative;
 }
 
-.TextInput input{
-    padding: 1rem;
-    width: 100%;
-    border: 1.5px solid #d3d3d3;
-    font-size: 1rem;
-    outline: none;
-}
-
-.TextInput .Prompt{
+.FilterTextInput .Prompt{
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -25,13 +17,6 @@
     border-top: 0;
 }
 
-.TextInput .Prompt .Selected{
+.FilterTextInput .Prompt .Selected{
     background: #d3d3d3;
-}
-
-.TextInput .Caption{
-    color: var(--color-black);
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
 }
