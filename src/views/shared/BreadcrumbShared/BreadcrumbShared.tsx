@@ -11,10 +11,17 @@ const BreadcrumbShared = () => {
           { text: "Menu", path: "/" },
           { text: "Zamówienie", path: "/order" },
         ]
+      : pathname === "/delivery"
+      ? [
+          { text: "Menu", path: "/" },
+          { text: "Zamówienie", path: "/order" },
+          { text: "Dostawa", path: "/delivery" },
+        ]
       : [
           { text: "Menu", path: "/" },
           { text: "Zamówienie", path: "/order" },
           { text: "Dostawa", path: "/delivery" },
+          { text: "Płatność", path: "/payment" },
         ];
 
   return <Breadcrumb items={items}></Breadcrumb>;

@@ -8,8 +8,11 @@ import { BreadcrumbShared } from "../shared/BreadcrumbShared/BreadcrumbShared";
 import styles from "./DeliveryView.module.css";
 import { useInput } from "../../hooks";
 import { useSelect } from "../../hooks/useSelect";
+import { useNavigate } from "react-router-dom";
 
 const DeliveryView = () => {
+  const navigate = useNavigate();
+
   const notEmpty = {
     validate: (value?: string) => Boolean(value),
   };
@@ -31,7 +34,7 @@ const DeliveryView = () => {
     let error = inputs.map((x) => x.checkError()).filter((x) => x).length > 0;
 
     if (!error) {
-      //Proceed here
+      navigate("/payment");
     }
   };
 

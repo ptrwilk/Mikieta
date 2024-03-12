@@ -8,6 +8,7 @@ import { MenuView } from "./views/MenuView/MenuView.tsx";
 import { AppContextProvider } from "./context/AppContext.tsx";
 import { OrderView } from "./views/OrderView/OrderView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
+import { PaymentView } from "./views/PaymentView/PaymentView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         element: <DeliveryView />,
         path: "delivery",
+      },
+      {
+        element: <PaymentView />,
+        path: "payment",
       },
     ],
   },
