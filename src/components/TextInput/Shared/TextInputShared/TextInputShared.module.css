@@ -1,0 +1,25 @@
+.TextInputShared{
+}
+
+.TextInputShared input{
+    padding: 1rem;
+    width: 100%;
+    border: 1.5px solid #d3d3d3;
+    font-size: 1rem;
+    outline: none;
+}
+
+.TextInputShared .Caption{
+    color: var(--color-black);
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.TextInputShared.TextInputShared-error input{
+    border: 1.5px solid #FF0000;
+}
+
+.TextInputShared .Input-Wrapper{
+    position: relative;
+}

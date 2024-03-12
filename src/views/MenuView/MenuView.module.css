@@ -17,8 +17,32 @@
 
 .MenuView .PizzaCards{
     align-self: flex-start;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 1rem;
     grid-column: 2 / span 2;
+}
+
+@media screen and (max-width: 1440px) {
+    .MenuView .PizzaCards{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .MenuView .PizzaCards{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .MenuView .PizzaCards{
+        grid-template-columns: 1fr 1fr ;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .MenuView .PizzaCards{
+        grid-template-columns: 1fr;
+    }
 }

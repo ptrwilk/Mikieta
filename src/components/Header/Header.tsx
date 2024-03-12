@@ -20,7 +20,7 @@ const Header = () => {
           <p>Menu</p>
         </li>
         <li>
-          <p>Kontakt</p>
+          <a href="#contact">Kontakt</a>
         </li>
         {(app?.basket.length ?? 0) > 0 && (
           <li>

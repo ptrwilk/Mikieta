@@ -1,0 +1,17 @@
+.PaymentView{
+    padding: 2rem 3rem;
+}
+
+.PaymentView .Content{
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.PaymentView .PaymentSummary{
+    flex : 1
+}
+
+.PaymentView .PaymentOptions{
+    
+}

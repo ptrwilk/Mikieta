@@ -26,3 +26,121 @@ export const sum = (numbers: number[]) => {
 
   return res;
 };
+
+export const method2 = (
+  value: string,
+  triggerMasks: string[],
+  destinationMask: string
+) => {
+  triggerMasks.forEach((mask) => {
+    const newValue = replaceWithMask(value, mask, destinationMask);
+
+    if (newValue !== value) {
+      value = newValue;
+      return;
+    }
+  });
+
+  return value;
+};
+
+export const method3 = (
+  value: string,
+  rules: { triggerMasks: string[]; destinationMask: string }[]
+) => {
+  rules.forEach((rule) => {
+    const newValue = method2(value, rule.triggerMasks, rule.destinationMask);
+
+    if (newValue !== value) {
+      value = newValue;
+      return;
+    }
+  });
+
+  return value;
+};
+
+export const countDigits = (str: string): number => {
+  const matches = str.match(/\d/g); // Match all digits in the string
+  return matches ? matches.length : 0; // Return the count of digits
+};
+
+export const countCharacters = (str: string, character: string): number => {
+  const escapedCharacter = character.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escape special characters
+  const regex = new RegExp(escapedCharacter, "g"); // Create a dynamic regex
+  const matches = str.match(regex); // Match all occurrences of 'character'
+  return matches ? matches.length : 0; // Return the count
+};
+
+export const isDigit = (str: string): boolean => {
+  return /^\d$/.test(str);
+};
+
+export const maskMatch = (value: string, mask: string): boolean => {
+  if (value.length !== mask.length) {
+    return false;
+  }
+
+  const valueDigits = countDigits(value);
+  const maskDigitCount = countCharacters(mask, "#");
+
+  if (valueDigits !== maskDigitCount) {
+    return false;
+  }
+
+  const valueArray = value.split("");
+  const maskArray = mask.split("");
+
+  for (var i = 0; i < valueArray.length; i++) {
+    if (maskArray[i] === "#" && !isDigit(valueArray[i])) {
+      return false;
+    }
+
+    if (maskArray[i] !== "#" && maskArray[i] !== valueArray[i]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+export const replaceWithMask = (
+  value: string,
+  triggerMask: string,
+  destinationMask: string
+): string => {
+  if (!maskMatch(value, triggerMask)) {
+    return value;
+  }
+
+  const triggerMaskDigits = countCharacters(triggerMask, "#");
+  const destinationMaskDigits = countCharacters(destinationMask, "#");
+
+  if (triggerMaskDigits !== destinationMaskDigits) {
+    return value;
+  }
+
+  const valueArray = value.split("");
+  const maskArray = triggerMask.split("");
+
+  const values: string[] = [];
+  for (var i = 0; i < valueArray.length; i++) {
+    if (maskArray[i] === "#" && isDigit(valueArray[i])) {
+      values.push(valueArray[i]);
+    }
+  }
+
+  const destinationMaskArray = destinationMask.split("");
+
+  let result = "";
+  for (var i = 0, j = 0; i < destinationMaskArray.length; i++) {
+    if (destinationMaskArray[i] === "#") {
+      result += values[j];
+      j++;
+    } else {
+      result += destinationMaskArray[i];
+    }
+  }
+
+  return result;
+};

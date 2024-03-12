@@ -1,0 +1,22 @@
+.Contact{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.Contact .TextContent{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.Contact .Title, .Text1, .Text2{
+    color: var(--color-black);
+}
+
+
+.Contact .Title{
+    font-size: 2rem;
+    font-weight: 700;
+}
