@@ -10,6 +10,7 @@ function App() {
     <div
       style={{
         margin: "auto",
+        marginTop: 64,
         maxWidth: 1440,
       }}
     >
