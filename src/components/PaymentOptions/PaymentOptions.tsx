@@ -6,10 +6,11 @@ import classNames from "classnames";
 interface IPaymentOptionsProps {
   className?: string;
   style?: any;
+  onConfirmClicked?: () => void;
 }
 
 const PaymentOptions = forwardRef<any, IPaymentOptionsProps>(
-  ({ className, style }, ref) => {
+  ({ className, style, onConfirmClicked }, ref) => {
     const [selectedRadioIndex, setSelectedRadioIndex] = useState<
       number | undefined
     >(undefined);
@@ -42,7 +43,7 @@ const PaymentOptions = forwardRef<any, IPaymentOptionsProps>(
             </li>
           ))}
         </ul>
-        <Button className={styles["Button"]} huge>
+        <Button className={styles["Button"]} huge onClick={onConfirmClicked}>
           Zatwierdź
         </Button>
       </div>

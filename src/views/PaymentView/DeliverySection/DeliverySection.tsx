@@ -1,18 +1,18 @@
 import {
-  Button,
   SelectTextInput,
   SelectionOption,
   TextInput,
-} from "../../components";
-import { BreadcrumbShared } from "../shared/BreadcrumbShared/BreadcrumbShared";
-import styles from "./DeliveryView.module.css";
-import { useInput } from "../../hooks";
-import { useSelect } from "../../hooks/useSelect";
-import { useNavigate } from "react-router-dom";
+} from "../../../components";
+import styles from "./DeliverySection.module.css";
+import { useInput } from "../../../hooks";
+import { useSelect } from "../../../hooks/useSelect";
+import { forwardRef, useImperativeHandle } from "react";
 
-const DeliveryView = () => {
-  const navigate = useNavigate();
+export interface IDeliveryViewRef {
+  hasErrors: () => boolean;
+}
 
+const DeliverySection = forwardRef((_, ref) => {
   const notEmpty = {
     validate: (value?: string) => Boolean(value),
   };
@@ -30,17 +30,20 @@ const DeliveryView = () => {
 
   const inputs = [street, city, zipCode, name, phone, delivery];
 
-  const handleMoveToPaymentClick = () => {
-    let error = inputs.map((x) => x.checkError()).filter((x) => x).length > 0;
-
-    if (!error) {
-      navigate("/payment");
-    }
-  };
+  useImperativeHandle<any, IDeliveryViewRef>(
+    ref,
+    () => {
+      return {
+        hasErrors() {
+          return inputs.map((x) => x.checkError()).filter((x) => x).length > 0;
+        },
+      };
+    },
+    [inputs]
+  );
 
   return (
-    <div className={styles["DeliveryView"]}>
-      <BreadcrumbShared />
+    <div className={styles["DeliverySection"]}>
       <div className={styles["Inputs"]}>
         <TextInput caption="Ulica" placeholder="Jakaś 25" {...street} />
         <TextInput caption="Miasto" placeholder="Gliwice" {...city} />
@@ -75,15 +78,8 @@ const DeliveryView = () => {
           {...delivery}
         />
       </div>
-      <Button
-        className={styles["Button"]}
-        huge
-        onClick={handleMoveToPaymentClick}
-      >
-        Przejdź do płatności
-      </Button>
     </div>
   );
-};
+});
 
-export { DeliveryView };
+export { DeliverySection };

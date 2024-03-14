@@ -68,11 +68,11 @@ const BasketDrawer: React.FC<IBasketDrawerProps> = ({
         </div>
         <Button
           className={styles["Button"]}
-          to="/order"
+          to="/payment"
           onClick={onMoveToOrderClick}
           huge
         >
-          Przejdz do zamówienia
+          Przejdz do płatności
         </Button>
       </div>
     </Drawer>

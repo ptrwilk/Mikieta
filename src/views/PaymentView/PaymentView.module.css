@@ -8,8 +8,11 @@
     margin-top: 2rem;
 }
 
-.PaymentView .PaymentSummary{
-    flex : 1
+.PaymentView .AddressAndPayment{
+    flex : 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .PaymentView .PaymentOptions{
