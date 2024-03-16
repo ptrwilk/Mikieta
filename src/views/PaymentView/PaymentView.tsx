@@ -8,8 +8,10 @@ import {
   DeliverySection,
   IDeliveryViewRef,
 } from "./DeliverySection/DeliverySection";
+import { useNavigate } from "react-router-dom";
 
 const PaymentView = () => {
+  const navigate = useNavigate();
   const [app] = useAppContext();
 
   const addressAndPaymentRef = useRef<any>();
@@ -37,6 +39,10 @@ const PaymentView = () => {
 
   const handleConfirmClick = () => {
     const hasErrors = deliveryViewRef.current!.hasErrors();
+
+    if (!hasErrors) {
+      navigate("/delivery");
+    }
   };
 
   return (

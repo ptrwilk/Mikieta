@@ -13,3 +13,4 @@ export * from "./Contact/Contact";
 export * from "./PaymentSummary/PaymentSummary";
 export * from "./PaymentOptions/PaymentOptions";
 export * from "./Radio/Radio";
+export * from "./Status/Status";

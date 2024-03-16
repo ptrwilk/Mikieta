@@ -1,0 +1,58 @@
+.Status .Content{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.Status .Content .Line{
+    width: 8px;
+    height: 100px;
+    background: #d3d3d3;
+    border-radius: 0.5rem;
+}
+
+.Status .Content .Rectangle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background: #d3d3d3;
+    border-radius: 0.5rem;
+}
+
+.Status .Content .Rectangle p{
+    font-size: 24px;
+    color: black;
+}
+
+.Status .Content.Content-selected .Rectangle, .Content.Content-selected .Line{
+    background: #047fc9;
+}
+
+.Status .Content.Content-selected .Rectangle p{
+    color: white;
+}
+
+.Status .Text-Content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Status .Text-Content p{
+    color: black;
+}
+
+.Status .Text-Content .Title{
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.Status .Text-Content .Text{
+    font-size: 20px;
+}
+
+.Status .Hr{
+    margin-top: 1rem;
+    border: 1px solid #d3d3d3;
+}
