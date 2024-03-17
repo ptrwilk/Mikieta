@@ -39,7 +39,10 @@ const router = createBrowserRouter([
       },
       {
         element: <DeliveryView />,
-        path: "delivery",
+        path: "delivery/:deliveryId",
+        loader: ({ params: { deliveryId } }) => {
+          return fetch(`http://localhost:5105/delivery/${deliveryId}`);
+        },
       },
     ],
   },

@@ -37,11 +37,21 @@ const PaymentView = () => {
     }
   }, [app?.basket]);
 
-  const handleConfirmClick = () => {
+  const handleConfirmClick = async () => {
     const hasErrors = deliveryViewRef.current!.hasErrors();
 
     if (!hasErrors) {
-      navigate("/delivery");
+      const id = await (
+        await fetch("http://localhost:5105/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        })
+      ).json();
+
+      navigate(`/delivery/${id}`);
     }
   };
 
