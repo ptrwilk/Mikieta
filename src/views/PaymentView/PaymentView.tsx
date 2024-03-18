@@ -66,12 +66,32 @@ const PaymentView = () => {
             items={app?.basket}
           />
         </div>
-        <PaymentOptions
+        <div
           ref={paymentOptionsRef}
-          className={styles["PaymentOptions"]}
+          className={styles["Payment-Section"]}
           style={{ transform: `translateY(${translateY}px)` }}
-          onConfirmClicked={handleConfirmClick}
-        />
+        >
+          <div className={styles["Summary"]}>
+            <h3>Opłata</h3>
+            <div>
+              <p>Produkty</p>
+              <p className={styles["Price"]}>36.00 zł</p>
+            </div>
+            <div>
+              <p>Dostawa</p>
+              <p className={styles["Price"]}>36.00 zł</p>
+            </div>
+            <div className={styles["Hr"]} />
+            <div>
+              <p>Razem</p>
+              <p className={styles["Price"]}>36.00 zł</p>
+            </div>
+          </div>
+          <PaymentOptions
+            className={styles["PaymentOptions"]}
+            onConfirmClicked={handleConfirmClick}
+          />
+        </div>
       </div>
     </div>
   );

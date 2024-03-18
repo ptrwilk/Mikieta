@@ -10,12 +10,11 @@ export const useScrollFollow = (
   useEffect(() => {
     let lastScrollTop = 0;
     const step = 50;
-    const maxTranslateY =
-      maxHeight - componentRef.current.getBoundingClientRect().height;
 
     const handleScroll = () => {
-      const currentScroll = window.scrollY;
       const componentRect = componentRef.current.getBoundingClientRect();
+      const maxTranslateY = maxHeight - componentRect.height;
+      const currentScroll = window.scrollY;
       const top = componentRect.top - offset;
 
       if (top < 0 && currentScroll > lastScrollTop) {
@@ -50,7 +49,7 @@ export const useScrollFollow = (
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [maxHeight]);
+  }, [componentRef.current, maxHeight]);
 
   return { translateY };
 };

@@ -37,23 +37,6 @@ const PaymentSummary = forwardRef<any, IPaymentSummaryProps>(
             </li>
           ))}
         </ul>
-        <div className={styles["Summary"]}>
-          <div className={styles["Price"]}>
-            <p>Cena:</p>
-            <p>36.00 zł</p>
-          </div>
-          <div className={styles["Delivery"]}>
-            <div>
-              <p>Dostawa:</p>
-              <p>36.00 zł</p>
-            </div>
-            <div className={styles["Hr"]} />
-          </div>
-          <div className={styles["Total"]}>
-            <p>Suma:</p>
-            <p>36.00 zł</p>
-          </div>
-        </div>
       </div>
     );
   }
