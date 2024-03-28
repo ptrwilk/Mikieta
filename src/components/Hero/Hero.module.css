@@ -21,7 +21,7 @@
 }
 
 .Hero h1, p{
-    color: var(--color-white);
+    color: var(--color-primary);
 }
 
 .Hero p{
