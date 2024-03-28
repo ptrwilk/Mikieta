@@ -8,22 +8,12 @@ const Hero = () => {
       <img src={pizza} alt="Hero" />
       <div className={styles["Background"]} />
       <div className={styles["Content"]}>
-        <h1>
-          Smakowite pizze
-          <br />
-          dostępne w naszej
-          <br />
-          restauracji
-        </h1>
-        <p>
-          Zasmakuj w wyjątkowych pizzach, stworzonych z pasją i najlepszych
-          <br />
-          składników. Nasza restauracja to idealne miejsce dla miłośników pizzy.
-        </p>
-        <div className={styles["Buttons"]}>
-          <Button>Zamów</Button>
-          <Button dark={false}>Zarezerwuj</Button>
-        </div>
+        <p>Przeknaj się jak smakuje...</p>
+        <h1>Najlepsza pizza w Leszczynach</h1>
+        <div className={styles["Line"]} />
+        <Button className={styles["Button"]} huge>
+          Zobacz Menu
+        </Button>
       </div>
     </div>
   );

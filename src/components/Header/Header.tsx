@@ -1,14 +1,7 @@
-import { Basket, Button } from "..";
-import { useAppContext } from "../../context/AppContext";
+import { Button } from "..";
 import styles from "./Header.module.css";
 
 const Header = () => {
-  const [app, updateApp] = useAppContext();
-
-  const handleBasketClick = () => {
-    updateApp("basketDrawerOpen", !app?.basketDrawerOpen);
-  };
-
   return (
     <div className={styles.Header}>
       <p className={styles.Logo}>LOGO</p>
