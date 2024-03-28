@@ -3,14 +3,15 @@
     justify-content: center;
     padding: var(--p-0_5) var(--p-1);
     border : 0;
-    background: var(--color-black);
-    color: var(--color-white);
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    text-transform: uppercase;
     cursor: pointer;
 }
 
 .Button.Button-light{
     background: transparent;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--color-primary);
 }
 
 .Button.Button-tab{
@@ -25,7 +26,7 @@
 }
 
 .Button.Button-huge{
-    padding: 1rem;
+    padding: 1rem 2rem;
 }
 
 .Button.Button-light2{
