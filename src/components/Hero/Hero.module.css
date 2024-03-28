@@ -1,6 +1,7 @@
 .Hero{
     position: relative;
-    height: 600px;
+    min-height: 900px;
+    height: 100vh;
 }
 
 .Hero img{
@@ -21,22 +22,39 @@
 }
 
 .Hero h1, p{
+    text-align: center;
     color: var(--color-primary);
+}
+
+.Hero h1{
+    text-transform: uppercase;
 }
 
 .Hero p{
     font-size: 1.2rem;
 }
 
+.Hero p:first-child{
+    font-size: 60px;
+    font-family: var(--ff-secondary);
+    color: var(--color-third);
+}
+
 .Hero .Content{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap : 1rem;
-    padding-left: 70px;
-    padding-top: 130px;
+    height: 100%;
 }
 
-.Hero .Buttons{
-    display: flex;
-    gap: 1rem;
+.Hero .Content .Line{
+    width: 80px;
+    height: 5px;
+    background: var(--color-secondary);
+}
+
+.Hero .Content .Button{
+    margin-top: 1rem;
 }

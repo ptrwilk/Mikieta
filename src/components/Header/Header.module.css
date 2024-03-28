@@ -9,6 +9,7 @@
     padding: var(--p-1) var(--p-3);
     max-width: 1440px;
     margin: auto;
+    margin-top: 10rem;
     z-index: 1;
 }
 

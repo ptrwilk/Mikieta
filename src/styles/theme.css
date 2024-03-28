@@ -6,6 +6,7 @@ body {
   --p-4: 4rem;
 
   --ff: "Roboto", sans-serif;
+  --ff-secondary : "Dancing Script", sans-serif;
   --fw-1: 100;
   --fw-3: 300;
   --fw-4: 400;
@@ -25,6 +26,7 @@ body {
 
   --color-primary: white;
   --color-secondary: #00B052;
+  --color-third: #ffec33;
   --color-black: black;
 }
 

@@ -10,7 +10,6 @@ function App() {
     <div
       style={{
         margin: "auto",
-        maxWidth: 1440,
       }}
     >
       <Header />
