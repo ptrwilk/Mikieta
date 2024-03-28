@@ -46,21 +46,3 @@
 .PaymentSummary .Product img{
     width: 100px;
 }
-
-.PaymentSummary .Summary{
-    align-self: flex-end;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 3rem;
-}
-
-.PaymentSummary .Summary p{
-    color: black;
-}
-
-.PaymentSummary .Summary .Price, .Delivery div, .Total{
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-}
