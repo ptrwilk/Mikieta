@@ -14,3 +14,6 @@ export * from "./PaymentSummary/PaymentSummary";
 export * from "./PaymentOptions/PaymentOptions";
 export * from "./Radio/Radio";
 export * from "./Status/Status";
+export * from "./AboutUsItem/AboutUsItem";
+export * from "./Section/Section";
+export * from "./DayHourSpan/DayHourSpan";
