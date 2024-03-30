@@ -1,37 +1,56 @@
-import { MdEmail } from "react-icons/md";
-import { Contact } from "../../components";
+import { Button } from "../../components";
 import styles from "./ContactView.module.css";
-import { FaPhone } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaFacebookF } from "react-icons/fa";
+import classNames from "classnames";
 
 const ContactView = () => {
   return (
-    <ul className={styles["ContactView"]} id="contact">
-      <li>
-        <Contact
-          icon={<MdEmail size={50} />}
-          title="Email"
-          text1="Napisz do nas!"
-          text2="pizza@pizza.com"
-        />
-      </li>
-      <li>
-        <Contact
-          icon={<FaPhone size={42} />}
-          title="Telefon"
-          text1="Skontaktuj się z nami!"
-          text2="+48 555 444 222"
-        />
-      </li>
-      <li>
-        <Contact
-          icon={<FaLocationDot size={42} />}
-          title="Adres"
-          text1="Zapraszamy do odwiedzenia nas!"
-          text2="ul. Jakas 1, Gliwice 44-100"
-        />
-      </li>
-    </ul>
+    <div className={styles["ContactView"]} id="contact">
+      <ul>
+        <li className={styles["Logo"]}>
+          <p>Logo</p>
+        </li>
+        <li>
+          <div className={classNames(styles["Content"], styles["Content-2"])}>
+            <p>Jakaś 2/4, 44-123 Zabrze</p>
+            <p>Telefon: 333 111 222</p>
+            <p className={styles["Location"]}>
+              <a href="">Mapa dojazdu</a>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div className={classNames(styles["Content"], styles["Content-3"])}>
+            <p>Obserwuj nas na:</p>
+            <ul>
+              <li>
+                <a href="">
+                  <FaFacebookF />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div className={classNames(styles["Content"], styles["Content-4"])}>
+            <p>Gotówka, karta lub szybki przelew</p>
+            <Button huge>Zamów online</Button>
+          </div>
+        </li>
+      </ul>
+      <div className={styles["Bottom"]}>
+        <div className={styles["Hr"]} />
+        <div className={styles["Text"]}>
+          <a href="">Regulamin</a>
+          <div className={styles["Separator"]} />
+          <a href="">Polityka prywatności</a>
+          <div className={styles["Separator"]} />
+          <a href="">Zgody marketingowe</a>
+          <div className={styles["Separator"]} />
+          <a href="">Panel Restauratora</a>
+        </div>
+      </div>
+    </div>
   );
 };
 
