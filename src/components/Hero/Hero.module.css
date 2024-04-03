@@ -4,6 +4,11 @@
     height: 100vh;
 }
 
+.Hero-Small{
+    min-height: auto;
+    height: 300px;
+}
+
 .Hero img{
     position: absolute;
     width: 100%;
@@ -21,7 +26,7 @@
     z-index: -1;
 }
 
-.Hero h1, p{
+.Hero h1, .Text{
     text-align: center;
     color: var(--color-primary);
 }
@@ -30,11 +35,11 @@
     text-transform: uppercase;
 }
 
-.Hero p{
+.Hero .Text{
     font-size: 1.2rem;
 }
 
-.Hero p:first-child{
+.Hero .Text{
     font-size: 60px;
     font-family: var(--ff-secondary);
     color: var(--color-third);

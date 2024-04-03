@@ -17,3 +17,4 @@ export * from "./Status/Status";
 export * from "./AboutUsItem/AboutUsItem";
 export * from "./Section/Section";
 export * from "./DayHourSpan/DayHourSpan";
+export * from "./TitleBreadcrumbBar/TitleBreadcrumbBar";

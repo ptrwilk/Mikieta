@@ -1,20 +1,31 @@
 import styles from "./Hero.module.css";
 import pizza from "../../assets/pizza1.jpg";
 import { Button } from "..";
+import classNames from "classnames";
 
-const Hero = () => {
+interface IHeroProps {
+  small?: boolean;
+  children?: any;
+}
+
+const Hero: React.FC<IHeroProps> = ({ small = false, children }) => {
   return (
-    <div className={styles["Hero"]}>
+    <div
+      className={classNames(styles["Hero"], { [styles["Hero-Small"]]: small })}
+    >
       <img src={pizza} alt="Hero" />
       <div className={styles["Background"]} />
-      <div className={styles["Content"]}>
-        <p>Przeknaj się jak smakuje...</p>
-        <h1>Najlepsza pizza w Leszczynach</h1>
-        <div className={styles["Line"]} />
-        <Button className={styles["Button"]} huge>
-          Zobacz Menu
-        </Button>
-      </div>
+      {small === false && (
+        <div className={styles["Content"]}>
+          <p className={styles["Text"]}>Przeknaj się jak smakuje...</p>
+          <h1>Najlepsza pizza w Leszczynach</h1>
+          <div className={styles["Line"]} />
+          <Button className={styles["Button"]} huge to="/menu">
+            Zobacz Menu
+          </Button>
+        </div>
+      )}
+      {children}
     </div>
   );
 };

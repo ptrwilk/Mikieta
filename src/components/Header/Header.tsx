@@ -1,9 +1,17 @@
 import { Button } from "..";
 import styles from "./Header.module.css";
 
-const Header = () => {
+interface IHeaderProps {
+  style?: any;
+  orderButtonVisible?: boolean;
+}
+
+const Header: React.FC<IHeaderProps> = ({
+  style,
+  orderButtonVisible = true,
+}) => {
   return (
-    <div className={styles.Header}>
+    <div className={styles.Header} style={style}>
       <p className={styles.Logo}>LOGO</p>
       <ul>
         <li>
@@ -22,7 +30,11 @@ const Header = () => {
           <a href="#contact">Kontakt</a>
         </li>
       </ul>
-      <Button huge>Zamów online</Button>
+      {orderButtonVisible && (
+        <Button huge to="/menu">
+          Zamów online
+        </Button>
+      )}
     </div>
   );
 };
