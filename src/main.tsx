@@ -8,6 +8,7 @@ import { MenuView } from "./views/MenuView/MenuView.tsx";
 import { AppContextProvider } from "./context/AppContext.tsx";
 import { PaymentView } from "./views/PaymentView/PaymentView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
+import { MenuLayout } from "./MenuLayout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         },
       },
     ],
+  },
+  {
+    element: <MenuLayout />,
+    path: "/menu",
   },
 ]);
 

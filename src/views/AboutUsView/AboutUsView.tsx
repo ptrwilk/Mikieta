@@ -78,7 +78,9 @@ const AboutUsView = () => {
               <div
                 className={classNames(styles["Content"], styles["Content-4"])}
               >
-                <Button huge>Zobacz Menu</Button>
+                <Button huge to="/menu">
+                  Zobacz Menu
+                </Button>
               </div>
             }
           />

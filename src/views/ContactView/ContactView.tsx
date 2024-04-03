@@ -34,7 +34,9 @@ const ContactView = () => {
         <li>
           <div className={classNames(styles["Content"], styles["Content-4"])}>
             <p>Gotówka, karta lub szybki przelew</p>
-            <Button huge>Zamów online</Button>
+            <Button huge to="/menu">
+              Zamów online
+            </Button>
           </div>
         </li>
       </ul>
