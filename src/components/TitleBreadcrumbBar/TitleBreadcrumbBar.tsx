@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -25,10 +26,12 @@ const TitleBreadcrumbBar: React.FC<ITitleBreadcrumbBarProps> = ({
       <h2>{title}</h2>
       <Breadcrumb className={styles["Breadcrumb"]}>
         {items.map(({ text, link }, key) => (
-          <BreadcrumbItem>
-            <BreadcrumbLink href={link}>{text}</BreadcrumbLink>
+          <Fragment key={key}>
+            <BreadcrumbItem>
+              <BreadcrumbLink href={link}>{text}</BreadcrumbLink>
+            </BreadcrumbItem>
             {key < items.length - 1 && <BreadcrumbSeparator />}
-          </BreadcrumbItem>
+          </Fragment>
         ))}
       </Breadcrumb>
     </div>

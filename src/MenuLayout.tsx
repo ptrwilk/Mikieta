@@ -1,4 +1,5 @@
 import { Header, Hero, TitleBreadcrumbBar } from "./components";
+import { MenuView } from "./views/MenuView/MenuView";
 
 const MenuLayout = () => {
   return (
@@ -20,6 +21,7 @@ const MenuLayout = () => {
           />
         </div>
       </Hero>
+      <MenuView />
     </div>
   );
 };

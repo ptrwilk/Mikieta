@@ -1,0 +1,23 @@
+.ButtonShop{
+
+}
+
+.ButtonShop .Content{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ButtonShop .Content .Circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+.ButtonShop .Content .Circle .Amount{
+    color: var(--color-secondary);
+}

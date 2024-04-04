@@ -18,6 +18,7 @@
 
 .ContactView ul .Logo p{
     font-weight: 700;
+    color: var(--color-primary);
 }
 
 .ContactView ul .Content p{

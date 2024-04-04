@@ -1,96 +1,55 @@
-import { useLoaderData, useOutletContext } from "react-router-dom";
-import { Button, FilterTextInput, PizzaCard, TreeView } from "../../components";
+import { useLoaderData } from "react-router-dom";
+import { MenuItem, Section } from "../../components";
 import styles from "./MenuView.module.css";
-import { useState } from "react";
-import { PizzaModel } from "../../types";
-import { useAppContext } from "../../context/AppContext";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PizzaModel, ProductType } from "@/types";
 
 const MenuView = () => {
-  const [app, updateApp] = useAppContext();
+  const products = useLoaderData() as PizzaModel[];
 
-  const filters = useOutletContext() as string[];
-  const pizzas = useLoaderData() as PizzaModel[];
-
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-
-  const treeViewItems = [
-    {
-      name: "Pizza",
-      path: "pizza",
-      subItems: [
-        { name: "Mała", path: "size=small", index: 0 },
-        { name: "Średnia", path: "size=medium", index: 0 },
-        { name: "Duża", path: "size=big", index: 0 },
-        { name: "Cieńka", path: "crust=thin", index: 1 },
-        { name: "Gruba", path: "crust=thick", index: 1 },
-      ],
-    },
-    {
-      name: "Napoje",
-      path: "drink",
-      subItems: [
-        { name: "Piwo", path: "type=beer", index: 0 },
-        { name: "Grzaniec", path: "type=mulled-wine", index: 0 },
-        { name: "Pozostałe", path: "type=other", index: 0 },
-      ],
-    },
-    //TODO: remove subItems and make parent selection working
-    {
-      name: "Przekąski",
-      path: "snack",
-    },
-    //TODO: remove subItems and make parent selection working
-    {
-      name: "Sosy",
-      path: "sauce",
-    },
-  ];
-
-  const handleFilterElementSelected = (value: string) => {
-    setSelectedFilters([...selectedFilters, value]);
-  };
-
-  const handleFilterElementClicked = (value: string) => {
-    setSelectedFilters([...selectedFilters].filter((x) => x !== value));
-  };
-
-  const handlePizzaClick = (pizza: PizzaModel) => {
-    const newBasket = [...app!.basket, pizza];
-
-    updateApp("basket", newBasket);
-  };
+  const MenuItems = (productType: ProductType) => (
+    <ul className={styles["Items"]}>
+      {products
+        .filter((x) => x.productType === productType)
+        .map((product, key) => (
+          <li key={key}>
+            <MenuItem {...product} />
+            <div className={styles["Hr"]} />
+          </li>
+        ))}
+    </ul>
+  );
 
   return (
-    <div className={styles["MenuView"]}>
-      <h2>MENU</h2>
-      <ul className={styles["FilterTabs"]}>
-        {selectedFilters.map((content, key) => (
-          <li key={key}>
-            <Button tab onClick={() => handleFilterElementClicked(content)}>
-              {content}
-            </Button>
-          </li>
-        ))}
-      </ul>
-      <FilterTextInput
-        placeholder="Filtruj"
-        prompts={filters.filter((item) => !selectedFilters.includes(item))}
-        onSelect={handleFilterElementSelected}
-      />
-      <TreeView className={styles["TreeView"]} items={treeViewItems} />
-      <ul className={styles["PizzaCards"]}>
-        {pizzas.map((pizza, key) => (
-          <li key={key}>
-            <PizzaCard
-              name={pizza.name}
-              price={pizza.price}
-              ingredients={pizza.ingredients}
-              onClick={() => handlePizzaClick(pizza)}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Section className={styles["MenuView"]}>
+      <div className={styles["Info"]}>
+        <p>Dowiedz się więcej</p>
+        <h3>O Naszym Menu</h3>
+        <div className={styles["Line"]} />
+      </div>
+      <Tabs className={styles["Tabs"]} defaultValue="PizzaSmall">
+        <TabsList>
+          <TabsTrigger value="PizzaSmall">Pizza 32 CM.</TabsTrigger>
+          <TabsTrigger value="PizzaMedium">Pizza 40 CM.</TabsTrigger>
+          <TabsTrigger value="PizzaBig">Pizza 50 CM.</TabsTrigger>
+          <TabsTrigger value="Sauce">Sosy do pizzy</TabsTrigger>
+          <TabsTrigger value="Drink">Napoje</TabsTrigger>
+          <TabsTrigger value="Snack">Przekąski</TabsTrigger>
+        </TabsList>
+        <TabsContent value="PizzaSmall">
+          {MenuItems(ProductType.PizzaSmall)}
+        </TabsContent>
+        <TabsContent value="PizzaMedium">
+          {MenuItems(ProductType.PizzaMedium)}
+        </TabsContent>
+        <TabsContent value="PizzaBig">
+          {MenuItems(ProductType.PizzaBig)}
+        </TabsContent>
+        <TabsContent value="Sauce">{MenuItems(ProductType.Sauce)}</TabsContent>
+        <TabsContent value="Drink">{MenuItems(ProductType.Drink)}</TabsContent>
+        <TabsContent value="Snack">{MenuItems(ProductType.Snack)}</TabsContent>
+      </Tabs>
+    </Section>
   );
 };
 
