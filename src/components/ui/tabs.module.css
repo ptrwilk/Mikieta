@@ -1,0 +1,19 @@
+.List{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.8rem;
+    border-bottom: 1px solid var(--color-sixth);
+}
+
+.Trigger{
+    position: relative;
+}
+
+[data-state="active"].Trigger::before{
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    width: 120%;
+    height: 3.5px;
+    background: var(--color-secondary);
+}

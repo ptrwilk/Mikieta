@@ -18,7 +18,7 @@ const Header: React.FC<IHeaderProps> = ({
           <p>Start</p>
         </li>
         <li>
-          <p>Menu</p>
+          <a href="/menu">Menu</a>
         </li>
         <li>
           <p>Dostawa</p>

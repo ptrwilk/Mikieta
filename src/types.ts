@@ -5,4 +5,14 @@ export type PizzaModel = {
   name: string;
   price: number;
   ingredients: string[];
+  productType: ProductType;
 };
+
+export enum ProductType {
+  PizzaSmall,
+  PizzaMedium,
+  PizzaBig,
+  Drink,
+  Sauce,
+  Snack,
+}
