@@ -1,0 +1,59 @@
+.basket-info {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: start;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.ingredients {
+  font-style: italic;
+  font-size: 0.8rem;
+  padding-top: 3px;
+}
+
+.price {
+  text-align: right;
+  font-weight: bold;
+}
+
+.quantityRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: end;
+  font-size: 0.9rem;
+  gap: 5px;
+}
+
+.quantityRow button {
+  background-color: #e8e8e8;
+  padding: 5px;
+  border-radius: 100%;
+}
+
+.empty-basket-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0px;
+  font-weight: 700;
+  color: #979797;
+}
+.empty-basket-info button {
+  background-color: transparent;
+}

@@ -1,0 +1,136 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  user-select: none;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  background-color: #fff;
+  padding: 0.05%;
+  height: 95%;
+  width: 95%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.scrollable-content {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding-bottom: 20px;
+  min-height: 0;
+}
+
+.fixed-button-container {
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.fixed-button-container button {
+  flex: 1;
+  margin: 0px 5px;
+  padding: 5px;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.continue-shopping-button {
+  background-color: white;
+  color: black;
+  border: 2px solid var(--color-secondary);
+}
+
+.checkout-button {
+  border: 2px solid transparent;
+}
+
+.image {
+  width: 20%;
+  background-size: cover;
+  background-position: center;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.header {
+  background-color: #f0f0f0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 2%;
+  margin-right: 12%;
+}
+
+.close-button {
+  background: transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .content {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content {
+    width: 55%;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    flex-direction: column;
+    height: 100%;
+    max-height: none;
+    padding-bottom: 30px;
+  }
+
+  .scrollable-content {
+    width: 100%;
+    max-height: calc(100% - 30px);
+  }
+
+  .image {
+    display: none;
+  }
+
+  .content-wrapper {
+    max-height: 100%;
+  }
+
+  .fixed-button-container {
+    position: absolute; /* Position the buttons absolutely */
+    bottom: 0; /* Align the buttons to the bottom */
+    left: 0;
+    right: 0;
+    padding: 0px 0px 10px 0px; /* Adjust the padding as needed */
+  }
+}

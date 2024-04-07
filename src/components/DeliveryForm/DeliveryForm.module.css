@@ -1,0 +1,45 @@
+.customFormItem {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.colSpan0 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.colSpan {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.colSpan2 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+@media (max-width: 480px) {
+  .customFormItem {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .colSpan,
+  .colSpan0,
+  .colSpan2 {
+    grid-column: unset;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .colSpan label,
+  .colSpan0 label,
+  .colSpan2 label {
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+}

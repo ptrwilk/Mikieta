@@ -17,7 +17,7 @@ const BasketDrawerView = () => {
 
   return (
     <BasketDrawer
-      open={app?.basketDrawerOpen}
+      open={app?.basketModalOpen}
       onClose={closeDrawer}
       onRemove={handleRemove}
       onMoveToOrderClick={closeDrawer}
