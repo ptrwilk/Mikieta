@@ -1,0 +1,67 @@
+.BasketModalView {
+  display: flex;
+  width: 90vw;
+  max-width: 800px;
+  height: 95vh;
+}
+
+.BasketModalView img {
+  width: 150px;
+  object-fit: cover;
+}
+
+.BasketModalView .ScrollableContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.BasketModalView .Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--color-fourth);
+}
+
+.BasketModalView .Title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.BasketModalView .Buttons {
+  display: flex;
+  padding: 1rem;
+}
+
+.BasketModalView .Buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.BasketModalView .Buttons button {
+  flex: 1;
+}
+
+.BasketModalView .ContinueShoppingButton {
+  border: 2px solid var(--color-secondary);
+  background-color: var(--color-primary);
+  color: var(--color-black);
+}
+
+.BasketModalView .CloseButton {
+  background: transparent;
+}
+
+@media (max-width: 650px) {
+  .BasketModalView {
+    width: 100vw;
+    height: 100vh;
+  }
+  .BasketModalView img {
+    width: 0;
+  }
+}

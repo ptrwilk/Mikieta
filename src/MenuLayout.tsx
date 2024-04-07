@@ -1,4 +1,10 @@
-import { Header, Hero, TitleBreadcrumbBar } from "./components";
+import {
+  FloatingBasketButton,
+  Header,
+  Hero,
+  TitleBreadcrumbBar,
+} from "./components";
+import { BasketModalView } from "./views/BasketModalView/BasketModalView";
 import { MenuView } from "./views/MenuView/MenuView";
 
 const MenuLayout = () => {
@@ -22,6 +28,8 @@ const MenuLayout = () => {
         </div>
       </Hero>
       <MenuView />
+      <FloatingBasketButton />
+      <BasketModalView />
     </div>
   );
 };

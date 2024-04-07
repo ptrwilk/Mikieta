@@ -1,0 +1,11 @@
+.Counter {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.Counter button {
+  background-color: var(--color-fourth);
+  padding: 5px;
+  border-radius: 100%;
+}

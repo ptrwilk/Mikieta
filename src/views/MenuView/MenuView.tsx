@@ -13,7 +13,7 @@ const MenuView = () => {
         .filter((x) => x.productType === productType)
         .map((product, key) => (
           <li key={key}>
-            <MenuItem {...product} />
+            <MenuItem product={product} />
             <div className={styles["Hr"]} />
           </li>
         ))}

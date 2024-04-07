@@ -3,7 +3,7 @@ import { PizzaModel } from "../types";
 
 type AppState = {
   basket: PizzaModel[];
-  basketDrawerOpen: boolean;
+  basketModalOpen: boolean;
 };
 
 const AppContext = createContext<
@@ -21,7 +21,7 @@ export const useAppContext = () => useContext(AppContext);
 export const AppContextProvider = ({ children }: { children: any }) => {
   const [state, setState] = useState<AppState>({
     basket: parse(localStorage.getItem("basket")) ?? [],
-    basketDrawerOpen: false,
+    basketModalOpen: false,
   });
 
   const updateState = <K extends keyof AppState>(

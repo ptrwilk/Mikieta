@@ -7,15 +7,21 @@ interface IButtonShopProps {
   className?: string;
   amount?: number;
   price?: number;
+  onClick?: () => void;
 }
 
 const ButtonShop: React.FC<IButtonShopProps> = ({
   className,
   amount = 0,
   price,
+  onClick,
 }) => {
   return (
-    <Button huge className={classNames(className, styles["ButtonShop"])}>
+    <Button
+      huge
+      className={classNames(className, styles["ButtonShop"])}
+      onClick={onClick}
+    >
       <div className={styles["Content"]}>
         <FaShoppingCart size={14} />
         <p>{price?.toFixed(2)} zł</p>

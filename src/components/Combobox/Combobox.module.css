@@ -1,15 +1,11 @@
-.TextInputShared {
+.Combobox {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.TextInputShared .Caption {
+.Combobox .Caption {
   font-size: 14px;
   font-weight: 500;
   color: var(--color-black);
-}
-
-.TextInputShared .Caption-Error {
-  color: var(--color-error);
 }

@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import styles from "./TextInputShared.module.css";
 import { useEffect } from "react";
+import { Input } from "@/components/ui/input";
 
 interface ITextInputSharedProps {
   children?: any;
@@ -45,20 +46,21 @@ const TextInputShared: React.FC<ITextInputSharedProps> = ({
   );
 
   return (
-    <div
-      className={classNames(className, styles["TextInputShared"], {
-        [styles["TextInputShared-error"]]: error,
-      })}
-    >
-      {caption && <p className={styles["Caption"]}>{caption}</p>}
-      {children ? (
-        <div className={styles["Input-Wrapper"]}>
-          {inputElement}
-          {children}
-        </div>
-      ) : (
-        inputElement
-      )}
+    <div className={classNames(className, styles["TextInputShared"])}>
+      <p
+        className={classNames(styles["Caption"], {
+          [styles["Caption-Error"]]: error,
+        })}
+      >
+        {caption}
+      </p>
+      <Input
+        placeholder={placeholder}
+        onChange={(e) => onValueChange?.(e.target.value as string)}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+      />
     </div>
   );
 };

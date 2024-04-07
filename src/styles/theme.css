@@ -1,12 +1,12 @@
 body {
-  --p-0_5: 0.5rem;  
+  --p-0_5: 0.5rem;
   --p-1: 1rem;
   --p-2: 2rem;
   --p-3: 3rem;
   --p-4: 4rem;
 
   --ff: "Roboto", sans-serif;
-  --ff-secondary : "Dancing Script", sans-serif;
+  --ff-secondary: "Dancing Script", sans-serif;
   --fw-1: 100;
   --fw-3: 300;
   --fw-4: 400;
@@ -25,11 +25,12 @@ body {
   --f-size-8: 64px;
 
   --color-primary: white;
-  --color-secondary: #00B052;
+  --color-secondary: #00b052;
   --color-third: #ffec33;
-  --color-fourth: #F7F7F7;
+  --color-fourth: #f7f7f7;
   --color-fifth: #424242;
-  --color-sixth: #A3A3A3;
+  --color-sixth: #a3a3a3;
+  --color-error: #ff0000;
   --color-black: black;
 }
 
