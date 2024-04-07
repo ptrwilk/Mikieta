@@ -1,0 +1,11 @@
+.Combobox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Combobox .Caption {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
+}

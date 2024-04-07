@@ -3,8 +3,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface ModalRadioProps {
   options: Array<{ value: string; label: string }>;
-  selectedValue: string;
-  onValueChange: (value: string) => void;
+  selectedValue: any;
+  onValueChange: (value: any) => void;
 }
 
 const ModalRadio: React.FC<ModalRadioProps> = ({
@@ -17,7 +17,7 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
       {options.map((option) => (
         <label
           key={option.value}
-          className={`flex items-center space-x-2 ${styles.radioItem} ${
+          className={`flex items-center space-x-2 ${styles.RadioItem} ${
             selectedValue === option.value ? styles.selected : ""
           }`}
         >

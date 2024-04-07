@@ -54,13 +54,13 @@ const FloatingBasketButton = () => {
   return (
     <Button
       onClick={showBasket}
-      className={`${styles["floating-button"]} ${
-        isRockingAnimation ? styles["rockingAnimation"] : ""
+      className={`${styles["FloatingButton"]} ${
+        isRockingAnimation ? styles["RockingAnimation"] : ""
       }`}
     >
-      <span className={styles.notificationNumber}>{basketCount}</span>
+      <span className={styles.NotificationNumber}>{basketCount}</span>
       <span className="text-lg">Koszyk</span>
-      <FaShoppingBasket size={24} color="#fff" />
+      <FaShoppingBasket size={24} color="var(--color-primary)" />
     </Button>
   );
 };

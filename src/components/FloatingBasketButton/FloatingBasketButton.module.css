@@ -1,4 +1,4 @@
-.floating-button {
+.FloatingButton {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -8,18 +8,18 @@
   border-radius: 30px;
   width: 140px;
   height: 60px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid var(--color-primary);
   box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.6);
 }
 
-.notificationNumber {
+.NotificationNumber {
   position: absolute;
   top: 0px;
   right: 0px;
   background-color: rgb(255, 74, 74);
-  color: white;
+  color: var(--color-primary);
   border-radius: 50%;
-  border: 1px solid white;
+  border: 1px solid var(--color-primary);
   width: 20px;
   height: 20px;
   display: flex;
@@ -64,7 +64,7 @@
   }
 }
 
-.rockingAnimation {
+.RockingAnimation {
   -webkit-transform-origin: 50% 0;
   transform-origin: 50% 0;
   -webkit-animation: swinging 1s ease-in-out forwards;

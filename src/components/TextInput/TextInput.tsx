@@ -3,6 +3,7 @@ import { TextInputShared } from "./Shared/TextInputShared/TextInputShared";
 import { ZipCodeTextInput } from "./ZipCodeTextInput";
 
 interface ITextInputProps {
+  className?: string;
   placeholder?: string;
   caption?: string;
   value?: string;

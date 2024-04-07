@@ -1,143 +1,80 @@
-"use client";
+import { forwardRef, useImperativeHandle } from "react";
+import { Combobox, TextInput } from "..";
+import { useCombobox, useInput } from "@/hooks";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Combobox } from "..";
-import styles from "./DeliveryForm.module.css";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useEffect, useRef } from "react";
+type DeliveryFormModel = {
+  hasErrors: boolean;
+  street?: string;
+  houseNumber?: string;
+  deliveryCity?: string;
+};
 
-const formSchema = z.object({
-  city: z.string().min(1),
-  street: z.string().min(3),
-  houseNumber: z.string().min(1),
-});
-interface DeliveryFormProps {
-  selectedStreet: string;
-  selectedHouseNumber: string;
-  selectedCity: string;
-  onStreetChange: (street: string) => void;
-  onHouseNumberChange: (houseNumber: string) => void;
-  onCityChange: (city: string) => void;
+export interface IDeliveryFormPropsRef {
+  getModel: () => DeliveryFormModel;
 }
-export function DeliveryForm({
-  selectedStreet,
-  selectedHouseNumber,
-  selectedCity,
-  onStreetChange,
-  onHouseNumberChange,
-  onCityChange,
-}: DeliveryFormProps) {
-  const deliveryCities = [
-    { value: "Czerwionka" },
-    { value: "Leszczyny" },
-    { value: "Rybnik" },
-  ];
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      city: "",
-      street: "",
-      houseNumber: "",
+
+const DeliveryForm = forwardRef((_, ref) => {
+  const street = useInput([
+    {
+      validate: (value) => {
+        return (value?.length ?? 0) > 3;
+      },
     },
-  });
-  const comboboxRef = useRef<Combobox>(null);
+  ]);
 
-  useEffect(() => {
-    if (
-      form.formState.errors.city &&
-      Object.keys(form.formState.errors).length === 1
-    ) {
-      comboboxRef.current?.setOpen(true);
-    }
-  }, [form.formState.errors]);
+  const houseNumber = useInput([
+    {
+      validate: (value) => {
+        return (value?.length ?? 0) > 2;
+      },
+    },
+  ]);
 
-  useEffect(() => {
-    form.setValue("city", selectedCity);
-  }, [selectedCity, form]);
+  const deliveryCities = useCombobox([
+    { value: "Czerwionka", label: "Czerwionka" },
+    { value: "Leszczyny", label: "Leszczyny" },
+    { value: "Rybnik", label: "Rybnik" },
+  ]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  useImperativeHandle<any, IDeliveryFormPropsRef>(
+    ref,
+    () => {
+      return {
+        getModel() {
+          return {
+            hasErrors:
+              [street, houseNumber].map((x) => x.checkError()).filter((x) => x)
+                .length > 0,
+            street: street.value,
+            deliveryCity: deliveryCities.value,
+            houseNumber: houseNumber.value,
+          };
+        },
+      };
+    },
+    [street, houseNumber, deliveryCities]
+  );
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="city"
-          render={({ field }) => (
-            <FormItem className={styles["colSpan0"]}>
-              <FormLabel>Miejscowość</FormLabel>
-              <FormControl>
-                <Combobox
-                  options={deliveryCities}
-                  className="w-full"
-                  ref={comboboxRef}
-                  value={selectedCity}
-                  onChange={(value) => {
-                    onCityChange(value);
-                    field.onChange({ target: { value } });
-                  }}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <div className={`${styles.customFormItem}`}>
-          <FormField
-            control={form.control}
-            name="street"
-            render={({ field }) => (
-              <FormItem className={styles["colSpan"]}>
-                <FormLabel>Ulica</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Twoja ulica..."
-                    {...field}
-                    value={selectedStreet}
-                    onChange={(event) => {
-                      onStreetChange(event.target.value);
-                      field.onChange(event);
-                    }}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="houseNumber"
-            render={({ field }) => (
-              <FormItem className={styles["colSpan2"]}>
-                <FormLabel>Nr domu</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Twój nr domu..."
-                    {...field}
-                    value={selectedHouseNumber}
-                    onChange={(event) => {
-                      onHouseNumberChange(event.target.value);
-                      field.onChange(event);
-                    }}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <div className="grid grid-cols-3 gap-6">
+      <Combobox
+        className="col-span-3"
+        caption="Miejscowość"
+        {...deliveryCities}
+      />
+      <TextInput
+        className="col-span-2"
+        caption="Ulica"
+        placeholder="Twoja ulica..."
+        {...street}
+      />
+      <TextInput
+        caption="Nr domu"
+        placeholder="Twója nr domu..."
+        {...houseNumber}
+      />
+    </div>
   );
-}
+});
+
+export { DeliveryForm };

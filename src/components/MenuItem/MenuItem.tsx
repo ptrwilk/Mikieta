@@ -14,20 +14,20 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
   const handlePizzaClick = () => {
     const existingPizza = app!.basket.find(
       (item) =>
+        //TODO: Change it to Id
         item.name === product.name && item.productType === product.productType
     );
 
-    if (existingPizza) {
-      const updatedBasket = app!.basket.map((item) => {
-        if (item.name === product.name) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      });
-      updateApp("basket", updatedBasket);
-    } else {
-      updateApp("basket", [...app!.basket, { ...product, quantity: 1 }]);
-    }
+    const updatedBasked = existingPizza
+      ? app!.basket.map((item) =>
+          //TODO: Change it to Id
+          item.name === product.name
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      : [...app!.basket, { ...product, quantity: 1 }];
+
+    updateApp("basket", updatedBasked);
   };
 
   return (
@@ -40,7 +40,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
       <ButtonShop
         className={styles["Button"]}
         price={price}
-        onClick={() => handlePizzaClick()}
+        onClick={handlePizzaClick}
       />
     </div>
   );

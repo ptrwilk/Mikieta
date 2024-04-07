@@ -1,25 +1,15 @@
-.TextInputShared{
+.TextInputShared {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.TextInputShared input{
-    padding: 1rem;
-    width: 100%;
-    border: 1.5px solid #d3d3d3;
-    font-size: 1rem;
-    outline: none;
+.TextInputShared .Caption {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
 }
 
-.TextInputShared .Caption{
-    color: var(--color-black);
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.TextInputShared.TextInputShared-error input{
-    border: 1.5px solid #FF0000;
-}
-
-.TextInputShared .Input-Wrapper{
-    position: relative;
+.TextInputShared .Caption-Error {
+  color: var(--color-error);
 }

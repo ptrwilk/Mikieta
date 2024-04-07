@@ -1,85 +1,72 @@
 import { FaWindowClose } from "react-icons/fa";
-import { BasketModal, Button } from "../../components";
+import {
+  BasketInfo,
+  Button,
+  IDeliveryFormPropsRef,
+  Modal,
+} from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./BasketModalView.module.css";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { PizzaModel } from "@/types";
 
 const BasketModalView: FC = () => {
   const [app, updateApp] = useAppContext();
 
-  const closeModal = () => {
-    updateApp("basketModalOpen", false);
-  };
+  const [isBasketEmpty, setIsBasketEmpty] = useState(true);
 
-  const [isBasketEmpty, setIsBasketEmpty] = useState<boolean>(true);
-
-  useEffect(() => {
-    // When the modal is open, add a class to body to prevent scrolling
-    if (app?.basketModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [app?.basketModalOpen]);
+  const deliveryFormRef = useRef<IDeliveryFormPropsRef>();
 
   useEffect(() => {
     setIsBasketEmpty(app?.basket.length === 0);
   }, [app?.basket.length]);
 
-  const handleClearBasket = () => {
-    updateApp("basket", [] as PizzaModel[]);
+  const closeModal = () => {
+    updateApp("basketModalOpen", false);
   };
 
-  if (!app?.basketModalOpen) {
-    return null;
-  }
+  const handleClearBasket = () => {
+    updateApp("basket", []);
+  };
+
+  const handleConfirm = () => {
+    const hasErrors = deliveryFormRef.current?.getModel().hasErrors ?? false;
+
+    if (!hasErrors) {
+      //Proceed if no errors
+    }
+  };
+
   return (
-    <div className={styles["overlay"]} onClick={closeModal}>
-      <div className={styles["content"]} onClick={(e) => e.stopPropagation()}>
-        <div
-          className={styles["image"]}
-          style={{
-            backgroundImage: `url(${"https://przepis3.umcs.stronazen.pl/wp-content/uploads/2023/12/zdrowa_pizza_przepis_justbefit_8-1-e1701706553588.webp"})`,
-          }}
-        />
-        <div className={styles["scrollable-content"]}>
-          <div className={styles["content-wrapper"]}>
-            <div className={styles["header"]}>
-              <div className="flex items-baseline">
-                <div className={styles["title"]}>Koszyk</div>
-                {!isBasketEmpty && (
-                  <div
-                    onClick={handleClearBasket}
-                    className="cursor-pointer text-xs text-secondary hover:text-green-700 underline "
-                  >
-                    Wyczyść
-                  </div>
-                )}
-              </div>
-
-              <Button onClick={closeModal} className={styles["close-button"]}>
-                <FaWindowClose size={24} color="var(--color-secondary)" />
-              </Button>
+    <Modal open={app!.basketModalOpen} onClose={closeModal}>
+      <div className={styles["BasketModalView"]}>
+        <img src="https://przepis3.umcs.stronazen.pl/wp-content/uploads/2023/12/zdrowa_pizza_przepis_justbefit_8-1-e1701706553588.webp" />
+        <div className={styles["ScrollableContent"]}>
+          <div className={styles["Header"]}>
+            <div className="flex items-center px-1 gap-3">
+              <p className={styles["Title"]}>Koszyk</p>
+              {!isBasketEmpty && (
+                <p
+                  onClick={handleClearBasket}
+                  className="cursor-pointer text-xs text-secondary hover:text-green-700 underline"
+                >
+                  Wyczyść
+                </p>
+              )}
             </div>
-
-            <BasketModal open={app?.basketModalOpen} />
+            <Button onClick={closeModal} className={styles["CloseButton"]}>
+              <FaWindowClose size={24} color="var(--color-secondary)" />
+            </Button>
           </div>
-          <div className={styles["fixed-button-container"]}>
+          <BasketInfo ref={deliveryFormRef} />
+          <div className={styles["Buttons"]}>
             <Button
               onClick={closeModal}
-              className={styles["continue-shopping-button"]}
+              className={styles["ContinueShoppingButton"]}
             >
               Kontynuuj zakupy
             </Button>
-            <Button
-              disabled={isBasketEmpty}
-              className={styles["checkout-button"]}
-            >
+            <Button onClick={handleConfirm}>
               Do kasy |{" "}
               {app!.basket.reduce(
                 (totalPayment: number, item: PizzaModel) =>
@@ -91,7 +78,7 @@ const BasketModalView: FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
