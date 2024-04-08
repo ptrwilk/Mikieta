@@ -59,22 +59,24 @@ const BasketModalView: FC = () => {
             </Button>
           </div>
           <BasketInfo ref={deliveryFormRef} />
-          <div className={styles["Buttons"]}>
-            <Button
-              onClick={closeModal}
-              className={styles["ContinueShoppingButton"]}
-            >
-              Kontynuuj zakupy
-            </Button>
-            <Button onClick={handleConfirm}>
-              Do kasy |{" "}
-              {app!.basket.reduce(
-                (totalPayment: number, item: PizzaModel) =>
-                  totalPayment + item.quantity * item.price,
-                0
-              )}
-              {" zł"}
-            </Button>
+          <div className={styles["ButtonsContainer"]}>
+            <div className={styles["Buttons"]}>
+              <Button
+                onClick={closeModal}
+                className={styles["ContinueShoppingButton"]}
+              >
+                Kontynuuj zakupy
+              </Button>
+              <Button onClick={handleConfirm}>
+                Do kasy |{" "}
+                {app!.basket.reduce(
+                  (totalPayment: number, item: PizzaModel) =>
+                    totalPayment + item.quantity * item.price,
+                  0
+                )}
+                {" zł"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
