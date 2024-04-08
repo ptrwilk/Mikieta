@@ -41,24 +41,26 @@ const BasketModalView: FC = () => {
     <Modal open={app!.basketModalOpen} onClose={closeModal}>
       <div className={styles["BasketModalView"]}>
         <img src="https://przepis3.umcs.stronazen.pl/wp-content/uploads/2023/12/zdrowa_pizza_przepis_justbefit_8-1-e1701706553588.webp" />
-        <div className={styles["ScrollableContent"]}>
-          <div className={styles["Header"]}>
-            <div className="flex items-center px-1 gap-3">
-              <p className={styles["Title"]}>Koszyk</p>
-              {!isBasketEmpty && (
-                <p
-                  onClick={handleClearBasket}
-                  className="cursor-pointer text-xs text-secondary hover:text-green-700 underline"
-                >
-                  Wyczyść
-                </p>
-              )}
+        <div className={styles["Content"]}>
+          <div className={styles["ScrollableContent"]}>
+            <div className={styles["Header"]}>
+              <div className="flex items-center px-1 gap-3">
+                <p className={styles["Title"]}>Koszyk</p>
+                {!isBasketEmpty && (
+                  <p
+                    onClick={handleClearBasket}
+                    className="cursor-pointer text-xs text-secondary hover:text-green-700 underline"
+                  >
+                    Wyczyść
+                  </p>
+                )}
+              </div>
+              <Button onClick={closeModal} className={styles["CloseButton"]}>
+                <FaWindowClose size={24} color="var(--color-secondary)" />
+              </Button>
             </div>
-            <Button onClick={closeModal} className={styles["CloseButton"]}>
-              <FaWindowClose size={24} color="var(--color-secondary)" />
-            </Button>
+            <BasketInfo ref={deliveryFormRef} />
           </div>
-          <BasketInfo ref={deliveryFormRef} />
           <div className={styles["Buttons"]}>
             <Button
               onClick={closeModal}

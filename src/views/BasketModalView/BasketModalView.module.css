@@ -10,6 +10,12 @@
   object-fit: cover;
 }
 
+.BasketModalView .Content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .BasketModalView .ScrollableContent {
   flex: 1;
   display: flex;
@@ -63,5 +69,11 @@
   }
   .BasketModalView img {
     width: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .BasketModalView .Buttons {
+    flex-direction: column;
   }
 }
