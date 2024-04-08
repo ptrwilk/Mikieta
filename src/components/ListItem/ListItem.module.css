@@ -6,7 +6,7 @@
 }
 
 .ListItem-Selected {
-  background: var(--color-seven);
+  background: var(--color-ninth);
 }
 
 .ListItem:hover > .Text::before {

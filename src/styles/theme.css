@@ -27,10 +27,12 @@ body {
   --color-primary: white;
   --color-secondary: #00b052;
   --color-third: #ffec33;
-  --color-fourth: #f7f7f7;
+  --color-fourth: #f0f0f0;
   --color-fifth: #424242;
   --color-sixth: #a3a3a3;
-  --color-seven: #009746;
+  --color-seventh: #969c72;
+  --color-eight: #e2e7c0;
+  --color-ninth: #009746;
   --color-error: #ff0000;
   --color-error-2: #f2dede;
   --color-black: black;

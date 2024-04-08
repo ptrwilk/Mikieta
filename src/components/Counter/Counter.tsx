@@ -15,12 +15,12 @@ const Counter: React.FC<ICounterProps> = ({
 }) => {
   return (
     <div className={styles["Counter"]}>
-      <Button onClick={onMinusClick}>
-        <FaMinus size={10} color="var(--color-sixth)" />
+      <Button className={styles["DecreaseButton"]} onClick={onMinusClick}>
+        <FaMinus size={8} color="var(--color-sixth)" />
       </Button>
-      {number}
-      <Button onClick={onPlusClick}>
-        <FaPlus size={10} color="var(--color-sixth)" />
+      <span className="text-xs">{number}</span>
+      <Button className={styles["IncreaseButton"]} onClick={onPlusClick}>
+        <FaPlus size={8} />
       </Button>
     </div>
   );

@@ -1,11 +1,22 @@
 .Counter {
   display: flex;
   align-items: center;
+  padding: 4px;
   gap: 0.3rem;
+  background-color: var(--color-fourth);
+  border-radius: 8%;
 }
 
 .Counter button {
-  background-color: var(--color-fourth);
-  padding: 5px;
-  border-radius: 100%;
+  padding: 4px;
+  border-radius: 20%;
+}
+
+.Counter .IncreaseButton {
+  background-color: var(--color-eight);
+  color: var(--color-seventh);
+}
+
+.Counter .DecreaseButton {
+  background-color: var(--color-primary);
 }
