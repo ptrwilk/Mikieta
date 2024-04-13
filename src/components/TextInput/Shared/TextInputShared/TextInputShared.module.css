@@ -4,12 +4,25 @@
   gap: 0.5rem;
 }
 
+.TextInputShared.TextInputShared-Top {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .TextInputShared .Caption {
   font-size: 14px;
   font-weight: 500;
   color: var(--color-black);
 }
 
+.TextInputShared .Star {
+  color: var(--color-error);
+}
+
 .TextInputShared .Caption-Error {
+  color: var(--color-error);
+}
+
+.TextInputShared .ErrorMessage {
   color: var(--color-error);
 }

@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { hasError } from "./helpers";
+import { validate } from "./helpers";
 
-export const useInput = (validators?: Validator<string | undefined>[]) => {
-  const [value, setValue] = useState<string | undefined>();
+export const useInput = (
+  validators?: Validator<string | undefined>[],
+  defaultValue?: string | undefined,
+  valueChangeCallback?: (value: string | undefined) => void
+) => {
+  const [value, setValue] = useState<string | undefined>(defaultValue);
   const [error, setError] = useState<boolean>();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+
+  const updateError = (error?: boolean, errorMessage?: string) => {
+    setError(error);
+    setErrorMessage(errorMessage);
+  };
 
   const checkError = (): boolean => {
     if (!error) {
-      const e = hasError(value, validators);
-      setError(e);
+      const { error: e, errorMessage } = validate(value, validators);
+      updateError(e, errorMessage);
 
       return e;
     }
@@ -17,10 +27,11 @@ export const useInput = (validators?: Validator<string | undefined>[]) => {
   };
 
   const handleValueChange = (value?: string) => {
-    const error = hasError(value, validators);
+    const { error, errorMessage } = validate(value, validators);
 
-    setError(error);
+    updateError(error, errorMessage);
     setValue(value);
+    valueChangeCallback?.(value);
   };
 
   const handleErrorChange = (error: boolean) => setError(error);
@@ -28,6 +39,7 @@ export const useInput = (validators?: Validator<string | undefined>[]) => {
   return {
     value: value,
     error: error,
+    errorMessage: errorMessage,
     onValueChange: handleValueChange,
     onErrorChange: handleErrorChange,
     checkError: checkError,

@@ -5,33 +5,38 @@ import {
   TitleBreadcrumbBar,
 } from "./components";
 import { BasketModalView } from "./views/BasketModalView/BasketModalView";
-import { MenuView } from "./views/MenuView/MenuView";
 
-const MenuLayout = () => {
+interface ILayoutProps {
+  children: any;
+  name: string;
+  basketVisible?: boolean;
+}
+
+const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
   return (
     <div>
       <Header style={{ marginTop: "3rem" }} orderButtonVisible={false} />
       <Hero small>
         <div className="flex flex-col justify-end items-center h-full pb-8">
           <TitleBreadcrumbBar
-            title="Menu"
+            title={name}
             items={[
               {
                 text: "Start",
                 link: "/",
               },
               {
-                text: "Menu",
+                text: name,
               },
             ]}
           />
         </div>
       </Hero>
-      <MenuView />
-      <FloatingBasketButton />
+      {children}
+      {basketVisible && <FloatingBasketButton />}
       <BasketModalView />
     </div>
   );
 };
 
-export { MenuLayout };
+export { Layout };

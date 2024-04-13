@@ -6,9 +6,12 @@ interface ITextInputProps {
   className?: string;
   placeholder?: string;
   caption?: string;
+  captionTop?: boolean;
   value?: string;
   type?: "zip-code" | "phone";
   error?: boolean;
+  errorMessage?: string;
+  star?: boolean;
   onValueChange?: (value: string | undefined) => void;
   onErrorChange?: (error: boolean) => void;
 }

@@ -1,12 +1,7 @@
-import { useLoaderData } from "react-router-dom";
 import { Status } from "../../components";
 import styles from "./DeliveryView.module.css";
 
 const DeliveryView = () => {
-  const z = useLoaderData();
-
-  console.log(z);
-
   return (
     <div className={styles["DeliveryView"]}>
       <div className={styles["Thanks"]}>

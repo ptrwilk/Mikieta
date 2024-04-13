@@ -75,47 +75,52 @@
   }
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a{
-    text-decoration: none;
-    color: inherit;
-    background-color: transparent;
+a {
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
 }
 
-li{
-    font-family: var(--ff);
-    list-style: none;
+li {
+  font-family: var(--ff);
+  list-style: none;
 }
 
-p{
-    font-family: var(--ff);
-    font-size: var(--f-size-1);
+p {
+  font-family: var(--ff);
+  font-size: var(--f-size-1);
 }
 
-h1{
-    font-family: var(--ff);
-    font-size: 70px;
+h1 {
+  font-family: var(--ff);
+  font-size: 70px;
 }
 
-h2{
-    font-family: var(--ff);
-    font-size: 60px;
+h2 {
+  font-family: var(--ff);
+  font-size: 60px;
 }
 
-h3{
-    font-family: var(--ff);
-    font-size: 40px;
+h3 {
+  font-family: var(--ff);
+  font-size: 40px;
 }
 
-input{
-    font-family: var(--ff);
+h4 {
+  font-family: var(--ff);
+  font-size: 30px;
 }
 
-button{
-    font-family: var(--ff);
+input {
+  font-family: var(--ff);
+}
+
+button {
+  font-family: var(--ff);
 }
