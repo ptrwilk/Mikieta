@@ -9,6 +9,16 @@ export type PizzaModel = {
   quantity: number;
 };
 
+export type OrderModel = {
+  person: PersonModel;
+};
+
+export type PersonModel = {
+  name?: string;
+  phone?: string;
+  email?: string;
+};
+
 export enum ProductType {
   PizzaSmall,
   PizzaMedium,

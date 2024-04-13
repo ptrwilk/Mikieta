@@ -29,3 +29,5 @@ export * from "./Button/ButtonShop";
 export * from "./Modal/Modal";
 export * from "./BasketItem/BasketItem";
 export * from "./Counter/Counter";
+export * from "./Switch/Switch";
+export * from "./Checkbox/Checkbox";

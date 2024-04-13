@@ -5,6 +5,7 @@ import { Divider, ModalRadio, Combobox, DeliveryForm, BasketItem } from "..";
 import { FaShoppingBasket } from "react-icons/fa";
 import { useAppContext } from "@/context/AppContext";
 import { useCombobox, useRadio } from "@/hooks";
+import { comboBoxOpeningHours } from "@/const";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -20,36 +21,24 @@ enum DeliveryMethod {
 const BasketInfo = forwardRef((_, ref) => {
   const [app, updateApp] = useAppContext();
 
-  const deliveryTiming = useRadio([
-    { value: DeliveryTimingOption.RightAway, label: "Jak najszybciej" },
-    { value: DeliveryTimingOption.HourSelection, label: "Na godzinę..." },
-  ]);
+  const deliveryTiming = useRadio(
+    [],
+    [
+      { value: DeliveryTimingOption.RightAway, label: "Jak najszybciej" },
+      { value: DeliveryTimingOption.HourSelection, label: "Na godzinę..." },
+    ]
+  );
 
-  const deliveryMethod = useRadio([
-    { value: DeliveryMethod.Delivery, label: "Dostawa" },
-    { value: DeliveryMethod.TakeAway, label: "Odbiór własny" },
-    { value: DeliveryMethod.DinningIn, label: "Zjem na miejscu" },
-  ]);
+  const deliveryMethod = useRadio(
+    [],
+    [
+      { value: DeliveryMethod.Delivery, label: "Dostawa" },
+      { value: DeliveryMethod.TakeAway, label: "Odbiór własny" },
+      { value: DeliveryMethod.DinningIn, label: "Zjem na miejscu" },
+    ]
+  );
 
-  //TODO: brać w porozumieniu z kontakt/godziny otwarcia
-  const openingHours = useCombobox([
-    { value: "10:00", label: "10:00" },
-    { value: "10:30", label: "10:30" },
-    { value: "11:00", label: "11:00" },
-    { value: "11:30", label: "11:30" },
-    { value: "12:00", label: "12:00" },
-    { value: "12:30", label: "12:30" },
-    { value: "13:00", label: "13:00" },
-    { value: "13:30", label: "13:30" },
-    { value: "14:00", label: "14:00" },
-    { value: "14:30", label: "14:30" },
-    { value: "15:00", label: "15:00" },
-    { value: "15:30", label: "15:30" },
-    { value: "16:00", label: "16:00" },
-    { value: "16:30", label: "16:30" },
-    { value: "17:00", label: "17:00" },
-    { value: "17:30", label: "17:30" },
-  ]);
+  const openingHours = useCombobox(comboBoxOpeningHours);
 
   const addItem = (name: string, productType: ProductType) => {
     const updatedBasket: PizzaModel[] = app!.basket.map((item) => {

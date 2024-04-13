@@ -1,8 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import { PizzaModel } from "../types";
+import { OrderModel, PizzaModel } from "../types";
 
 type AppState = {
   basket: PizzaModel[];
+  order: OrderModel;
   basketModalOpen: boolean;
 };
 
@@ -21,6 +22,9 @@ export const useAppContext = () => useContext(AppContext);
 export const AppContextProvider = ({ children }: { children: any }) => {
   const [state, setState] = useState<AppState>({
     basket: parse(localStorage.getItem("basket")) ?? [],
+    order: parse(localStorage.getItem("order")) ?? {
+      person: {},
+    },
     basketModalOpen: false,
   });
 
@@ -30,6 +34,9 @@ export const AppContextProvider = ({ children }: { children: any }) => {
   ) => {
     if (stateKey === "basket") {
       localStorage.setItem("basket", JSON.stringify(newValue));
+    }
+    if (stateKey === "order") {
+      localStorage.setItem("order", JSON.stringify(newValue));
     }
     setState({ ...state, [stateKey]: newValue });
   };

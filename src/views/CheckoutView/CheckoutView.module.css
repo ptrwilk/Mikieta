@@ -1,0 +1,76 @@
+.CheckoutView {
+  display: flex;
+  gap: 4rem;
+  padding: 6rem 3rem;
+}
+
+.CheckoutView h4 {
+  font-weight: 500;
+}
+
+.CheckoutView .Star {
+  color: var(--color-error);
+}
+
+.CheckoutView .AddComments {
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.CheckoutView .Link {
+  color: var(--color-secondary);
+}
+
+.CheckoutView .ContentForm {
+}
+
+.CheckoutView .ContentBasket {
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+  width: 600px;
+}
+
+.CheckoutView .ContentBasket .Change {
+  font-size: 14px;
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.CheckoutView .ContentBasket .Products {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.CheckoutView .ContentBasket .Products li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CheckoutView .ContentBasket .Products li p {
+  font-weight: 500;
+}
+
+.CheckoutView .ContentBasket .ErrorMessage {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--color-error-2);
+}
+
+@media (max-width: 650px) {
+  .CheckoutView {
+    flex-direction: column;
+  }
+
+  .CheckoutView .ContentBasket {
+    align-self: auto;
+    position: relative;
+    width: 100%;
+  }
+
+  .CheckoutView .ContentForm {
+    order: 1;
+  }
+}

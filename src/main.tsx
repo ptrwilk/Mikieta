@@ -7,7 +7,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AppContextProvider } from "./context/AppContext.tsx";
 import { PaymentView } from "./views/PaymentView/PaymentView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
-import { MenuLayout } from "./MenuLayout.tsx";
+import { Layout } from "./Layout.tsx";
+import { MenuView } from "./views/MenuView/MenuView.tsx";
+import { CheckoutView } from "./views/CheckoutView/CheckoutView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +30,23 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <MenuLayout />,
+    element: (
+      <Layout basketVisible name="Menu">
+        <MenuView />
+      </Layout>
+    ),
     path: "/menu",
     loader: () => {
       return fetch("http://localhost:5105/menu");
     },
+  },
+  {
+    element: (
+      <Layout name="Kasa">
+        <CheckoutView />
+      </Layout>
+    ),
+    path: "/kasa",
   },
 ]);
 
