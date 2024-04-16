@@ -12,25 +12,26 @@ import { useEffect, useState } from "react";
 import { useCheckbox, useCombobox, useInput, useRadio } from "@/hooks";
 import { Textarea } from "@/components/ui/textarea";
 import { useAppContext } from "@/context/AppContext";
-import { sum } from "@/helpers";
+import {
+  convertTimeToDate,
+  convertToEnumValue,
+  getEnumValue,
+  sum,
+} from "@/helpers";
 import { comboBoxOpeningHours } from "@/const";
 import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
+import { post } from "@/apihelper";
+import {
+  DeliveryMethod,
+  OrderRequestModel,
+  PaymentMethod,
+  ProductType,
+} from "@/types";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
   HourSelection = "HourSelection",
-}
-
-enum DeliveryMethod {
-  Delivery = "Delivery",
-  TakeAway = "TakeAway",
-  DinningIn = "DinningIn",
-}
-
-enum PaymentMethod {
-  Blik = "Blik",
-  GooglePay = "GooglePay",
 }
 
 const CheckoutView = () => {
@@ -167,6 +168,8 @@ const CheckoutView = () => {
   const byEmail = useCheckbox();
   const bySmsEtc = useCheckbox();
 
+  const [comments, setComments] = useState<string | undefined>();
+
   const inputs = [
     paymentMethod,
     deliveryTiming,
@@ -183,7 +186,7 @@ const CheckoutView = () => {
     }
   }, []);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (
       [
         ...inputs.map((x) => x.checkError()),
@@ -193,6 +196,37 @@ const CheckoutView = () => {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
+
+      await post("order", {
+        productIds: app!.basket.map((x) => x.id),
+        deliveryTiming:
+          deliveryTiming.selectedValue === DeliveryTimingOption.HourSelection
+            ? convertTimeToDate(openingHours.value)
+            : null,
+        deliveryRightAway:
+          deliveryTiming.selectedValue === DeliveryTimingOption.RightAway,
+        deliveryMethod: getEnumValue(
+          DeliveryMethod,
+          deliveryMethod.selectedValue!
+        ),
+        paymentMethod: getEnumValue(
+          PaymentMethod,
+          paymentMethod.selectedValue!
+        ),
+        comments: comments,
+        name: name.value,
+        phone: phone.value,
+        email: email.value,
+        nip: nip.value,
+        processingPersonalData:
+          byEmail.checked || bySmsEtc.checked
+            ? {
+                email: byEmail.checked,
+                sms: bySmsEtc.checked,
+              }
+            : null,
+      } as OrderRequestModel);
+
       console.log("succcess");
     }
   };
@@ -237,7 +271,11 @@ const CheckoutView = () => {
               </p>
             ) : (
               <>
-                <Textarea rows={5} />
+                <Textarea
+                  rows={5}
+                  value={comments}
+                  onChange={(e) => setComments(e.target.value as string)}
+                />
                 <p className="text-right text-sm">Max 225 znaków</p>
               </>
             )}

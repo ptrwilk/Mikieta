@@ -1,7 +1,7 @@
 export type Guid = string;
 
 export type PizzaModel = {
-  id: Guid;
+  id: number;
   name: string;
   price: number;
   ingredients: string[];
@@ -19,6 +19,20 @@ export type PersonModel = {
   email?: string;
 };
 
+export type OrderRequestModel = {
+  productIds: number[];
+  deliveryTiming?: Date;
+  deliveryRightAway?: boolean;
+  deliveryMethod: DeliveryMethod;
+  comments?: string;
+  paymentMethod: PaymentMethod;
+  name: string;
+  phone: string;
+  email: string;
+  nip?: string;
+  processingPersonalData?: { email?: boolean; sms?: boolean };
+};
+
 export enum ProductType {
   PizzaSmall,
   PizzaMedium,
@@ -26,6 +40,17 @@ export enum ProductType {
   Drink,
   Sauce,
   Snack,
+}
+
+export enum DeliveryMethod {
+  Delivery = "Delivery",
+  TakeAway = "TakeAway",
+  DinningIn = "DinningIn",
+}
+
+export enum PaymentMethod {
+  Blik = "Blik",
+  GooglePay = "GooglePay",
 }
 
 export const translateProductType = (productType: ProductType): string => {

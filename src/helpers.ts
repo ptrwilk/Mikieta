@@ -143,3 +143,26 @@ export const replaceWithMask = (
 
   return result;
 };
+
+export function convertTimeToDate(timeString: string | undefined) {
+  if (timeString === undefined) {
+    return undefined;
+  }
+
+  const [hours, minutes] = timeString.split(":");
+  const date = new Date();
+  date.setHours(parseInt(hours, 10));
+  date.setMinutes(parseInt(minutes, 10));
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  return date;
+}
+
+export function getEnumValue<T extends string>(
+  enumObj: any,
+  value: T
+): keyof typeof enumObj | undefined {
+  const keys = Object.keys(enumObj) as Array<keyof typeof enumObj>;
+  const index = keys.findIndex((key) => enumObj[key] === value);
+  return index;
+}
