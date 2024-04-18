@@ -30,6 +30,11 @@ export type OrderRequestModel = {
   phone: string;
   email: string;
   nip?: string;
+  street?: string;
+  homeNumber?: string;
+  city?: string;
+  flatNumber?: string;
+  floor?: string;
   processingPersonalData?: { email?: boolean; sms?: boolean };
 };
 

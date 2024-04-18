@@ -98,6 +98,27 @@ const CheckoutView = () => {
     ]
   );
 
+  const street = useInput([
+    {
+      validate: (value) => !!value,
+      errorMessage: REQUIRED_VALUE,
+    },
+  ]);
+  const homeNumber = useInput([
+    {
+      validate: (value) => !!value,
+      errorMessage: REQUIRED_VALUE,
+    },
+  ]);
+  const city = useInput([
+    {
+      validate: (value) => !!value,
+      errorMessage: REQUIRED_VALUE,
+    },
+  ]);
+  const flatNumber = useInput();
+  const floor = useInput();
+
   const name = useInput(
     [
       {
@@ -160,16 +181,6 @@ const CheckoutView = () => {
 
   const [comments, setComments] = useState<string | undefined>();
 
-  const inputs = [
-    paymentMethod,
-    deliveryTiming,
-    deliveryMethod,
-    name,
-    phone,
-    email,
-    rules,
-  ];
-
   useEffect(() => {
     if (name.value && phone.value && email.value) {
       name.checkError();
@@ -177,10 +188,27 @@ const CheckoutView = () => {
   }, []);
 
   const handleConfirm = async () => {
+    const inputs = [
+      paymentMethod,
+      deliveryTiming,
+      deliveryMethod,
+      name,
+      phone,
+      email,
+      rules,
+    ];
+
+    const residence = [street, homeNumber, city];
+
     if (
       [
         ...inputs.map((x) => x.checkError()),
         invoiceNeeded.checked && nip.checkError(),
+        ...residence.map(
+          (x) =>
+            deliveryMethod.selectedValue === DeliveryMethod.Delivery &&
+            x.checkError()
+        ),
       ].filter((x) => x).length > 0
     ) {
       setShowErrorMessage(true);
@@ -208,6 +236,11 @@ const CheckoutView = () => {
         phone: phone.value,
         email: email.value,
         nip: nip.value,
+        street: street.value,
+        homeNumber: homeNumber.value,
+        city: city.value,
+        flatNumber: flatNumber.value,
+        floor: floor.value,
         processingPersonalData:
           byEmail.checked || bySmsEtc.checked
             ? {
@@ -250,6 +283,28 @@ const CheckoutView = () => {
           >
             <ModalRadio border {...deliveryMethod}></ModalRadio>
           </Switch>
+          {deliveryMethod.selectedValue === DeliveryMethod.Delivery && (
+            <div className="grid grid-cols-1 gap-8">
+              <div className="grid grid-cols-[1fr_150px] gap-8">
+                <TextInput caption="Ulica" captionTop star {...street} />
+                <TextInput
+                  caption="Numer domu"
+                  captionTop
+                  star
+                  {...homeNumber}
+                />
+              </div>
+              <TextInput caption="Miasto" captionTop star {...city} />
+              <div className="grid grid-cols-2 gap-8">
+                <TextInput
+                  caption="Numer mieszkania"
+                  captionTop
+                  {...flatNumber}
+                />
+                <TextInput caption="Piętro" captionTop {...floor} />
+              </div>
+            </div>
+          )}
           <div className="flex flex-col gap-2">
             <p>Uwagi do zamówienia</p>
             {!commentsVisible ? (
