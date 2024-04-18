@@ -41,6 +41,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
         className={styles["Button"]}
         price={price}
         onClick={handlePizzaClick}
+        amount={app!.basket.find((x) => x.id === product.id)?.quantity}
       />
     </div>
   );
