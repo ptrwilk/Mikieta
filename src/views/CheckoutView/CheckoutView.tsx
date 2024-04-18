@@ -12,22 +12,12 @@ import { useEffect, useState } from "react";
 import { useCheckbox, useCombobox, useInput, useRadio } from "@/hooks";
 import { Textarea } from "@/components/ui/textarea";
 import { useAppContext } from "@/context/AppContext";
-import {
-  convertTimeToDate,
-  convertToEnumValue,
-  getEnumValue,
-  sum,
-} from "@/helpers";
+import { convertTimeToDate, getEnumValue, sum } from "@/helpers";
 import { comboBoxOpeningHours } from "@/const";
 import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import { post } from "@/apihelper";
-import {
-  DeliveryMethod,
-  OrderRequestModel,
-  PaymentMethod,
-  ProductType,
-} from "@/types";
+import { DeliveryMethod, OrderRequestModel, PaymentMethod } from "@/types";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
