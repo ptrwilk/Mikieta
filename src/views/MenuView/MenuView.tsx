@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { MenuItem, Section } from "../../components";
+import { MenuItem, Section, Underline } from "../../components";
 import styles from "./MenuView.module.css";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PizzaModel, ProductType } from "@/types";
@@ -25,7 +25,7 @@ const MenuView = () => {
       <div className={styles["Info"]}>
         <p>Dowiedz się więcej</p>
         <h3>O Naszym Menu</h3>
-        <div className={styles["Line"]} />
+        <Underline />
       </div>
       <Tabs className={styles["Tabs"]} defaultValue="PizzaSmall">
         <TabsList>

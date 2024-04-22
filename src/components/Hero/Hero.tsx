@@ -1,6 +1,6 @@
 import styles from "./Hero.module.css";
 import pizza from "../../assets/pizza1.jpg";
-import { Button } from "..";
+import { Button, Underline } from "..";
 import classNames from "classnames";
 
 interface IHeroProps {
@@ -19,7 +19,7 @@ const Hero: React.FC<IHeroProps> = ({ small = false, children }) => {
         <div className={styles["Content"]}>
           <p className={styles["Text"]}>Przeknaj się jak smakuje...</p>
           <h1>Najlepsza pizza w Leszczynach</h1>
-          <div className={styles["Line"]} />
+          <Underline big />
           <Button className={styles["Button"]} huge to="/menu">
             Zobacz Menu
           </Button>
