@@ -1,0 +1,9 @@
+.ReservationView {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 10rem 3rem;
+  width: 800px;
+}

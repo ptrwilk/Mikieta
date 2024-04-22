@@ -1,53 +1,46 @@
-.MenuView{
-    display: grid;
-    padding: 6rem 3rem;
+.MenuView {
+  display: grid;
+  padding: 6rem 3rem;
 }
 
-.MenuView .Info{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.MenuView .Info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.MenuView .Info p{
-    font-size: 30px;
-    font-family: var(--ff-secondary);
-    color: var(--color-secondary);
+.MenuView .Info p {
+  font-size: 30px;
+  font-family: var(--ff-secondary);
+  color: var(--color-secondary);
 }
 
-.MenuView .Info h3{
-    text-transform: uppercase;
-    font-weight: 500;
+.MenuView .Info h3 {
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-.MenuView .Info .Line{
-    margin-top: 0.5rem;
-    width: 60px;
-    height: 3px;
-    background: var(--color-secondary);
+.MenuView .Tabs {
+  margin-top: 3rem;
 }
 
-.MenuView .Tabs{
-    margin-top: 3rem;
+.MenuView .Tabs .Items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.MenuView .Tabs .Items{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.MenuView .Tabs .Items .Hr {
+  height: 1px;
+  background: var(--color-sixth);
 }
 
-.MenuView .Tabs .Items .Hr{
-    height: 1px;
-    background: var(--color-sixth);
+.MenuView .Tabs .Items {
+  margin-top: 1rem;
 }
 
-.MenuView .Tabs .Items{
-    margin-top: 1rem;
-}
-
-.MenuView .Tabs .Items li{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.MenuView .Tabs .Items li {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

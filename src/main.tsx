@@ -10,6 +10,7 @@ import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
 import { Layout } from "./Layout.tsx";
 import { MenuView } from "./views/MenuView/MenuView.tsx";
 import { CheckoutView } from "./views/CheckoutView/CheckoutView.tsx";
+import { ReservationView } from "./views/ReservationView/ReservationView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
       </Layout>
     ),
     path: "/kasa",
+  },
+  {
+    element: (
+      <Layout name="Rezerwacja">
+        <ReservationView />
+      </Layout>
+    ),
+    path: "/rezerwacja",
   },
 ]);
 

@@ -24,7 +24,7 @@ const Header: React.FC<IHeaderProps> = ({
           <p>Dostawa</p>
         </li>
         <li>
-          <p>Rezerwacja</p>
+          <a href="/rezerwacja">Rezerwacja</a>
         </li>
         <li>
           <a href="#contact">Kontakt</a>

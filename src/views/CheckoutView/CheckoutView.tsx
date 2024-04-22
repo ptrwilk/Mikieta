@@ -5,11 +5,18 @@ import {
   ModalRadio,
   Section,
   Switch,
+  TextArea,
   TextInput,
 } from "@/components";
 import styles from "./CheckoutView.module.css";
 import { useEffect, useState } from "react";
-import { useCheckbox, useCombobox, useInput, useRadio } from "@/hooks";
+import {
+  useCheckbox,
+  useCombobox,
+  useInput,
+  useRadio,
+  useTextArea,
+} from "@/hooks";
 import { Textarea } from "@/components/ui/textarea";
 import { useAppContext } from "@/context/AppContext";
 import { convertTimeToDate, getEnumValue, sum } from "@/helpers";
@@ -179,7 +186,7 @@ const CheckoutView = () => {
   const byEmail = useCheckbox();
   const bySmsEtc = useCheckbox();
 
-  const [comments, setComments] = useState<string | undefined>();
+  const comments = useTextArea();
 
   useEffect(() => {
     if (name.value && phone.value && email.value) {
@@ -231,7 +238,7 @@ const CheckoutView = () => {
           PaymentMethod,
           paymentMethod.selectedValue!
         ),
-        comments: comments,
+        comments: comments.value,
         name: name.value,
         phone: phone.value,
         email: email.value,
@@ -316,11 +323,7 @@ const CheckoutView = () => {
               </p>
             ) : (
               <>
-                <Textarea
-                  rows={5}
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value as string)}
-                />
+                <TextArea rows={5} {...comments} />
                 <p className="text-right text-sm">Max 225 znaków</p>
               </>
             )}
