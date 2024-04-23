@@ -1,11 +1,9 @@
-import { Outlet, useLoaderData } from "react-router-dom";
-import { Header, Hero } from "./components";
+import { Header, Hero, Map } from "./components";
+import { SubHeader } from "./components/SubHeader/SubHeader";
 import { AboutUsView } from "./views/AboutUsView/AboutUsView";
 import { FooterView } from "./views/FooterView/FooterView";
 
 function App() {
-  const filters = useLoaderData() as string[];
-
   return (
     <div
       style={{
@@ -15,7 +13,14 @@ function App() {
       <Header />
       <Hero />
       <AboutUsView />
-      <Outlet context={filters} />
+      <div className="flex flex-col gap-12 mt-24">
+        <SubHeader
+          header="Masz pytania?"
+          title="SKONTAKTUJ SIĘ Z NAMI"
+          description="Napisz lub zadzwoń do nas!"
+        />
+        <Map />
+      </div>
       <FooterView />
     </div>
   );
