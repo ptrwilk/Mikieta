@@ -3,6 +3,7 @@ import { MenuItem, Section, Underline } from "../../components";
 import styles from "./MenuView.module.css";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PizzaModel, ProductType } from "@/types";
+import { SubHeader } from "@/components/SubHeader/SubHeader";
 
 const MenuView = () => {
   const products = useLoaderData() as PizzaModel[];
@@ -22,11 +23,7 @@ const MenuView = () => {
 
   return (
     <Section className={styles["MenuView"]}>
-      <div className={styles["Info"]}>
-        <p>Dowiedz się więcej</p>
-        <h3>O Naszym Menu</h3>
-        <Underline />
-      </div>
+      <SubHeader header="Dowiedz się więcej" title="O NASZYM MENU" />
       <Tabs className={styles["Tabs"]} defaultValue="PizzaSmall">
         <TabsList>
           <TabsTrigger value="PizzaSmall">Pizza 32 CM.</TabsTrigger>

@@ -34,3 +34,4 @@ export * from "./Checkbox/Checkbox";
 export * from "./Underline/Underline";
 export * from "./TextArea/TextArea";
 export * from "./DateTimePicker/DateTimePicker";
+export * from "./Accordeon/Accordeon";

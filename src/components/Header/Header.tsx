@@ -27,7 +27,7 @@ const Header: React.FC<IHeaderProps> = ({
           <a href="/rezerwacja">Rezerwacja</a>
         </li>
         <li>
-          <a href="#contact">Kontakt</a>
+          <a href="/kontakt">Kontakt</a>
         </li>
       </ul>
       {orderButtonVisible && (

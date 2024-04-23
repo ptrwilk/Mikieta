@@ -1,16 +1,16 @@
-import { AboutUsItem, Button, DayHourSpan, Section } from "../../components";
+import {
+  AboutUsItem,
+  Accordeon,
+  Button,
+  DayHourSpan,
+  Section,
+} from "../../components";
 import styles from "./AboutUsView.module.css";
 import classNames from "classnames";
 import { MdAccessTime } from "react-icons/md";
 import { PiCookingPot } from "react-icons/pi";
 import { LuPhone } from "react-icons/lu";
 import { GrLocation } from "react-icons/gr";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const AboutUsView = () => {
   return (
@@ -18,6 +18,7 @@ const AboutUsView = () => {
       <Section variant="ul">
         <li>
           <AboutUsItem
+            title="Gdzie jesteśmy?"
             icon={<GrLocation size={100} />}
             content={
               <div
@@ -32,6 +33,7 @@ const AboutUsView = () => {
         </li>
         <li>
           <AboutUsItem
+            title="Zadzwoń do nas"
             icon={<LuPhone size={100} />}
             content={
               <div
@@ -44,35 +46,28 @@ const AboutUsView = () => {
         </li>
         <li>
           <AboutUsItem
+            title={"Godziny otwarcia"}
             icon={<MdAccessTime size={100} />}
             content={
-              <div className={classNames(styles["Content"])}>
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="pt-0">
-                      <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
-                    </AccordionTrigger>
-                    <AccordionContent className="flex flex-col gap-2">
-                      <DayHourSpan
-                        text="Poniedziałek"
-                        from="11:00"
-                        to="23:00"
-                      />
-                      <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
-                      <DayHourSpan text="Środa" from="11:00" to="23:00" />
-                      <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
-                      <DayHourSpan text="Piątek" from="11:00" to="23:00" />
-                      <DayHourSpan text="Sobota" from="11:00" to="23:00" />
-                      <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
+              <Accordeon
+                trigger={<DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />}
+                content={
+                  <>
+                    <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Środa" from="11:00" to="23:00" />
+                    <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Piątek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Sobota" from="11:00" to="23:00" />
+                    <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
+                  </>
+                }
+              />
             }
           />
         </li>
         <li>
           <AboutUsItem
+            title={"Zamów online"}
             icon={<PiCookingPot size={100} />}
             content={
               <div

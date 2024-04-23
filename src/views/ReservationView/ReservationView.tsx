@@ -8,6 +8,7 @@ import {
 } from "@/components";
 import styles from "./ReservationView.module.css";
 import { useDateTimePicker, useInput, useTextArea } from "@/hooks";
+import { SubHeader } from "@/components/SubHeader/SubHeader";
 
 const ReservationView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
@@ -51,9 +52,10 @@ const ReservationView = () => {
 
   return (
     <Section className={styles["ReservationView"]}>
-      <h3 className="font-medium">ZAREZERWUJ STOLIK JUŻ TERAZ!</h3>
-      <Underline />
-      <p>Wyślij do nas swoją rezerwację, potwierdzimy ją w ciągu 24h</p>
+      <SubHeader
+        title="ZAREZERWUJ STOLIK JUŻ TERAZ!"
+        description="Wyślij do nas swoją rezerwację, potwierdzimy ją w ciągu 24h"
+      />
       <p className="self-start mt-12">
         Potrzebujesz stolik na dzisiaj? Zadzwoń:{" "}
         <span className="font-bold">333 111 222</span>

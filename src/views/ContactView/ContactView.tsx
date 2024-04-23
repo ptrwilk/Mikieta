@@ -1,58 +1,105 @@
-import { Button } from "../../components";
+import { SubHeader } from "@/components/SubHeader/SubHeader";
 import styles from "./ContactView.module.css";
-import { FaFacebookF } from "react-icons/fa";
-import classNames from "classnames";
+import { AboutUsItem, Accordeon, DayHourSpan, Section } from "@/components";
+import { Phone } from "lucide-react";
+import { MdAccessTime, MdOutlineHome } from "react-icons/md";
 
 const ContactView = () => {
   return (
-    <div className={styles["ContactView"]} id="contact">
-      <ul>
-        <li className={styles["Logo"]}>
-          <p>Logo</p>
+    <Section className={styles["ContactView"]}>
+      <SubHeader
+        header="Masz pytania?"
+        title="SKONTAKTUJ SIĘ Z NAMI"
+        description="Napisz lub zadzwoń do nas!"
+      />
+      <ul className={styles["Items"]}>
+        <li>
+          <AboutUsItem
+            title="Dane adresowe"
+            icon={
+              <div className={styles["Circle"]}>
+                <MdOutlineHome color="var(--color-secondary)" size={35} />
+              </div>
+            }
+            content={
+              <div className="text-center">
+                <p className="font-light">Mikieta</p>
+                <p className="font-light">Jakaś 4/5, 44-444 Costam</p>
+              </div>
+            }
+          />
         </li>
         <li>
-          <div className={classNames(styles["Content"], styles["Content-2"])}>
-            <p>Jakaś 2/4, 44-123 Zabrze</p>
-            <p>Telefon: 333 111 222</p>
-            <p className={styles["Location"]}>
-              <a href="">Mapa dojazdu</a>
-            </p>
-          </div>
+          <AboutUsItem
+            title="Dane kontaktowe"
+            icon={
+              <div className={styles["Circle"]}>
+                <Phone color="var(--color-secondary)" size={30} />
+              </div>
+            }
+            content={<p className="font-light">Telefon: +44 123 144 555</p>}
+          />
         </li>
         <li>
-          <div className={classNames(styles["Content"], styles["Content-3"])}>
-            <p>Obserwuj nas na:</p>
-            <ul>
-              <li>
-                <a href="">
-                  <FaFacebookF />
-                </a>
-              </li>
-            </ul>
-          </div>
+          <AboutUsItem
+            title="Godziny Otwarcia"
+            icon={
+              <div className={styles["Circle"]}>
+                <MdAccessTime color="var(--color-secondary)" size={30} />
+              </div>
+            }
+            content={
+              <Accordeon
+                trigger={<DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />}
+                content={
+                  <>
+                    <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Środa" from="11:00" to="23:00" />
+                    <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Piątek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Sobota" from="11:00" to="23:00" />
+                    <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
+                  </>
+                }
+              />
+            }
+          />
         </li>
         <li>
-          <div className={classNames(styles["Content"], styles["Content-4"])}>
-            <p>Gotówka, karta lub szybki przelew</p>
-            <Button huge to="/menu">
-              Zamów online
-            </Button>
-          </div>
+          <AboutUsItem
+            title="Godziny Dostawy"
+            icon={
+              <div className={styles["Circle"]}>
+                <MdAccessTime color="var(--color-secondary)" size={30} />
+              </div>
+            }
+            content={
+              <Accordeon
+                trigger={<DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />}
+                content={
+                  <>
+                    <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Środa" from="11:00" to="23:00" />
+                    <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Piątek" from="11:00" to="23:00" />
+                    <DayHourSpan text="Sobota" from="11:00" to="23:00" />
+                    <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
+                  </>
+                }
+              />
+            }
+          />
         </li>
       </ul>
-      <div className={styles["Bottom"]}>
-        <div className={styles["Hr"]} />
-        <div className={styles["Text"]}>
-          <a href="">Regulamin</a>
-          <div className={styles["Separator"]} />
-          <a href="">Polityka prywatności</a>
-          <div className={styles["Separator"]} />
-          <a href="">Zgody marketingowe</a>
-          <div className={styles["Separator"]} />
-          <a href="">Panel Restauratora</a>
-        </div>
+      <div className={styles["Map"]}>
+        <p>Mapa dojazdu</p>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d81734.12890023208!2d18.97296089784045!3d50.19495078282119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce2336a1ccd1%3A0xb9af2a350559fabb!2sKatowice!5e0!3m2!1sen!2spl!4v1713868192952!5m2!1sen!2spl"
+          height="450"
+          loading="lazy"
+        ></iframe>
       </div>
-    </div>
+    </Section>
   );
 };
 

@@ -1,8 +1,10 @@
-.DayHourSpan{
-    display: flex;
-    gap: 1rem;
+.DayHourSpan {
+  display: flex;
+  gap: 1rem;
+  font-weight: 300;
+  color: var(--color-black);
 }
 
-.DayHourSpan span{
-    margin-right: 1rem;
+.DayHourSpan span {
+  margin-right: 1rem;
 }
