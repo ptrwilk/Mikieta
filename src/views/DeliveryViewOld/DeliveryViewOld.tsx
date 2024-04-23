@@ -1,9 +1,9 @@
 import { Status } from "../../components";
-import styles from "./DeliveryView.module.css";
+import styles from "./DeliveryViewOld.module.css";
 
-const DeliveryView = () => {
+const DeliveryViewOld = () => {
   return (
-    <div className={styles["DeliveryView"]}>
+    <div className={styles["DeliveryViewOld"]}>
       <div className={styles["Thanks"]}>
         <h2>Dziękujemy za złożenie zamówienia!</h2>
         <p>Obserwuj status swojego zamówienia</p>
@@ -40,4 +40,4 @@ const DeliveryView = () => {
   );
 };
 
-export { DeliveryView };
+export { DeliveryViewOld };

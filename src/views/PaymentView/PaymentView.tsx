@@ -6,7 +6,7 @@ import styles from "./PaymentView.module.css";
 import { useScrollFollow } from "../../hooks/useScrollFollow";
 import {
   DeliverySection,
-  IDeliveryViewRef,
+  IDeliveryViewOldRef,
 } from "./DeliverySection/DeliverySection";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const PaymentView = () => {
 
   const addressAndPaymentRef = useRef<any>();
   const paymentOptionsRef = useRef<any>();
-  const deliveryViewRef = useRef<IDeliveryViewRef>();
+  const deliveryViewOldRef = useRef<IDeliveryViewOldRef>();
 
   const [paymentSummaryHeight, setPaymentSummaryHeight] = useState(0);
 
@@ -38,7 +38,7 @@ const PaymentView = () => {
   }, [app?.basket]);
 
   const handleConfirmClick = async () => {
-    const hasErrors = deliveryViewRef.current!.hasErrors();
+    const hasErrors = deliveryViewOldRef.current!.hasErrors();
 
     if (!hasErrors) {
       const id = await (
@@ -60,7 +60,7 @@ const PaymentView = () => {
       <BreadcrumbShared />
       <div className={styles["Content"]}>
         <div ref={addressAndPaymentRef} className={styles["AddressAndPayment"]}>
-          <DeliverySection ref={deliveryViewRef} />
+          <DeliverySection ref={deliveryViewOldRef} />
           <PaymentSummary
             className={styles["PaymentSummary"]}
             items={app?.basket}

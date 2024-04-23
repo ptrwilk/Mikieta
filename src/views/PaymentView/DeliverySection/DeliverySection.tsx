@@ -8,7 +8,7 @@ import { useInput } from "../../../hooks";
 import { useSelect } from "../../../hooks/useSelect";
 import { forwardRef, useImperativeHandle } from "react";
 
-export interface IDeliveryViewRef {
+export interface IDeliveryViewOldRef {
   hasErrors: () => boolean;
 }
 
@@ -30,7 +30,7 @@ const DeliverySection = forwardRef((_, ref) => {
 
   const inputs = [street, city, zipCode, name, phone, delivery];
 
-  useImperativeHandle<any, IDeliveryViewRef>(
+  useImperativeHandle<any, IDeliveryViewOldRef>(
     ref,
     () => {
       return {
