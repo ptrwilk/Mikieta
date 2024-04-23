@@ -12,6 +12,7 @@ import { MenuView } from "./views/MenuView/MenuView.tsx";
 import { CheckoutView } from "./views/CheckoutView/CheckoutView.tsx";
 import { ReservationView } from "./views/ReservationView/ReservationView.tsx";
 import { ContactView } from "./views/ContactView/ContactView.tsx";
+import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
       </Layout>
     ),
     path: "/kontakt",
+  },
+  {
+    element: (
+      <Layout name="Dostawa">
+        <DeliveryView />
+      </Layout>
+    ),
+    path: "/dostawa",
   },
 ]);
 

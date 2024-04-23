@@ -1,0 +1,19 @@
+.DeliveryView {
+  width: 800px;
+  padding: 10rem 3rem;
+}
+
+.DeliveryView .Form {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.DeliveryView .Form .City {
+  grid-column: 1 / span 2;
+}
+
+.DeliveryView .Button {
+  margin-top: 2rem;
+}
