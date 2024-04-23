@@ -1,31 +1,19 @@
-.DeliveryView{
-    padding: 2rem 3rem;
+.DeliveryView {
+  width: 800px;
+  padding: 10rem 3rem;
 }
 
-.DeliveryView .Thanks h2{
-    text-align: center;
+.DeliveryView .Form {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
-.DeliveryView .Thanks p{
-    margin-top: 1rem;
-    font-size: 28px;
-    text-align: center;
-    font-weight: 500;
-    color: black;
+.DeliveryView .Form .City {
+  grid-column: 1 / span 2;
 }
 
-.DeliveryView .Status-Title{
-    margin-top: 4rem;
-}
-
-.DeliveryView .Status-Title .Hr{
-    margin-top: 1rem;
-    border: 1px solid #d3d3d3;
-}
-
-.DeliveryView .Statuses{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
+.DeliveryView .Button {
+  margin-top: 2rem;
 }

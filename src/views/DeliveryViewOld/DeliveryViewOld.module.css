@@ -1,0 +1,31 @@
+.DeliveryViewOld {
+  padding: 2rem 3rem;
+}
+
+.DeliveryViewOld .Thanks h2 {
+  text-align: center;
+}
+
+.DeliveryViewOld .Thanks p {
+  margin-top: 1rem;
+  font-size: 28px;
+  text-align: center;
+  font-weight: 500;
+  color: black;
+}
+
+.DeliveryViewOld .Status-Title {
+  margin-top: 4rem;
+}
+
+.DeliveryViewOld .Status-Title .Hr {
+  margin-top: 1rem;
+  border: 1px solid #d3d3d3;
+}
+
+.DeliveryViewOld .Statuses {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
