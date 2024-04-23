@@ -1,100 +1,37 @@
-.ContactView{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 4rem 0 2rem;
-    margin-top: 10rem;
-    background: var(--color-fifth);
+.ContactView {
+  padding: 6rem 3rem;
 }
 
-.ContactView ul{
-    display: flex;
-    gap: 12rem;
+.ContactView .Items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 6rem;
 }
 
-.ContactView ul .Logo{
-    align-self: center;
+.ContactView .Circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--color-secondary);
+  border-radius: 50%;
 }
 
-.ContactView ul .Logo p{
-    font-weight: 700;
-    color: var(--color-primary);
+.ContactView .Map {
+  margin-top: 6rem;
 }
 
-.ContactView ul .Content p{
-    color: var(--color-sixth);
+.ContactView .Map p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
-.ContactView ul .Content-2{
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.ContactView ul .Content-2 p{
-    text-align: left;
-}
-
-.ContactView ul .Content-2 .Location{
-    align-self: flex-start;
-    text-decoration: underline;
-    cursor: pointer;
-    color: var(--color-secondary);
-}
-
-.ContactView ul .Content-2 .Location:hover{
-    text-decoration: none;
-}
-
-.ContactView ul .Content-3{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-}
-
-.ContactView ul .Content-3 svg{
-    color :var(--color-sixth);
-}
-
-.ContactView ul .Content-3 svg:hover{
-    color: var(--color-secondary);
-}
-
-.ContactView ul .Content-4{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.ContactView .Bottom{
-    width: 1200px;
-}
-
-.ContactView .Bottom .Hr{
-    height: 0.5px;
-    margin-top: 5rem;
-    background: var(--color-sixth);
-}
-
-.ContactView .Bottom .Text{
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.ContactView .Bottom .Text .Separator{
-    width: 0.5px;
-    background: var(--color-sixth);
-}
-
-.ContactView .Bottom .Text a{
-    font-size: 14px;
-    cursor: pointer;
-    color: var(--color-sixth);
-}
-
-.ContactView .Bottom .Text a:hover{
-    text-decoration: underline;
-    color: var(--color-secondary);
+.ContactView .Map iframe {
+  width: 100%;
+  margin-top: 1rem;
 }

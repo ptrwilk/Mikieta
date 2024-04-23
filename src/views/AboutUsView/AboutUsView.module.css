@@ -1,24 +1,19 @@
-.AboutUsView{
-    padding: 8em 0;
-    background: var(--color-fourth);
+.AboutUsView {
+  padding: 8em 0;
+  background: var(--color-fourth);
 }
 
-.AboutUsView ul{
-    display: flex;
-    justify-content: space-between;
+.AboutUsView ul {
+  display: flex;
+  justify-content: space-between;
 }
 
-.AboutUsView li svg{
-    color: var(--color-secondary);
+.AboutUsView li svg {
+  color: var(--color-secondary);
 }
 
-.AboutUsView .Content-1{
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.AboutUsView .Content p{
-    font-weight: 300;
-    color: var(--color-black);
+.AboutUsView .Content-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
