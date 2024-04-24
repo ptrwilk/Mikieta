@@ -4,7 +4,6 @@ import {
   Section,
   TextArea,
   TextInput,
-  Underline,
 } from "@/components";
 import styles from "./ReservationView.module.css";
 import { useDateTimePicker, useInput, useTextArea } from "@/hooks";
@@ -13,7 +12,15 @@ import { SubHeader } from "@/components/SubHeader/SubHeader";
 const ReservationView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
 
-  const reservation = useDateTimePicker(new Date());
+  const reservation = useDateTimePicker(
+    [
+      {
+        validate: (value) => !!value && value >= new Date(),
+        errorMessage: "wymagana przyszła data",
+      },
+    ],
+    new Date()
+  );
   const numberOfPeople = useInput([
     {
       validate: (value) => !!value,
@@ -41,7 +48,7 @@ const ReservationView = () => {
   const comments = useTextArea();
 
   const handleConfirm = () => {
-    const inputs = [numberOfPeople, phone, email, name];
+    const inputs = [reservation, numberOfPeople, phone, email, name];
 
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
       //error
