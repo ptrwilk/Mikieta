@@ -1,3 +1,5 @@
+import { Validator } from "./types";
+
 export const validate = <T>(
   value: T | undefined,
   validators?: Validator<T>[]

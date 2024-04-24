@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SelectionOption } from "../components";
 import { validate } from "./helpers";
+import { Validator } from "./types";
 
 export const useSelect = (validators?: Validator<SelectionOption>[]) => {
   const [value, setValue] = useState<SelectionOption | undefined>();

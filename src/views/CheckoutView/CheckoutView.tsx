@@ -24,6 +24,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import { DeliveryMethod, OrderRequestModel, PaymentMethod } from "@/types";
 import { post } from "@/apihelper";
+import { validateEmail, validatePhone } from "@/hooks/types";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -149,12 +150,15 @@ const CheckoutView = () => {
       updateApp("order", { person: { ...app!.order.person, name: value } })
   );
 
-  //TODO: extend this for proper phone validator
   const phone = useInput(
     [
       {
         validate: (value) => !!value,
         errorMessage: REQUIRED_VALUE,
+      },
+      {
+        validate: validatePhone,
+        errorMessage: "nieprawidłowy format numeru telefonu",
       },
     ],
     app!.order.person.phone,
@@ -162,12 +166,15 @@ const CheckoutView = () => {
       updateApp("order", { person: { ...app!.order.person, phone: value } })
   );
 
-  //TODO: extend this for proper email validator
   const email = useInput(
     [
       {
         validate: (value) => !!value,
         errorMessage: REQUIRED_VALUE,
+      },
+      {
+        validate: validateEmail,
+        errorMessage: "nieprawidłowy format adresu email",
       },
     ],
     app!.order.person.email,

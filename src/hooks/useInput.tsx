@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { validate } from "./helpers";
+import { Validator } from "./types";
 
 export const useInput = (
   validators?: Validator<string | undefined>[],
