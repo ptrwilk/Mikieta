@@ -8,6 +8,7 @@ import {
 import styles from "./ReservationView.module.css";
 import { useDateTimePicker, useInput, useTextArea } from "@/hooks";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
+import { validateEmail, validatePhone } from "@/hooks/types";
 
 const ReservationView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
@@ -15,7 +16,7 @@ const ReservationView = () => {
   const reservation = useDateTimePicker(
     [
       {
-        validate: (value) => !!value && value >= new Date(),
+        validate: (value: any) => !!value && value >= new Date(),
         errorMessage: "wymagana przyszła data",
       },
     ],
@@ -23,25 +24,33 @@ const ReservationView = () => {
   );
   const numberOfPeople = useInput([
     {
-      validate: (value) => !!value,
+      validate: (value: any) => !!value,
       errorMessage: REQUIRED_VALUE,
     },
   ]);
   const phone = useInput([
     {
-      validate: (value) => !!value,
+      validate: (value: any) => !!value,
       errorMessage: REQUIRED_VALUE,
+    },
+    {
+      validate: validatePhone,
+      errorMessage: "nieprawidłowy format numeru telefonu",
     },
   ]);
   const email = useInput([
     {
-      validate: (value) => !!value,
+      validate: (value: any) => !!value,
       errorMessage: REQUIRED_VALUE,
+    },
+    {
+      validate: validateEmail,
+      errorMessage: "nieprawidłowy format adresu email",
     },
   ]);
   const name = useInput([
     {
-      validate: (value) => !!value,
+      validate: (value: any) => !!value,
       errorMessage: REQUIRED_VALUE,
     },
   ]);

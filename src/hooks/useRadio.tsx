@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { validate } from "./helpers";
+import { Validator } from "./types";
 
 type RadioModel = {
   value: string;

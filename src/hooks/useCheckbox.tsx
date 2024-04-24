@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { validate } from "./helpers";
+import { Validator } from "./types";
 
 export const useCheckbox = (validators?: Validator<boolean | undefined>[]) => {
   const [checked, setChecked] = useState<boolean | undefined>(false);
