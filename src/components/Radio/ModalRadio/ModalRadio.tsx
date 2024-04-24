@@ -9,6 +9,7 @@ interface ModalRadioProps {
   caption?: string;
   error?: boolean;
   errorMessage?: string;
+  errorValues?: string[];
   star?: boolean;
   onValueChange: (value: any) => void;
 }
@@ -20,6 +21,7 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
   caption,
   error,
   errorMessage,
+  errorValues,
   star,
   onValueChange,
 }) => {
@@ -42,7 +44,8 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
             [styles["Label-Border"]]: border,
             [styles["Label-Selected"]]:
               border && selectedValue === option.value,
-            [styles["Label-Error"]]: border && error,
+            [styles["Label-Error"]]:
+              border && (error || errorValues?.some((x) => x === option.value)),
           })}
         >
           <RadioGroupItem value={option.value} id={`radio-${option.value}`} />
@@ -52,7 +55,7 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
           )}
         </label>
       ))}
-      {errorMessage && error && (
+      {errorMessage && (error || (errorValues?.length ?? 0) > 0) && (
         <p className={styles["ErrorMessage"]}>{errorMessage}</p>
       )}
     </RadioGroup>

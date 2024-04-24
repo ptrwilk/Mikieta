@@ -17,14 +17,13 @@ import {
   useRadio,
   useTextArea,
 } from "@/hooks";
-import { Textarea } from "@/components/ui/textarea";
 import { useAppContext } from "@/context/AppContext";
 import { convertTimeToDate, getEnumValue, sum } from "@/helpers";
 import { comboBoxOpeningHours } from "@/const";
 import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
-import { post } from "@/apihelper";
 import { DeliveryMethod, OrderRequestModel, PaymentMethod } from "@/types";
+import { post } from "@/apihelper";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -51,6 +50,13 @@ const CheckoutView = () => {
         validate: (value) => !!value,
         errorMessage: REQUIRED_VALUE,
       },
+      {
+        validateZomo: (value) =>
+          value === DeliveryTimingOption.HourSelection && !openingHours.value
+            ? [DeliveryTimingOption.HourSelection]
+            : [],
+        errorMessage: "godzina jest wymagana",
+      },
     ],
     [
       { label: "Jak najszybciej", value: DeliveryTimingOption.RightAway },
@@ -59,7 +65,8 @@ const CheckoutView = () => {
         value: DeliveryTimingOption.HourSelection,
         child: <Combobox {...openingHours} />,
       },
-    ]
+    ],
+    openingHours.value
   );
 
   const deliveryMethod = useRadio(
