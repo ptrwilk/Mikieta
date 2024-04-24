@@ -5,6 +5,7 @@ import {
   TitleBreadcrumbBar,
 } from "./components";
 import { BasketModalView } from "./views/BasketModalView/BasketModalView";
+import { FooterView } from "./views/FooterView/FooterView";
 
 interface ILayoutProps {
   children: any;
@@ -34,6 +35,7 @@ const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
       </Hero>
       {children}
       {basketVisible && <FloatingBasketButton />}
+      <FooterView />
       <BasketModalView />
     </div>
   );
