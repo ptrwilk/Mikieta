@@ -5,24 +5,37 @@ import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { TimePickerDemo } from "../ui/time-picker-demo";
-import { useEffect, useState } from "react";
+import styles from "./DateTimePicker.module.css";
+import classNames from "classnames";
 
 interface IDateTimePickerProsp {
   caption?: string;
   date?: Date;
+  error?: boolean;
+  errorMessage?: string;
   onDateChange?: (date?: Date) => void;
 }
 
 const DateTimePicker: React.FC<IDateTimePickerProsp> = ({
   caption,
   date,
+  error,
+  errorMessage,
   onDateChange,
 }) => {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className={styles["DateTimePicker"]}>
         <div className="flex flex-col items-start">
-          {caption && <p className="mb-2 font-medium text-sm">{caption}</p>}
+          {caption && (
+            <p
+              className={classNames(styles["Caption"], {
+                [styles["Caption-Error"]]: error,
+              })}
+            >
+              {caption}
+            </p>
+          )}
           <Button
             variant={"outline"}
             className={cn(
@@ -33,6 +46,9 @@ const DateTimePicker: React.FC<IDateTimePickerProsp> = ({
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date ? format(date, "PPP HH:mm:ss") : <span>Pick a date</span>}
           </Button>
+          {errorMessage && error && (
+            <p className={styles["ErrorMessage"]}>{errorMessage}</p>
+          )}
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
