@@ -69,7 +69,12 @@ const ReservationView = () => {
       </p>
       <div className="flex flex-col gap-8 w-full mt-4">
         <DateTimePicker caption="Zarezerwuj stolik na" {...reservation} />
-        <TextInput caption="Liczba osób" captionTop {...numberOfPeople} />
+        <TextInput
+          caption="Liczba osób"
+          captionTop
+          {...numberOfPeople}
+          numeric
+        />
         <TextInput caption="Telefon" captionTop {...phone} />
         <TextInput caption="E-mail" captionTop {...email} />
         <TextInput caption="Imię i nazwisko" captionTop {...name} />

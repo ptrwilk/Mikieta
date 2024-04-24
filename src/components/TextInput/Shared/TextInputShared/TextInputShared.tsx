@@ -13,6 +13,7 @@ interface ITextInputSharedProps {
   error?: boolean;
   errorMessage?: string;
   star?: boolean;
+  numeric?: boolean;
   onValueChange?: (value: string | undefined) => void;
   onBlur?: () => void;
   onFocus?: () => void;
@@ -30,6 +31,7 @@ const TextInputShared: React.FC<ITextInputSharedProps> = ({
   error,
   errorMessage,
   star,
+  numeric,
   onValueChange,
   onBlur,
   onFocus,
@@ -55,6 +57,7 @@ const TextInputShared: React.FC<ITextInputSharedProps> = ({
         {star && <span className={styles["Star"]}>*</span>}
       </p>
       <Input
+        type={numeric ? "number" : "text"}
         value={value ?? ""}
         placeholder={placeholder}
         onChange={(e) => onValueChange?.(e.target.value as string)}
