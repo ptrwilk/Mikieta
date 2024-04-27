@@ -62,6 +62,30 @@
   background: transparent;
 }
 
+.BasketModalView .BasketInfo {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: start;
+}
+
+.BasketModalView .BasketInfo .Products {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.BasketModalView .EmptyBasketInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 40px 0px;
+  font-weight: 700;
+  color: var(--color-sixth);
+}
+
 @media (max-width: 650px) {
   .BasketModalView {
     width: 100vw;

@@ -58,6 +58,11 @@ export enum PaymentMethod {
   GooglePay = "GooglePay",
 }
 
+export enum DeliveryTimingOption {
+  RightAway = "RightAway",
+  HourSelection = "HourSelection",
+}
+
 export const translateProductType = (productType: ProductType): string => {
   switch (productType) {
     case ProductType.PizzaSmall:
