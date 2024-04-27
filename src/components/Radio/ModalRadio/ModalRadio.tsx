@@ -48,7 +48,15 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
               border && (error || errorValues?.some((x) => x === option.value)),
           })}
         >
-          <RadioGroupItem value={option.value} id={`radio-${option.value}`} />
+          <RadioGroupItem
+            value={option.value}
+            id={`radio-${option.value}`}
+            className={classNames({
+              [styles["RadioItem-Error"]]:
+                !border &&
+                (error || errorValues?.some((x) => x === option.value)),
+            })}
+          />
           <span>{option.label}</span>
           {option.child && selectedValue === option.value && (
             <div className={styles["Child"]}>{option.child}</div>

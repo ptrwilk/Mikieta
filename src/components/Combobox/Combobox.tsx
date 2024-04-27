@@ -21,10 +21,12 @@ type ComboboxModel = {
 };
 
 interface IComboboxProps {
-  options: ComboboxModel[];
+  options?: ComboboxModel[];
   className?: string;
   value?: string;
   caption?: string;
+  error?: boolean;
+  errorMessage?: string;
   onChange?: (value: string) => void;
 }
 
@@ -33,32 +35,49 @@ export const Combobox: React.FC<IComboboxProps> = ({
   options,
   value,
   caption,
+  error,
+  errorMessage,
   onChange,
 }) => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <div className={classNames(className, styles["Combobox"])}>
-      {caption && <p className={styles["Caption"]}>{caption}</p>}
+      {caption && (
+        <p
+          className={classNames(styles["Caption"], {
+            [styles["Caption-Error"]]: error,
+          })}
+        >
+          {caption}
+        </p>
+      )}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between"
+            className={classNames(
+              styles["Button"],
+              { [styles["Button-Error"]]: error && !caption },
+              "w-full justify-between"
+            )}
           >
             {value
-              ? options.find((option) => option.value === value)?.value
+              ? options?.find((option) => option.value === value)?.value
               : "..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
+        {errorMessage && (
+          <p className={styles["ErrorMessage"]}>{errorMessage}</p>
+        )}
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandGroup>
               <CommandList>
-                {options.map((option) => (
+                {options?.map((option) => (
                   <CommandItem
                     key={option.value}
                     value={option.value}

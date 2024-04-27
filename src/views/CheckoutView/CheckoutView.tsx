@@ -44,7 +44,7 @@ const CheckoutView = () => {
 
   const REQUIRED_VALUE = "wartość wymagana";
 
-  const openingHours = useCombobox(comboBoxOpeningHours);
+  const openingHours = useCombobox([], comboBoxOpeningHours);
   const deliveryTiming = useRadio(
     [
       {

@@ -17,14 +17,10 @@ export const useInput = (
   };
 
   const checkError = (): boolean => {
-    if (!error) {
-      const { error: e, errorMessage } = validate(value, validators);
-      updateError(e, errorMessage);
+    const { error: e, errorMessage } = validate(value, validators);
+    updateError(e, errorMessage);
 
-      return e;
-    }
-
-    return error;
+    return e;
   };
 
   const handleValueChange = (value?: string) => {
