@@ -67,7 +67,13 @@ const CheckoutView = () => {
         child: <Combobox {...openingHours} />,
       },
     ],
-    openingHours.value
+    openingHours.value,
+    app?.order.deliveryTiming,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        deliveryTiming: value as any,
+      })
   );
 
   const deliveryMethod = useRadio(
@@ -90,7 +96,14 @@ const CheckoutView = () => {
         label: "Zjem na miejscu",
         value: DeliveryMethod.DinningIn,
       },
-    ]
+    ],
+    undefined,
+    app!.order.deliveryMethod,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        deliveryMethod: value as any,
+      })
   );
 
   const [paymentSwitched, setPaymentSwitched] = useState(true);
@@ -110,29 +123,70 @@ const CheckoutView = () => {
         label: "Google Pay",
         value: PaymentMethod.GooglePay,
       },
-    ]
+    ],
+    undefined,
+    app!.order.paymentMethod,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        paymentMethod: value as any,
+      })
   );
 
-  const street = useInput([
-    {
-      validate: (value) => !!value,
-      errorMessage: REQUIRED_VALUE,
-    },
-  ]);
-  const homeNumber = useInput([
-    {
-      validate: (value) => !!value,
-      errorMessage: REQUIRED_VALUE,
-    },
-  ]);
-  const city = useInput([
-    {
-      validate: (value) => !!value,
-      errorMessage: REQUIRED_VALUE,
-    },
-  ]);
-  const flatNumber = useInput();
-  const floor = useInput();
+  const street = useInput(
+    [
+      {
+        validate: (value) => !!value,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    app!.order.street,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        street: value,
+      })
+  );
+  const houseNumber = useInput(
+    [
+      {
+        validate: (value) => !!value,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    app!.order.houseNumber,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        houseNumber: value,
+      })
+  );
+  const city = useInput(
+    [
+      {
+        validate: (value) => !!value,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    app!.order.deliveryCity,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        deliveryCity: value,
+      })
+  );
+  const flatNumber = useInput([], app!.order.flatNumber, (value) =>
+    updateApp("order", {
+      ...app!.order,
+      flatNumber: value,
+    })
+  );
+  const floor = useInput([], app!.order.floor, (value) =>
+    updateApp("order", {
+      ...app!.order,
+      floor: value,
+    })
+  );
 
   const name = useInput(
     [
@@ -145,7 +199,7 @@ const CheckoutView = () => {
         errorMessage: "jest nieprawidłowe",
       },
     ],
-    app!.order.person.name,
+    app!.order.person?.name,
     (value) =>
       updateApp("order", { person: { ...app!.order.person, name: value } })
   );
@@ -161,7 +215,7 @@ const CheckoutView = () => {
         errorMessage: "nieprawidłowy format numeru telefonu",
       },
     ],
-    app!.order.person.phone,
+    app!.order.person?.phone,
     (value) =>
       updateApp("order", { person: { ...app!.order.person, phone: value } })
   );
@@ -177,18 +231,31 @@ const CheckoutView = () => {
         errorMessage: "nieprawidłowy format adresu email",
       },
     ],
-    app!.order.person.email,
+    app!.order.person?.email,
     (value) =>
       updateApp("order", { person: { ...app!.order.person, email: value } })
   );
 
-  const invoiceNeeded = useCheckbox();
-  const nip = useInput([
-    {
-      validate: (value) => !!value,
-      errorMessage: REQUIRED_VALUE,
-    },
-  ]);
+  const invoiceNeeded = useCheckbox([], app!.order.invoiceNeeded, (value) =>
+    updateApp("order", {
+      ...app!.order,
+      invoiceNeeded: value,
+    })
+  );
+  const nip = useInput(
+    [
+      {
+        validate: (value) => !!value,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    app!.order.nip,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        nip: value,
+      })
+  );
 
   const rules = useCheckbox([
     {
@@ -219,7 +286,7 @@ const CheckoutView = () => {
       rules,
     ];
 
-    const residence = [street, homeNumber, city];
+    const residence = [street, houseNumber, city];
 
     if (
       [
@@ -258,7 +325,7 @@ const CheckoutView = () => {
         email: email.value,
         nip: nip.value,
         street: street.value,
-        homeNumber: homeNumber.value,
+        homeNumber: houseNumber.value,
         city: city.value,
         flatNumber: flatNumber.value,
         floor: floor.value,
@@ -312,7 +379,7 @@ const CheckoutView = () => {
                   caption="Numer domu"
                   captionTop
                   star
-                  {...homeNumber}
+                  {...houseNumber}
                 />
               </div>
               <TextInput caption="Miasto" captionTop star {...city} />

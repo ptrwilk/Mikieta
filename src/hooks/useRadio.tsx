@@ -12,7 +12,8 @@ export const useRadio = (
   validators?: Validator<string | undefined>[],
   options?: RadioModel[],
   valueChangeTrigger?: any,
-  defaultValue?: string
+  defaultValue?: string,
+  valueChangeCallback?: (value: string | undefined) => void
 ) => {
   const [value, setValue] = useState<string | undefined>(defaultValue);
   const [error, setError] = useState<boolean>();
@@ -54,6 +55,7 @@ export const useRadio = (
 
     updateError(error, errorMessage, errorValues);
     setValue(value);
+    valueChangeCallback?.(value);
   };
 
   return {

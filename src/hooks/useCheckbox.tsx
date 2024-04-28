@@ -2,8 +2,12 @@ import { useState } from "react";
 import { validate } from "./helpers";
 import { Validator } from "./types";
 
-export const useCheckbox = (validators?: Validator<boolean | undefined>[]) => {
-  const [checked, setChecked] = useState<boolean | undefined>(false);
+export const useCheckbox = (
+  validators?: Validator<boolean | undefined>[],
+  defaultValue?: boolean,
+  valueChangeCallback?: (value: boolean | undefined) => void
+) => {
+  const [checked, setChecked] = useState<boolean | undefined>(defaultValue);
   const [error, setError] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
@@ -17,6 +21,7 @@ export const useCheckbox = (validators?: Validator<boolean | undefined>[]) => {
 
     updateError(error, errorMessage);
     setChecked(checked);
+    valueChangeCallback?.(checked);
   };
 
   const handleCheckError = () => {
