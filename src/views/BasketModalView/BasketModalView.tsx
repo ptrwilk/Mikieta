@@ -38,9 +38,15 @@ const BasketModalView: FC = () => {
     [
       { value: DeliveryTimingOption.RightAway, label: "Jak najszybciej" },
       { value: DeliveryTimingOption.HourSelection, label: "Na godzinę..." },
-    ]
+    ],
+    undefined,
+    app!.order.deliveryTiming,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        deliveryTiming: value as any,
+      })
   );
-
   const deliveryMethod = useRadio(
     [
       {
@@ -52,7 +58,14 @@ const BasketModalView: FC = () => {
       { value: DeliveryMethod.Delivery, label: "Dostawa" },
       { value: DeliveryMethod.TakeAway, label: "Odbiór własny" },
       { value: DeliveryMethod.DinningIn, label: "Zjem na miejscu" },
-    ]
+    ],
+    undefined,
+    app!.order.deliveryMethod,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        deliveryMethod: value as any,
+      })
   );
 
   const openingHours = useCombobox(
@@ -64,24 +77,46 @@ const BasketModalView: FC = () => {
         errorMessage: REQUIRED_VALUE,
       },
     ],
-    comboBoxOpeningHours
+    comboBoxOpeningHours,
+    app!.order.openingHour,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        openingHour: value,
+      })
   );
 
-  const street = useInput([
-    {
-      validate: (value) =>
-        !!value || deliveryMethod.selectedValue !== DeliveryMethod.Delivery,
-      errorMessage: REQUIRED_VALUE,
-    },
-  ]);
+  const street = useInput(
+    [
+      {
+        validate: (value) =>
+          !!value || deliveryMethod.selectedValue !== DeliveryMethod.Delivery,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    app!.order.street,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        street: value,
+      })
+  );
 
-  const houseNumber = useInput([
-    {
-      validate: (value) =>
-        !!value || deliveryMethod.selectedValue !== DeliveryMethod.Delivery,
-      errorMessage: REQUIRED_VALUE,
-    },
-  ]);
+  const houseNumber = useInput(
+    [
+      {
+        validate: (value) =>
+          !!value || deliveryMethod.selectedValue !== DeliveryMethod.Delivery,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    app!.order.houseNumber,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        houseNumber: value,
+      })
+  );
 
   const deliveryCities = useCombobox(
     [
@@ -95,7 +130,13 @@ const BasketModalView: FC = () => {
       { value: "Czerwionka", label: "Czerwionka" },
       { value: "Leszczyny", label: "Leszczyny" },
       { value: "Rybnik", label: "Rybnik" },
-    ]
+    ],
+    app!.order.deliveryCity,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        deliveryCity: value,
+      })
   );
 
   const [isBasketEmpty, setIsBasketEmpty] = useState(true);

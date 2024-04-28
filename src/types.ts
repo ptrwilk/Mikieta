@@ -10,7 +10,18 @@ export type PizzaModel = {
 };
 
 export type OrderModel = {
-  person: PersonModel;
+  person?: PersonModel;
+  deliveryTiming?: DeliveryTimingOption;
+  deliveryMethod?: DeliveryMethod;
+  paymentMethod?: PaymentMethod;
+  openingHour?: string;
+  street?: string;
+  houseNumber?: string;
+  deliveryCity?: string;
+  flatNumber?: string;
+  floor?: string;
+  invoiceNeeded?: boolean;
+  nip?: string;
 };
 
 export type PersonModel = {

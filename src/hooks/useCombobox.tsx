@@ -10,7 +10,8 @@ type ComboboxModel = {
 export const useCombobox = (
   validators?: Validator<string | undefined>[],
   options?: ComboboxModel[],
-  defaultValue?: string
+  defaultValue?: string,
+  valueChangeCallback?: (value: string | undefined) => void
 ) => {
   const [value, setValue] = useState<string | undefined>(defaultValue);
   const [error, setError] = useState<boolean>();
@@ -32,6 +33,7 @@ export const useCombobox = (
 
     updateError(error, errorMessage);
     setValue(value);
+    valueChangeCallback?.(value);
   };
 
   return {
