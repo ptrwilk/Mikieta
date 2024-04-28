@@ -15,7 +15,7 @@ const Header: React.FC<IHeaderProps> = ({
       <p className={styles.Logo}>LOGO</p>
       <ul>
         <li>
-          <p>Start</p>
+          <a href="/">Start</a>
         </li>
         <li>
           <a href="/menu">Menu</a>
