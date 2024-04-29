@@ -9,6 +9,8 @@ import styles from "./ReservationView.module.css";
 import { useDateTimePicker, useInput, useTextArea } from "@/hooks";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { validateEmail, validatePhone } from "@/hooks/types";
+import { post } from "@/apihelper";
+import { ReservationRequestModel } from "@/types";
 
 const ReservationView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
@@ -56,13 +58,20 @@ const ReservationView = () => {
   ]);
   const comments = useTextArea();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     const inputs = [reservation, numberOfPeople, phone, email, name];
 
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
       //error
     } else {
-      //success
+      await post("reservation", {
+        reservationDate: reservation.date,
+        email: email.value,
+        name: name.value,
+        numberOfPeople: +numberOfPeople.value!,
+        phone: phone.value,
+        comments: comments.value,
+      } as ReservationRequestModel);
     }
   };
 
