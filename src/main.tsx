@@ -13,6 +13,7 @@ import { CheckoutView } from "./views/CheckoutView/CheckoutView.tsx";
 import { ReservationView } from "./views/ReservationView/ReservationView.tsx";
 import { ContactView } from "./views/ContactView/ContactView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
+import { OrderView } from "./views/OrderView/OrderView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ const router = createBrowserRouter([
       </Layout>
     ),
     path: "/dostawa",
+  },
+  {
+    element: (
+      <Layout name="Zamówienie">
+        <OrderView />
+      </Layout>
+    ),
+    path: "/zamowienie/:zamowienieId",
   },
 ]);
 

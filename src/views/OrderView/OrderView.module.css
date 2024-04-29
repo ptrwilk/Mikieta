@@ -1,0 +1,31 @@
+.OrderView {
+  padding: 6rem 3rem;
+}
+
+.OrderView .Thanks h2 {
+  text-align: center;
+}
+
+.OrderView .Thanks p {
+  margin-top: 1rem;
+  font-size: 28px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-black);
+}
+
+.OrderView .Status-Title {
+  margin-top: 4rem;
+}
+
+.OrderView .Status-Title .Hr {
+  margin-top: 1rem;
+  border: 1px solid #d3d3d3;
+}
+
+.OrderView .Statuses {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
