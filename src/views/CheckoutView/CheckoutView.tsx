@@ -25,6 +25,7 @@ import { useMediaQuery } from "react-responsive";
 import { DeliveryMethod, OrderRequestModel, PaymentMethod } from "@/types";
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
+import { useNavigate } from "react-router-dom";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -33,6 +34,8 @@ enum DeliveryTimingOption {
 
 const CheckoutView = () => {
   const [app, updateApp] = useAppContext();
+
+  const navigate = useNavigate();
 
   const isSmall = useMediaQuery({
     query: "(min-width: 650px)",
@@ -303,7 +306,7 @@ const CheckoutView = () => {
     } else {
       setShowErrorMessage(false);
 
-      await post("order", {
+      const response = await post("order", {
         productIds: app!.basket.map((x) => x.id),
         deliveryTiming:
           deliveryTiming.selectedValue === DeliveryTimingOption.HourSelection
@@ -338,7 +341,9 @@ const CheckoutView = () => {
             : null,
       } as OrderRequestModel);
 
-      console.log("succcess");
+      const number = await response.json();
+
+      navigate(`/zamowienie/${number}`);
     }
   };
 
