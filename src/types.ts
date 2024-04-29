@@ -49,6 +49,15 @@ export type OrderRequestModel = {
   processingPersonalData?: { email?: boolean; sms?: boolean };
 };
 
+export type ReservationRequestModel = {
+  reservationDate: Date;
+  numberOfPeople: number;
+  phone: string;
+  email: string;
+  name: string;
+  comments?: string;
+};
+
 export enum ProductType {
   PizzaSmall,
   PizzaMedium,
