@@ -49,7 +49,7 @@ const FooterView = () => {
           <div className={styles["Separator"]} />
           <a href="">Zgody marketingowe</a>
           <div className={styles["Separator"]} />
-          <a href="">Panel Restauratora</a>
+          <a href={import.meta.env.VITE_ADMIN_PANEL_URL}>Panel Restauratora</a>
         </div>
       </div>
     </div>
