@@ -3,9 +3,13 @@ import styles from "./FooterView.module.css";
 import { FaFacebookF } from "react-icons/fa";
 import classNames from "classnames";
 
-const FooterView = () => {
+interface IFooterViewProps {
+  className?: string;
+}
+
+const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
   return (
-    <div className={styles["FooterView"]} id="contact">
+    <div className={classNames(className, styles["FooterView"])} id="contact">
       <ul>
         <li className={styles["Logo"]}>
           <p>Logo</p>

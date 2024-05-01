@@ -56,7 +56,9 @@ const ContactView = () => {
             }
             content={
               <Accordeon
-                trigger={<DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />}
+                trigger={() => (
+                  <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
+                )}
                 content={
                   <>
                     <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
@@ -81,7 +83,9 @@ const ContactView = () => {
             }
             content={
               <Accordeon
-                trigger={<DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />}
+                trigger={() => (
+                  <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
+                )}
                 content={
                   <>
                     <DayHourSpan text="Wtorek" from="11:00" to="23:00" />

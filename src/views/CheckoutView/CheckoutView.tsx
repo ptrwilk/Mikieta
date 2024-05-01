@@ -388,7 +388,7 @@ const CheckoutView = () => {
                 />
               </div>
               <TextInput caption="Miasto" captionTop star {...city} />
-              <div className="grid grid-cols-2 gap-8">
+              <div className={styles["Content-1"]}>
                 <TextInput
                   caption="Numer mieszkania"
                   captionTop

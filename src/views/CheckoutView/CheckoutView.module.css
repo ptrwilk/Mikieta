@@ -21,7 +21,10 @@
   color: var(--color-secondary);
 }
 
-.CheckoutView .ContentForm {
+.CheckoutView .ContentForm .Content-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
 .CheckoutView .ContentBasket {
@@ -72,5 +75,11 @@
 
   .CheckoutView .ContentForm {
     order: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .CheckoutView .ContentForm .Content-1 {
+    grid-template-columns: 1fr;
   }
 }

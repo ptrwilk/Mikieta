@@ -1,5 +1,5 @@
 .OrderView {
-  padding: 6rem 3rem;
+  padding: 6rem 1rem;
 }
 
 .OrderView .Thanks h2 {
@@ -28,4 +28,18 @@
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
+}
+
+@media (max-width: 500px) {
+  .OrderView .Thanks h2 {
+    font-size: 40px;
+  }
+
+  .OrderView .Thanks p {
+    font-size: 20px;
+  }
+
+  .OrderView .Status-Title h3 {
+    font-size: 30px;
+  }
 }

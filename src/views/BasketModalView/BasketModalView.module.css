@@ -86,13 +86,42 @@
   color: var(--color-sixth);
 }
 
+.BasketModalView .Delivery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.BasketModalView .DeliveryCities {
+  grid-column: 1 / span 3;
+}
+
+.BasketModalView .Street {
+  grid-column: 1 / span 2;
+}
+
 @media (max-width: 650px) {
   .BasketModalView {
     width: 100vw;
     height: 100vh;
   }
+
   .BasketModalView img {
     width: 0;
+  }
+}
+
+@media (max-width: 475px) {
+  .BasketModalView .Delivery {
+    grid-template-columns: 1fr;
+  }
+
+  .BasketModalView .DeliveryCities {
+    grid-column: 1;
+  }
+
+  .BasketModalView .Street {
+    grid-column: 1;
   }
 }
 

@@ -16,14 +16,14 @@ const SubHeader: React.FC<ISubHeaderProps> = ({
   return (
     <div className={styles["SubHeader"]}>
       {header && <p className={styles["Header"]}>{header}</p>}
-      <h3 className="font-medium">{title}</h3>
+      <h3 className="font-medium text-center">{title}</h3>
       <Underline
         className={classNames(
           { "mt-4": description },
           { "mt-2": !description }
         )}
       />
-      {description && <p className="mt-3">{description}</p>}
+      {description && <p className="mt-3 text-center">{description}</p>}
     </div>
   );
 };

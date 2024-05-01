@@ -1,6 +1,6 @@
 .MenuView {
   display: grid;
-  padding: 6rem 3rem;
+  padding: 6rem 1rem;
 }
 
 .MenuView .Tabs {

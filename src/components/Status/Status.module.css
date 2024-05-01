@@ -4,6 +4,7 @@
 }
 
 .Status .Content .Line {
+  flex-shrink: 0;
   width: 8px;
   height: 100px;
   background: #d3d3d3;
@@ -11,6 +12,7 @@
 }
 
 .Status .Content .Rectangle {
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,22 +36,22 @@
   color: white;
 }
 
-.Status .Text-Content {
+.Status {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.Status .Text-Content p {
+.Status p {
   color: black;
 }
 
-.Status .Text-Content .Title {
+.Status .Title {
   font-size: 28px;
   font-weight: 700;
 }
 
-.Status .Text-Content .Text {
+.Status .Text {
   font-size: 20px;
 }
 

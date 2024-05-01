@@ -1,41 +1,44 @@
-.Button{
-    display: flex;
-    justify-content: center;
-    padding: var(--p-0_5) var(--p-1);
-    border : 0;
-    background: var(--color-secondary);
-    color: var(--color-primary);
-    text-transform: uppercase;
-    cursor: pointer;
+.Button {
+  display: flex;
+  justify-content: center;
+  padding: var(--p-0_5) var(--p-1);
+  border: 0;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.Button.Button-light{
-    background: transparent;
-    border: 1px solid var(--color-primary);
+.Button.Button-light {
+  background: transparent;
+  border: 1px solid var(--color-primary);
 }
 
-.Button.Button-tab{
-    background: #F8F8F8;
-    color: var(--color-black);
+.Button.Button-tab {
+  background: #f8f8f8;
+  color: var(--color-black);
 }
 
-.Button.Button-icon{
-    background: transparent;
-    color: var(--color-black);
-    padding: 0;
+.Button.Button-icon {
+  background: transparent;
+  color: var(--color-black);
+  padding: 0;
 }
 
-.Button.Button-huge{
-    padding: 1rem 2rem;
+.Button.Button-huge {
+  padding: 1rem 2rem;
 }
 
-.Button.Button-light2{
-    background: transparent;
-    border: 1px solid var(--color-black);
-    color: var(--color-black);
+.Button.Button-light2 {
+  background: transparent;
+  color: var(--color-primary);
 }
 
-.Button.Button-disabled{
-    opacity: 0.3;
-    cursor: not-allowed;
+.Button.Button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.Button.Button-Border {
+  border: 2px solid var(--color-primary);
 }

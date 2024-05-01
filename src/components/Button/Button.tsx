@@ -12,6 +12,7 @@ interface IButtonProps {
   light?: boolean;
   to?: string;
   disabled?: boolean;
+  border?: boolean;
   onClick?: () => void;
 }
 
@@ -25,6 +26,7 @@ const Button: React.FC<IButtonProps> = ({
   huge = false,
   light = false,
   disabled = false,
+  border = false,
   to,
 }) => {
   const navigate = useNavigate();
@@ -48,6 +50,7 @@ const Button: React.FC<IButtonProps> = ({
         //TODO: refactor this
         [styles["Button-light2"]]: light,
         [styles["Button-disabled"]]: disabled,
+        [styles["Button-Border"]]: border,
       })}
     >
       {children}

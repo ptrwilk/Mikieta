@@ -15,9 +15,9 @@ interface ILayoutProps {
 
 const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Header style={{ marginTop: "3rem" }} orderButtonVisible={false} />
-      <Hero small>
+      <Hero className="flex-shrink-0" small>
         <div className="flex flex-col justify-end items-center h-full pb-8">
           <TitleBreadcrumbBar
             title={name}
@@ -35,7 +35,7 @@ const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
       </Hero>
       {children}
       {basketVisible && <FloatingBasketButton />}
-      <FooterView />
+      <FooterView className="mt-auto" />
       <BasketModalView />
     </div>
   );
