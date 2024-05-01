@@ -4,14 +4,17 @@ import { Button, Underline } from "..";
 import classNames from "classnames";
 
 interface IHeroProps {
+  className?: string;
   small?: boolean;
   children?: any;
 }
 
-const Hero: React.FC<IHeroProps> = ({ small = false, children }) => {
+const Hero: React.FC<IHeroProps> = ({ className, small = false, children }) => {
   return (
     <div
-      className={classNames(styles["Hero"], { [styles["Hero-Small"]]: small })}
+      className={classNames(className, styles["Hero"], {
+        [styles["Hero-Small"]]: small,
+      })}
     >
       <img src={pizza} alt="Hero" />
       <div className={styles["Background"]} />

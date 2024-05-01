@@ -10,3 +10,9 @@
   color: var(--color-secondary);
   text-align: center;
 }
+
+@media (max-width: 530px) {
+  .SubHeader h3 {
+    font-size: 30px;
+  }
+}

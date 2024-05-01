@@ -248,14 +248,14 @@ const BasketModalView: FC = () => {
               <p className="mt-4 text-base">Sposób realizacji:</p>
               <ModalRadio {...deliveryMethod} />
               {deliveryMethod.selectedValue === DeliveryMethod.Delivery && (
-                <div className="grid grid-cols-3 gap-6">
+                <div className={styles["Delivery"]}>
                   <Combobox
-                    className="col-span-3"
+                    className={styles["DeliveryCities"]}
                     caption="Miejscowość"
                     {...deliveryCities}
                   />
                   <TextInput
-                    className="col-span-2"
+                    className={styles["Street"]}
                     caption="Ulica"
                     placeholder="Twoja ulica..."
                     {...street}

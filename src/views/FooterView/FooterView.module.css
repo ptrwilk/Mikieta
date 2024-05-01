@@ -2,14 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 0 2rem;
-  margin-top: 10rem;
+  padding: 4rem 2rem 2rem;
   background: var(--color-fifth);
 }
 
 .FooterView ul {
-  display: flex;
-  gap: 12rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .FooterView ul .Logo {
@@ -68,7 +67,7 @@
 }
 
 .FooterView .Bottom {
-  width: 1200px;
+  width: 100%;
 }
 
 .FooterView .Bottom .Hr {
@@ -79,6 +78,7 @@
 
 .FooterView .Bottom .Text {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1rem;
 }
@@ -97,4 +97,18 @@
 .FooterView .Bottom .Text a:hover {
   text-decoration: underline;
   color: var(--color-secondary);
+}
+
+@media (max-width: 930px) {
+  .FooterView ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .FooterView ul {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }

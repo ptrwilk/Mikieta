@@ -17,11 +17,13 @@ const Status: React.FC<IStatusProps> = ({ title, text, number, selected }) => {
         })}
       >
         <div className={styles["Line"]} />
-        <div className={styles["Rectangle"]}>
-          <p>{number}</p>
-        </div>
-        <div className={styles["Text-Content"]}>
-          <p className={styles["Title"]}>{title}</p>
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-4">
+            <div className={styles["Rectangle"]}>
+              <p>{number}</p>
+            </div>
+            <p className={styles["Title"]}>{title}</p>
+          </div>
           <p className={styles["Text"]}>{text}</p>
         </div>
       </div>

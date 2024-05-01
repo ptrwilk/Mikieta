@@ -50,7 +50,9 @@ const AboutUsView = () => {
             icon={<MdAccessTime size={100} />}
             content={
               <Accordeon
-                trigger={<DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />}
+                trigger={() => (
+                  <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
+                )}
                 content={
                   <>
                     <DayHourSpan text="Wtorek" from="11:00" to="23:00" />

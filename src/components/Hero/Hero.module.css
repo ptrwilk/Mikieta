@@ -58,3 +58,29 @@
 .Hero .Content .Button {
   margin-top: 1rem;
 }
+
+@media (max-width: 768px) {
+  .Hero .Text {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Hero .Text {
+    font-size: 40px;
+  }
+
+  .Hero h1 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 530px) {
+  .Hero .Text {
+    font-size: 25px;
+  }
+
+  .Hero h1 {
+    font-size: 30px;
+  }
+}

@@ -1,35 +1,51 @@
-.Header{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--p-1) var(--p-3);
-    max-width: 1440px;
-    margin: auto;
-    margin-top: 10rem;
-    z-index: 1;
+.Header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  max-width: 1440px;
+  margin: auto;
+  margin-top: 10rem;
+  z-index: 1;
 }
 
-.Header ul{
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    gap: var(--p-2);
+.Header .Items {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  gap: var(--p-2);
+  flex-wrap: wrap;
+  padding: 0 3rem;
 }
 
-.Header .Logo{
-    font-weight: var(--fw-9);
+.Header .Logo {
+  font-weight: var(--fw-9);
 }
 
-.Header p, .Header a{
-    color: var(--color-primary);
-    text-transform: uppercase;
-    cursor: pointer;
+.Header p,
+.Header a {
+  color: var(--color-primary);
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.Header p:hover, .Header a:hover{
-    color: var(--color-secondary);
+.Header p:hover,
+.Header a:hover {
+  color: var(--color-secondary);
+}
+
+.Header .Button {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .Header {
+    padding: 1rem 1rem;
+    margin-top: 2rem;
+  }
 }

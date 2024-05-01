@@ -1,6 +1,6 @@
 .DeliveryView {
-  width: 800px;
-  padding: 10rem 3rem;
+  padding: 6rem 1rem;
+  max-width: 800px;
 }
 
 .DeliveryView .Form {
@@ -16,4 +16,14 @@
 
 .DeliveryView .Button {
   margin-top: 2rem;
+}
+
+@media (max-width: 450px) {
+  .DeliveryView .Form {
+    grid-template-columns: 1fr;
+  }
+
+  .DeliveryView .Form .City {
+    grid-column: 1;
+  }
 }

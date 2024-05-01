@@ -1,5 +1,5 @@
 .ContactView {
-  padding: 6rem 3rem;
+  padding: 6rem 1rem;
 }
 
 .ContactView .Items {
@@ -34,4 +34,17 @@
 .ContactView .Map iframe {
   width: 100%;
   margin-top: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .ContactView .Items {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .ContactView .Items {
+    grid-template-columns: 1fr;
+  }
 }

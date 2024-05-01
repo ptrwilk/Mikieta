@@ -5,15 +5,11 @@ import { FooterView } from "./views/FooterView/FooterView";
 
 function App() {
   return (
-    <div
-      style={{
-        margin: "auto",
-      }}
-    >
+    <div style={{}}>
       <Header />
       <Hero />
       <AboutUsView />
-      <div className="flex flex-col gap-12 mt-24">
+      <div className="flex flex-col gap-12 mt-24 mb-24">
         <SubHeader
           header="Masz pytania?"
           title="SKONTAKTUJ SIĘ Z NAMI"

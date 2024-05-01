@@ -34,15 +34,17 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
     <div className={styles["MenuItem"]}>
       <img src={pizza} />
       <div className={styles["Content"]}>
-        <p className={styles["Title"]}>{name}</p>
-        <p className={styles["Ingredients"]}>{ingredients?.join(", ")}</p>
+        <div className={styles["Content-Text"]}>
+          <p className={styles["Title"]}>{name}</p>
+          <p className={styles["Ingredients"]}>{ingredients?.join(", ")}</p>
+        </div>
+        <ButtonShop
+          className={styles["Button"]}
+          price={price}
+          onClick={handlePizzaClick}
+          amount={app!.basket.find((x) => x.id === product.id)?.quantity}
+        />
       </div>
-      <ButtonShop
-        className={styles["Button"]}
-        price={price}
-        onClick={handlePizzaClick}
-        amount={app!.basket.find((x) => x.id === product.id)?.quantity}
-      />
     </div>
   );
 };
