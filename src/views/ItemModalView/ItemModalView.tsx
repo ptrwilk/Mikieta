@@ -1,11 +1,5 @@
 import { FaWindowClose } from "react-icons/fa";
-import {
-  BasketInfo,
-  Counter,
-  Button,
-  IDeliveryFormPropsRef,
-  Modal,
-} from "../../components";
+import { BasketInfo, Counter, Button, Modal } from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./ItemModalView.module.css";
 import { FC, useEffect, useRef, useState } from "react";
@@ -17,7 +11,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
   const [app, updateApp] = useAppContext();
 
   const closeModal = () => {
-    updateApp("itemModalOpen", false);
+    updateApp({ itemModalOpen: false });
   };
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -47,12 +41,8 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
     };
   }, []);
 
-  //const { name, ingredients, quantity, price } = app!.itemSelected;
-  const name = "Pizza";
-  const ingredients = ["Pepperoni", "Mozzarella", "Tomato", "Oregano"];
-  const quantity = 2;
-  const price = 20;
-
+  const { name, ingredients, price, id } = app!.itemSelected;
+  const quantity = app!.basket.find((x) => x.id === id)?.quantity;
   function onRemoveItem(): void {
     throw new Error("Function not implemented.");
   }
@@ -62,7 +52,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
   }
 
   return (
-    <Modal open={true} onClose={closeModal}>
+    <Modal open={app!.itemModalOpen} onClose={closeModal}>
       <div className={styles["ItemModalView"]}>
         <div className={styles["Content"]}>
           <Button onClick={closeModal} className={styles["CloseButton"]}>
@@ -91,7 +81,9 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
               onMinusClick={onRemoveItem}
               onPlusClick={onAddItem}
             />
-            <Button>Dodaj do koszyka {quantity * price}</Button>
+            <Button>
+              Dodaj do koszyka {quantity ? quantity * price : price}
+            </Button>
           </div>
         </div>
       </div>

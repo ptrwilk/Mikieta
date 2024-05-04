@@ -10,13 +10,7 @@ type AppState = {
 };
 
 const AppContext = createContext<
-  [
-    AppState | null,
-    updateState: <K extends keyof AppState>(
-      stateKey: K,
-      newValue: AppState[K]
-    ) => void
-  ]
+  [AppState | null, (updates: Partial<AppState>) => void]
 >([null, () => {}]);
 
 export const useAppContext = () => useContext(AppContext);
@@ -32,21 +26,23 @@ export const AppContextProvider = ({ children }: { children: any }) => {
     itemModalOpen: false,
   });
 
-  const updateState = <K extends keyof AppState>(
-    stateKey: K,
-    newValue: AppState[K]
-  ) => {
-    if (stateKey === "basket") {
-      localStorage.setItem("basket", JSON.stringify(newValue));
+  const updateState = (updates: Partial<AppState>) => {
+    const newState = { ...state, ...updates };
+
+    if (updates.basket !== undefined) {
+      localStorage.setItem("basket", JSON.stringify(newState.basket));
     }
-    if (stateKey === "order") {
-      localStorage.setItem("order", JSON.stringify(newValue));
+    if (updates.order !== undefined) {
+      localStorage.setItem("order", JSON.stringify(newState.order));
     }
-    if (stateKey === "itemSelected") {
-      localStorage.setItem("itemSelected", JSON.stringify(newValue));
+    if (updates.itemSelected !== undefined) {
+      localStorage.setItem(
+        "itemSelected",
+        JSON.stringify(newState.itemSelected)
+      );
     }
 
-    setState({ ...state, [stateKey]: newValue });
+    setState(newState);
   };
 
   return (

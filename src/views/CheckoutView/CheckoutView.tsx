@@ -73,9 +73,11 @@ const CheckoutView = () => {
     openingHours.value,
     app?.order.deliveryTiming,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryTiming: value as any,
+      updateApp({
+        order: {
+          ...app!.order,
+          deliveryTiming: value as any,
+        },
       })
   );
 
@@ -103,9 +105,11 @@ const CheckoutView = () => {
     undefined,
     app!.order.deliveryMethod,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryMethod: value as any,
+      updateApp({
+        order: {
+          ...app!.order,
+          deliveryMethod: value as any,
+        },
       })
   );
 
@@ -130,9 +134,11 @@ const CheckoutView = () => {
     undefined,
     app!.order.paymentMethod,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        paymentMethod: value as any,
+      updateApp({
+        order: {
+          ...app!.order,
+          paymentMethod: value as any,
+        },
       })
   );
 
@@ -145,9 +151,11 @@ const CheckoutView = () => {
     ],
     app!.order.street,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        street: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          street: value,
+        },
       })
   );
   const houseNumber = useInput(
@@ -159,9 +167,11 @@ const CheckoutView = () => {
     ],
     app!.order.houseNumber,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        houseNumber: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          houseNumber: value,
+        },
       })
   );
   const city = useInput(
@@ -173,21 +183,27 @@ const CheckoutView = () => {
     ],
     app!.order.deliveryCity,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryCity: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          deliveryCity: value,
+        },
       })
   );
   const flatNumber = useInput([], app!.order.flatNumber, (value) =>
-    updateApp("order", {
-      ...app!.order,
-      flatNumber: value,
+    updateApp({
+      order: {
+        ...app!.order,
+        flatNumber: value,
+      },
     })
   );
   const floor = useInput([], app!.order.floor, (value) =>
-    updateApp("order", {
-      ...app!.order,
-      floor: value,
+    updateApp({
+      order: {
+        ...app!.order,
+        floor: value,
+      },
     })
   );
 
@@ -204,7 +220,7 @@ const CheckoutView = () => {
     ],
     app!.order.person?.name,
     (value) =>
-      updateApp("order", { person: { ...app!.order.person, name: value } })
+      updateApp({ order: { person: { ...app!.order.person, name: value } } })
   );
 
   const phone = useInput(
@@ -220,7 +236,7 @@ const CheckoutView = () => {
     ],
     app!.order.person?.phone,
     (value) =>
-      updateApp("order", { person: { ...app!.order.person, phone: value } })
+      updateApp({ order: { person: { ...app!.order.person, phone: value } } })
   );
 
   const email = useInput(
@@ -236,13 +252,15 @@ const CheckoutView = () => {
     ],
     app!.order.person?.email,
     (value) =>
-      updateApp("order", { person: { ...app!.order.person, email: value } })
+      updateApp({ order: { person: { ...app!.order.person, email: value } } })
   );
 
   const invoiceNeeded = useCheckbox([], app!.order.invoiceNeeded, (value) =>
-    updateApp("order", {
-      ...app!.order,
-      invoiceNeeded: value,
+    updateApp({
+      order: {
+        ...app!.order,
+        invoiceNeeded: value,
+      },
     })
   );
   const nip = useInput(
@@ -254,9 +272,11 @@ const CheckoutView = () => {
     ],
     app!.order.nip,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        nip: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          nip: value,
+        },
       })
   );
 

@@ -12,22 +12,26 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
   const [app, updateApp] = useAppContext();
   const { name, ingredients, price } = product;
   const handlePizzaClick = () => {
-    const existingPizza = app!.basket.find(
-      (item) =>
-        //TODO: Change it to Id
-        item.name === product.name && item.productType === product.productType
-    );
+    // const existingPizza = app!.basket.find(
+    //   (item) =>
+    //     //TODO: Change it to Id
+    //     item.name === product.name && item.productType === product.productType
+    // );
 
-    const updatedBasket = existingPizza
-      ? app!.basket.map((item) =>
-          //TODO: Change it to Id
-          item.name === product.name
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      : [...app!.basket, { ...product, quantity: 1 }];
+    // const updatedBasket = existingPizza
+    //   ? app!.basket.map((item) =>
+    //       //TODO: Change it to Id
+    //       item.name === product.name
+    //         ? { ...item, quantity: item.quantity + 1 }
+    //         : item
+    //     )
+    //   : [...app!.basket, { ...product, quantity: 1 }];
 
-    updateApp("basket", updatedBasket);
+    updateApp({
+      itemModalOpen: true,
+      itemSelected: product,
+    });
+    //updateApp("basket", updatedBasket);
     //updateApp("itemModalOpen", true);
     // updateApp("itemSelected", product);
   };

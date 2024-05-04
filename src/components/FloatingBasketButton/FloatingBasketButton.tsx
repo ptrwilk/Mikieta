@@ -48,7 +48,7 @@ const FloatingBasketButton = () => {
   }, [app?.basketModalOpen]);
 
   function showBasket(): void {
-    updateApp("basketModalOpen", true);
+    updateApp({ basketModalOpen: true });
   }
 
   return (

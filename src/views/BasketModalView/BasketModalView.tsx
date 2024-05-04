@@ -42,9 +42,11 @@ const BasketModalView: FC = () => {
     undefined,
     app!.order.deliveryTiming,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryTiming: value as any,
+      updateApp({
+        order: {
+          ...app!.order,
+          deliveryTiming: value as any,
+        },
       })
   );
   const deliveryMethod = useRadio(
@@ -62,9 +64,11 @@ const BasketModalView: FC = () => {
     undefined,
     app!.order.deliveryMethod,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryMethod: value as any,
+      updateApp({
+        order: {
+          ...app!.order,
+          deliveryMethod: value as any,
+        },
       })
   );
 
@@ -80,9 +84,11 @@ const BasketModalView: FC = () => {
     comboBoxOpeningHours,
     app!.order.openingHour,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        openingHour: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          openingHour: value,
+        },
       })
   );
 
@@ -96,9 +102,11 @@ const BasketModalView: FC = () => {
     ],
     app!.order.street,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        street: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          street: value,
+        },
       })
   );
 
@@ -112,9 +120,11 @@ const BasketModalView: FC = () => {
     ],
     app!.order.houseNumber,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        houseNumber: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          houseNumber: value,
+        },
       })
   );
 
@@ -133,9 +143,11 @@ const BasketModalView: FC = () => {
     ],
     app!.order.deliveryCity,
     (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryCity: value,
+      updateApp({
+        order: {
+          ...app!.order,
+          deliveryCity: value,
+        },
       })
   );
 
@@ -146,11 +158,11 @@ const BasketModalView: FC = () => {
   }, [app?.basket.length]);
 
   const closeModal = () => {
-    updateApp("basketModalOpen", false);
+    updateApp({ basketModalOpen: false });
   };
 
   const handleClearBasket = () => {
-    updateApp("basket", []);
+    updateApp({ basket: [] });
   };
 
   const addItem = (name: string, productType: ProductType) => {
@@ -161,7 +173,7 @@ const BasketModalView: FC = () => {
       return item;
     });
 
-    updateApp("basket", updatedBasket);
+    updateApp({ basket: updatedBasket });
   };
 
   const removeItem = (name: string, productType: ProductType) => {
@@ -176,7 +188,7 @@ const BasketModalView: FC = () => {
       return basket;
     }, []);
 
-    updateApp("basket", updatedBasket);
+    updateApp({ basket: updatedBasket });
   };
 
   const handleConfirm = () => {
@@ -283,7 +295,6 @@ const BasketModalView: FC = () => {
                   totalPayment + item.quantity * item.price,
                 0
               )}
-              {" zł"}
             </Button>
           </div>
         </div>
