@@ -18,7 +18,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
         item.name === product.name && item.productType === product.productType
     );
 
-    const updatedBasked = existingPizza
+    const updatedBasket = existingPizza
       ? app!.basket.map((item) =>
           //TODO: Change it to Id
           item.name === product.name
@@ -27,7 +27,9 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
         )
       : [...app!.basket, { ...product, quantity: 1 }];
 
-    updateApp("basket", updatedBasked);
+    updateApp("basket", updatedBasket);
+    //updateApp("itemModalOpen", true);
+    // updateApp("itemSelected", product);
   };
 
   return (

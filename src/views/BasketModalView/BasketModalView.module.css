@@ -38,14 +38,11 @@
 
 .BasketModalView .Buttons {
   display: flex;
-  padding: 1rem;
-}
-
-.BasketModalView .Buttons {
-  display: flex;
   justify-content: space-between;
   gap: 1rem;
   margin-top: auto;
+  align-items: center;
+  padding: 1rem;
 }
 
 .BasketModalView .Buttons button {

@@ -1,0 +1,112 @@
+.ItemModalView {
+  display: flex;
+  width: 30vw;
+  max-width: 800px;
+  height: 90vh;
+}
+
+.ItemModalView img {
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.ItemModalView .Content {
+  margin-top: 10px;
+  gap: 1rem;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.FixedHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  font-weight: 600;
+}
+
+.CloseButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  background: transparent;
+}
+
+.FixedHeader.Visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ItemModalView .ScrollableContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-right: 4px;
+}
+.ItemModalView .ScrollableContent::-webkit-scrollbar {
+  width: 3px;
+}
+
+.ItemModalView .ScrollableContent::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+.ItemModalView .Ingredients {
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+}
+.ItemModalView .Items {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.ItemModalView .ItemInfo {
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ItemModalView .Buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.ItemModalView .Buttons button {
+  font-size: 12px;
+  flex: 1;
+  white-space: nowrap;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+  .ItemModalView {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 650px) {
+  .ItemModalView {
+    width: 100vw;
+    height: 100vh;
+  }
+  .ItemModalView img {
+    width: 0;
+  }
+}

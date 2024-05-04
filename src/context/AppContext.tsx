@@ -5,6 +5,8 @@ type AppState = {
   basket: PizzaModel[];
   order: OrderModel;
   basketModalOpen: boolean;
+  itemSelected: PizzaModel;
+  itemModalOpen: boolean;
 };
 
 const AppContext = createContext<
@@ -26,6 +28,8 @@ export const AppContextProvider = ({ children }: { children: any }) => {
       person: {},
     },
     basketModalOpen: false,
+    itemSelected: parse(localStorage.getItem("itemSelected")),
+    itemModalOpen: false,
   });
 
   const updateState = <K extends keyof AppState>(
@@ -38,6 +42,10 @@ export const AppContextProvider = ({ children }: { children: any }) => {
     if (stateKey === "order") {
       localStorage.setItem("order", JSON.stringify(newValue));
     }
+    if (stateKey === "itemSelected") {
+      localStorage.setItem("itemSelected", JSON.stringify(newValue));
+    }
+
     setState({ ...state, [stateKey]: newValue });
   };
 

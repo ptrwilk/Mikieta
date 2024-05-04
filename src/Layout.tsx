@@ -5,6 +5,8 @@ import {
   TitleBreadcrumbBar,
 } from "./components";
 import { BasketModalView } from "./views/BasketModalView/BasketModalView";
+import { ItemModalView } from "./views/ItemModalView/ItemModalView";
+import { MenuView } from "./views/MenuView/MenuView";
 import { FooterView } from "./views/FooterView/FooterView";
 
 interface ILayoutProps {
@@ -37,6 +39,7 @@ const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
       {basketVisible && <FloatingBasketButton />}
       <FooterView className="mt-auto" />
       <BasketModalView />
+      <ItemModalView />
     </div>
   );
 };
