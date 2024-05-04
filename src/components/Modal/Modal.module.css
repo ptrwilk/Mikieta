@@ -15,7 +15,15 @@
 .Modal .Content {
   position: relative;
   display: flex;
+  border-radius: 7px;
   padding: 0.05%;
   margin: 0 auto;
   background-color: var(--color-primary);
+  overflow: hidden;
+}
+
+@media (max-width: 650px) {
+  .Modal .Content {
+    border-radius: 0px;
+  }
 }
