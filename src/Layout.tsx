@@ -1,11 +1,15 @@
+import { useMediaQuery } from "react-responsive";
 import {
   FloatingBasketButton,
   Header,
   Hero,
+  Logo,
+  Section,
   TitleBreadcrumbBar,
 } from "./components";
 import { BasketModalView } from "./views/BasketModalView/BasketModalView";
 import { FooterView } from "./views/FooterView/FooterView";
+import classNames from "classnames";
 
 interface ILayoutProps {
   children: any;
@@ -14,24 +18,36 @@ interface ILayoutProps {
 }
 
 const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
+  const isMobile = useMediaQuery({ maxWidth: 800 });
+
   return (
     <div className="flex flex-col h-screen">
-      <Header style={{ marginTop: "3rem" }} orderButtonVisible={false} />
       <Hero className="flex-shrink-0" small>
-        <div className="flex flex-col justify-end items-center h-full pb-8">
-          <TitleBreadcrumbBar
-            title={name}
-            items={[
-              {
-                text: "Start",
-                link: "/",
-              },
-              {
-                text: name,
-              },
-            ]}
+        <Section className="px-4 h-full">
+          <Logo
+            className={classNames(
+              "absolute",
+              { "my-16": !isMobile },
+              { "my-8": isMobile }
+            )}
+            small={isMobile}
           />
-        </div>
+          <div className="flex flex-col justify-center items-center h-full">
+            <Header className={classNames({ "self-end": isMobile })} />
+            <TitleBreadcrumbBar
+              title={name}
+              items={[
+                {
+                  text: "Start",
+                  link: "/",
+                },
+                {
+                  text: name,
+                },
+              ]}
+            />
+          </div>
+        </Section>
       </Hero>
       {children}
       {basketVisible && <FloatingBasketButton />}

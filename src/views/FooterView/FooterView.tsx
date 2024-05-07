@@ -1,4 +1,4 @@
-import { Button } from "../../components";
+import { Button, Logo } from "../../components";
 import styles from "./FooterView.module.css";
 import { FaFacebookF } from "react-icons/fa";
 import classNames from "classnames";
@@ -12,7 +12,7 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
     <div className={classNames(className, styles["FooterView"])} id="contact">
       <ul>
         <li className={styles["Logo"]}>
-          <p>Logo</p>
+          <Logo />
         </li>
         <li>
           <div className={classNames(styles["Content"], styles["Content-2"])}>
