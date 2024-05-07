@@ -3,19 +3,17 @@ import { Button, Drawer, ListItem } from "..";
 import styles from "./Header.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useLocation } from "react-router-dom";
+import classNames from "classnames";
 
 interface IHeaderProps {
+  className?: string;
   style?: any;
-  orderButtonVisible?: boolean;
 }
 
-const Header: React.FC<IHeaderProps> = ({
-  style,
-  orderButtonVisible = true,
-}) => {
+const Header: React.FC<IHeaderProps> = ({ className, style }) => {
   const { pathname } = useLocation();
 
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isMobile = useMediaQuery({ maxWidth: 800 });
 
   const items = [
     { text: "Start", path: "/" },
@@ -27,8 +25,7 @@ const Header: React.FC<IHeaderProps> = ({
 
   return (
     <>
-      <div className={styles.Header} style={style}>
-        <p className={styles.Logo}>LOGO</p>
+      <div className={classNames(styles["Header"], className)} style={style}>
         {isMobile && (
           <Drawer
             trigger={
@@ -57,18 +54,13 @@ const Header: React.FC<IHeaderProps> = ({
         )}
         {!isMobile && (
           <>
-            <ul className={styles["Items"]}>
+            <ul className={classNames(styles["Items"])}>
               {items.map(({ path, text }, key) => (
                 <li key={key}>
                   <a href={path}>{text}</a>
                 </li>
               ))}
             </ul>
-            {orderButtonVisible && (
-              <Button className={styles["Button"]} huge to="/menu">
-                Zamów online
-              </Button>
-            )}
           </>
         )}
       </div>

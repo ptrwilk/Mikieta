@@ -15,11 +15,6 @@
   align-self: center;
 }
 
-.FooterView ul .Logo p {
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
 .FooterView ul .Content p {
   color: var(--color-sixth);
 }

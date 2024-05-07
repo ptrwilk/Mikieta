@@ -6,6 +6,7 @@ import {
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 import styles from "./TitleBreadcrumbBar.module.css";
+import classNames from "classnames";
 
 type BreadcrumbModel = {
   text: string;
@@ -13,16 +14,18 @@ type BreadcrumbModel = {
 };
 
 interface ITitleBreadcrumbBarProps {
+  className?: string;
   title: string;
   items: BreadcrumbModel[];
 }
 
 const TitleBreadcrumbBar: React.FC<ITitleBreadcrumbBarProps> = ({
+  className,
   title,
   items,
 }) => {
   return (
-    <div className={styles["TitleBreadcrumbBar"]}>
+    <div className={classNames(styles["TitleBreadcrumbBar"], className)}>
       <h2>{title}</h2>
       <Breadcrumb className={styles["Breadcrumb"]}>
         {items.map(({ text, link }, key) => (
