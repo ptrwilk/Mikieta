@@ -1,6 +1,6 @@
 const token = () => localStorage.getItem("token");
 
-const url = "http://localhost:5105";
+const url = import.meta.env.VITE_API_URL;
 
 export const get = (path: string) => {
   return fetch(`${url}/${path}`, {

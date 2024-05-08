@@ -14,6 +14,7 @@ import { ReservationView } from "./views/ReservationView/ReservationView.tsx";
 import { ContactView } from "./views/ContactView/ContactView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
 import { OrderView } from "./views/OrderView/OrderView.tsx";
+import { get } from "./apihelper.tsx";
 
 const router = createBrowserRouter([
   {
@@ -40,9 +41,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     path: "/menu",
-    loader: () => {
-      return fetch("http://localhost:5105/menu");
-    },
+    loader: () => get("menu"),
   },
   {
     element: (
