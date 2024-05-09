@@ -1,6 +1,7 @@
 import styles from "./Logo.module.css";
 import logo from "../../assets/images/miketalogo.png";
 import classNames from "classnames";
+import { NavLink } from "react-router-dom";
 
 interface ILogoProps {
   className?: string;
@@ -16,9 +17,9 @@ const Logo: React.FC<ILogoProps> = ({ className, small }) => {
         className
       )}
     >
-      <a href="">
+      <NavLink to="/">
         <img src={logo} />
-      </a>
+      </NavLink>
     </div>
   );
 };
