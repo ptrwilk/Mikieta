@@ -307,7 +307,10 @@ const CheckoutView = () => {
       setShowErrorMessage(false);
 
       const response = await post("order", {
-        productIds: app!.basket.map((x) => x.id),
+        productQuantities: app!.basket.map((x) => ({
+          productId: x.id,
+          quantity: x.quantity,
+        })),
         deliveryTiming:
           deliveryTiming.selectedValue === DeliveryTimingOption.HourSelection
             ? convertTimeToDate(openingHours.value)

@@ -30,8 +30,13 @@ export type PersonModel = {
   email?: string;
 };
 
+export type ProductQuantityModel = {
+  productId: number;
+  quantity: number;
+};
+
 export type OrderRequestModel = {
-  productIds: number[];
+  productQuantities: ProductQuantityModel[];
   deliveryTiming?: Date;
   deliveryRightAway?: boolean;
   deliveryMethod: DeliveryMethod;
