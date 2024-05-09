@@ -30,7 +30,7 @@ import {
 } from "@/types";
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -484,9 +484,14 @@ const CheckoutView = () => {
             <Checkbox {...rules}>
               <p>
                 Potwierdzam zapoznanie się z treścią{" "}
-                <a className={styles["Link"]}>Regulaminu</a> oraz{" "}
-                <a className={styles["Link"]}>Polityki prywatności</a>.
-                <span className={styles["Star"]}>*</span>
+                <NavLink className={styles["Link"]} to="">
+                  Regulaminu
+                </NavLink>{" "}
+                oraz{" "}
+                <NavLink className={styles["Link"]} to="">
+                  Polityki prywatności
+                </NavLink>
+                .<span className={styles["Star"]}>*</span>
               </p>
             </Checkbox>
             <Checkbox
@@ -500,9 +505,9 @@ const CheckoutView = () => {
                 (opcjonalnie) Zgadzam się na przetwarzanie moich danych
                 osobowych w celu marketingu produktów i usług własnych oraz
                 podmiotów współpracujących.{" "}
-                <a className={styles["Link"]}>
+                <NavLink className={styles["Link"]} to="">
                   Pokaż informacje o przetwarzaniu
-                </a>
+                </NavLink>
                 .
               </p>
             </Checkbox>

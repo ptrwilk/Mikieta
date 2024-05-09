@@ -2,6 +2,7 @@ import { Button, Logo } from "../../components";
 import styles from "./FooterView.module.css";
 import { FaFacebookF } from "react-icons/fa";
 import classNames from "classnames";
+import { NavLink } from "react-router-dom";
 
 interface IFooterViewProps {
   className?: string;
@@ -19,7 +20,7 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
             <p>Jakaś 2/4, 44-123 Zabrze</p>
             <p>Telefon: 333 111 222</p>
             <p className={styles["Location"]}>
-              <a href="">Mapa dojazdu</a>
+              <NavLink to="">Mapa dojazdu</NavLink>
             </p>
           </div>
         </li>
@@ -28,9 +29,9 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
             <p>Obserwuj nas na:</p>
             <ul>
               <li>
-                <a href="">
+                <NavLink to="">
                   <FaFacebookF />
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -47,13 +48,15 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
       <div className={styles["Bottom"]}>
         <div className={styles["Hr"]} />
         <div className={styles["Text"]}>
-          <a href="">Regulamin</a>
+          <NavLink to="">Regulamin</NavLink>
           <div className={styles["Separator"]} />
-          <a href="">Polityka prywatności</a>
+          <NavLink to="">Polityka prywatności</NavLink>
           <div className={styles["Separator"]} />
-          <a href="">Zgody marketingowe</a>
+          <NavLink to="">Zgody marketingowe</NavLink>
           <div className={styles["Separator"]} />
-          <a href={import.meta.env.VITE_ADMIN_PANEL_URL}>Panel Restauratora</a>
+          <NavLink to={import.meta.env.VITE_ADMIN_PANEL_URL}>
+            Panel Restauratora
+          </NavLink>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useMediaQuery } from "react-responsive";
 import { Button, Drawer, ListItem } from "..";
 import styles from "./Header.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
 
 interface IHeaderProps {
@@ -57,7 +57,7 @@ const Header: React.FC<IHeaderProps> = ({ className, style }) => {
             <ul className={classNames(styles["Items"])}>
               {items.map(({ path, text }, key) => (
                 <li key={key}>
-                  <a href={path}>{text}</a>
+                  <NavLink to={path}>{text}</NavLink>
                 </li>
               ))}
             </ul>

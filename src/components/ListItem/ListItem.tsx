@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styles from "./ListItem.module.css";
+import { NavLink } from "react-router-dom";
 
 interface IListItemProps {
   text?: string;
@@ -14,9 +15,9 @@ const ListItem: React.FC<IListItemProps> = ({ text, path, selected }) => {
         [styles["ListItem-Selected"]]: selected,
       })}
     >
-      <a className={styles["Text"]} href={path}>
+      <NavLink className={styles["Text"]} to={path!}>
         {text}
-      </a>
+      </NavLink>
     </li>
   );
 };
