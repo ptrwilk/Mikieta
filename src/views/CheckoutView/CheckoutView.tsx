@@ -22,7 +22,12 @@ import { convertTimeToDate, getEnumValue, sum } from "@/helpers";
 import { comboBoxOpeningHours } from "@/const";
 import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
-import { DeliveryMethod, OrderRequestModel, PaymentMethod } from "@/types";
+import {
+  DeliveryMethod,
+  OrderRequestModel,
+  OrderResponseModel,
+  PaymentMethod,
+} from "@/types";
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
 import { useNavigate } from "react-router-dom";
@@ -344,9 +349,9 @@ const CheckoutView = () => {
             : null,
       } as OrderRequestModel);
 
-      const number = await response.json();
+      const res = (await response.json()) as OrderResponseModel;
 
-      navigate(`/zamowienie/${number}`);
+      window.location.replace(res.url);
     }
   };
 

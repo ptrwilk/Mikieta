@@ -63,6 +63,11 @@ export type ReservationRequestModel = {
   comments?: string;
 };
 
+export type OrderResponseModel = {
+  sessionId: string;
+  url: string;
+};
+
 export enum ProductType {
   PizzaSmall,
   PizzaMedium,
