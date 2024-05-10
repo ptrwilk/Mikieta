@@ -1,9 +1,8 @@
 import { FaWindowClose } from "react-icons/fa";
-import { BasketInfo, Counter, Button, Modal } from "../../components";
+import { CarouselComponent, Counter, Button, Modal } from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./ItemModalView.module.css";
-import { FC, useEffect, useRef, useState } from "react";
-import { PizzaModel } from "@/types";
+import { FC, useEffect, useState } from "react";
 
 interface IItemModalViewProps {}
 
@@ -66,7 +65,10 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
             <p>{name}</p>
           </div>
           <div className={styles["ScrollableContent"]}>
-            <img src="https://www.garneczki.pl/blog/wp-content/uploads/2018/09/pizza-po-wiejsku-przepis.jpg" />
+            <img
+              className={styles["ItemImage"]}
+              src="https://www.garneczki.pl/blog/wp-content/uploads/2018/09/pizza-po-wiejsku-przepis.jpg"
+            />
             <div className={styles["Items"]}>
               <div className={styles["ItemInfo"]}>
                 <p className={styles["ItemName"]}>{name}</p>
@@ -74,6 +76,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
               </div>
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
             </div>
+            <CarouselComponent />
           </div>
           <div className={styles["Buttons"]}>
             <Counter

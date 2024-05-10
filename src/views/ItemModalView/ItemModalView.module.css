@@ -5,7 +5,7 @@
   height: 90vh;
 }
 
-.ItemModalView img {
+.ItemModalView .ItemImage {
   height: 100px;
   width: 100px;
   display: block;
@@ -106,7 +106,7 @@
     width: 100vw;
     height: 100vh;
   }
-  .ItemModalView img {
+  .ItemModalView .ItemImage {
     width: 0;
   }
 }

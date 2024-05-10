@@ -10,6 +10,7 @@ export * from "./BasketDrawer/BasketDrawer";
 export * from "./Breadcrumb/Breadcrumb";
 export * from "./OrderList/OrderList";
 export * from "./Contact/Contact";
+export * from "./Carousel/Carousel";
 export * from "./PaymentSummary/PaymentSummary";
 export * from "./PaymentOptions/PaymentOptions";
 export * from "./Radio/SimpleRadio/Radio";

@@ -1,0 +1,18 @@
+.Main {
+  display: flex;
+  flex-direction: column;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.ContactIcon:hover {
+  color: var(--color-primary);
+}
+
+.ContactIcon {
+  color: var(--color-secondary);
+}
