@@ -30,7 +30,7 @@ import {
 } from "@/types";
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -40,11 +40,7 @@ enum DeliveryTimingOption {
 const CheckoutView = () => {
   const [app, updateApp] = useAppContext();
 
-  const navigate = useNavigate();
-
-  const isSmall = useMediaQuery({
-    query: "(min-width: 650px)",
-  });
+  const isSmall = useMediaQuery({ maxWidth: 650 });
 
   const [commentsVisible, setCommentsVisible] = useState(false);
 
@@ -356,10 +352,17 @@ const CheckoutView = () => {
   };
 
   const OrderButton = () => (
-    <Button className="w-full mt-6" huge onClick={handleConfirm}>
-      Zamów i zapłać{" "}
-      {sum(app!.basket.map((x) => x.quantity * x.price)).toFixed(2)} zł
-    </Button>
+    <>
+      {showErrorMessage && (
+        <div className={styles["ErrorMessage"]}>
+          <p>Popraw dane w formularzu!</p>
+        </div>
+      )}
+      <Button className="w-full mt-6" huge onClick={handleConfirm}>
+        Zamów i zapłać{" "}
+        {sum(app!.basket.map((x) => x.quantity * x.price)).toFixed(2)} zł
+      </Button>
+    </>
   );
 
   return (
@@ -519,7 +522,7 @@ const CheckoutView = () => {
             </Checkbox>
           </div>
         </div>
-        {!isSmall && <OrderButton />}
+        {isSmall && <OrderButton />}
       </div>
       <div className={styles["ContentBasket"]}>
         <div className="flex items-center justify-between">
@@ -544,14 +547,9 @@ const CheckoutView = () => {
             </li>
           ))}
         </ul>
-        {isSmall && (
+        {!isSmall && (
           <>
             <hr className="mt-8" />
-            {showErrorMessage && (
-              <div className={styles["ErrorMessage"]}>
-                <p>Popraw dane w formularzu!</p>
-              </div>
-            )}
             <OrderButton />
           </>
         )}
