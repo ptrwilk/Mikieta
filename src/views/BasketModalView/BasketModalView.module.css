@@ -103,7 +103,6 @@
 @media (max-width: 650px) {
   .BasketModalView {
     width: 100vw;
-    height: 100vh;
   }
 
   .BasketModalView img {
