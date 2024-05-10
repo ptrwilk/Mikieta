@@ -536,7 +536,9 @@ const CheckoutView = () => {
       <div className={styles["ContentBasket"]}>
         <div className="flex items-center justify-between">
           <h4>Koszyk</h4>
-          <p className={styles["Change"]}>(Zmień)</p>
+          <NavLink className={styles["Change"]} to="/menu">
+            (Zmień)
+          </NavLink>
         </div>
         {app!.basket.length === 0 && (
           <div className="flex justify-center items-center gap-2 mt-12">
