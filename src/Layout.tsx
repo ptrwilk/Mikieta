@@ -10,6 +10,8 @@ import {
 import { BasketModalView } from "./views/BasketModalView/BasketModalView";
 import { FooterView } from "./views/FooterView/FooterView";
 import classNames from "classnames";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 interface ILayoutProps {
   children: any;
@@ -19,6 +21,12 @@ interface ILayoutProps {
 
 const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
   const isMobile = useMediaQuery({ maxWidth: 800 });
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="flex flex-col h-screen">
