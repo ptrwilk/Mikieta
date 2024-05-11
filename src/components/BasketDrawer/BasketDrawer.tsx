@@ -4,25 +4,22 @@ import pizza3 from "../../assets/images/pizza3.webp";
 import { PizzaModel } from "../../types";
 import { sum } from "../../helpers";
 import { FaChevronRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 interface IBasketDrawerProps {
   items?: PizzaModel[];
-  open?: boolean;
   onClose?: () => void;
   onRemove?: (index: number) => void;
   onMoveToOrderClick?: () => void;
 }
 
 const BasketDrawer: React.FC<IBasketDrawerProps> = ({
-  open,
   items = [],
   onClose,
   onRemove,
   onMoveToOrderClick,
 }) => {
   return (
-    <Drawer open={open}>
+    <Drawer>
       <div className={styles["BasketDrawer"]}>
         <div className={styles["Content"]}>
           <Button className={styles["Btn-Arrow"]} icon onClick={onClose}>

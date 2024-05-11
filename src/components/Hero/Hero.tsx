@@ -1,6 +1,5 @@
 import styles from "./Hero.module.css";
 import pizza from "../../assets/pizza1.jpg";
-import { Button, Title, Underline } from "..";
 import classNames from "classnames";
 
 interface IHeroProps {

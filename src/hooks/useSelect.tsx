@@ -9,7 +9,7 @@ export const useSelect = (validators?: Validator<SelectionOption>[]) => {
 
   const checkError = (): boolean => {
     if (!error) {
-      const e = validate(value, validators);
+      const { error: e } = validate(value, validators);
       setError(e);
 
       return e;
@@ -19,7 +19,7 @@ export const useSelect = (validators?: Validator<SelectionOption>[]) => {
   };
 
   const handleValueChange = (value?: SelectionOption) => {
-    const error = validate(value, validators);
+    const { error } = validate(value, validators);
 
     setError(error);
     setValue(value);

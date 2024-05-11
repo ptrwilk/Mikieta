@@ -4,9 +4,7 @@ import { useAppContext } from "../../context/AppContext";
 const BasketDrawerView = () => {
   const [app, updateApp] = useAppContext();
 
-  const closeDrawer = () => {
-    updateApp("basketDrawerOpen", false);
-  };
+  const closeDrawer = () => {};
 
   const handleRemove = (index: number) => {
     updateApp(
@@ -17,7 +15,6 @@ const BasketDrawerView = () => {
 
   return (
     <BasketDrawer
-      open={app?.basketModalOpen}
       onClose={closeDrawer}
       onRemove={handleRemove}
       onMoveToOrderClick={closeDrawer}

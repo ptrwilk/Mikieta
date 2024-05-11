@@ -22,7 +22,6 @@ interface ITextInputSharedProps {
 }
 
 const TextInputShared: React.FC<ITextInputSharedProps> = ({
-  children,
   className,
   placeholder,
   caption,
