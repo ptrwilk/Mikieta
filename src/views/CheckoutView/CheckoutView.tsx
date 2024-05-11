@@ -356,7 +356,9 @@ const CheckoutView = () => {
 
       const res = (await response.json()) as OrderResponseModel;
 
-      window.location.replace(res.url);
+      if (res && res.url) {
+        window.location.replace(res.url);
+      }
     }
   };
 
