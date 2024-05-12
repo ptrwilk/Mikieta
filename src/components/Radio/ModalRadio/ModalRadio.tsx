@@ -3,7 +3,12 @@ import styles from "./ModalRadio.module.css";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface ModalRadioProps {
-  options?: Array<{ value: string; label: string; child?: any }>;
+  options?: Array<{
+    value: string;
+    label: string;
+    child?: any;
+    description?: string;
+  }>;
   selectedValue: any;
   border?: boolean;
   caption?: string;
@@ -57,7 +62,12 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
                 (error || errorValues?.some((x) => x === option.value)),
             })}
           />
-          <span>{option.label}</span>
+          <div className="relative">
+            <span>{option.label}</span>
+            <p className="absolute font-light text-xs bottom-[-15px]">
+              {option.description}
+            </p>
+          </div>
           {option.child && selectedValue === option.value && (
             <div className={styles["Child"]}>{option.child}</div>
           )}

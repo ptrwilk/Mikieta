@@ -6,6 +6,7 @@ type RadioModel = {
   value: string;
   label: string;
   child?: any;
+  description?: string;
 };
 
 export const useRadio = (

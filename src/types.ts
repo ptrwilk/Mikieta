@@ -84,8 +84,8 @@ export enum DeliveryMethod {
 }
 
 export enum PaymentMethod {
-  Blik = "Blik",
-  GooglePay = "GooglePay",
+  Transfer = "Transfer",
+  Cash = "Cash",
 }
 
 export enum DeliveryTimingOption {
