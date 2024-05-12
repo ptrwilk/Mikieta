@@ -129,12 +129,13 @@ const CheckoutView = () => {
     ],
     [
       {
-        label: "Blik",
-        value: PaymentMethod.Blik,
+        label: "Przelew",
+        value: PaymentMethod.Transfer,
+        description: "Blik, Karta, Przelewy24, PayPal",
       },
       {
-        label: "Google Pay",
-        value: PaymentMethod.GooglePay,
+        label: "Gotówka",
+        value: PaymentMethod.Cash,
       },
     ],
     undefined,
@@ -442,9 +443,9 @@ const CheckoutView = () => {
             captionHuge
             content={
               <p>
-                {paymentMethod.selectedValue === PaymentMethod.Blik
-                  ? "Blik"
-                  : "Google Pay"}
+                {paymentMethod.selectedValue === PaymentMethod.Transfer
+                  ? "Przelew"
+                  : "Gotówka"}
               </p>
             }
             onSwitchChange={() => setPaymentSwitched((prev) => !prev)}
