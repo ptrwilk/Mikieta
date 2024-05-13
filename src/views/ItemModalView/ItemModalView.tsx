@@ -75,8 +75,27 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
                 <p>{price}</p>
               </div>
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
             </div>
-            <CarouselComponent />
+            <CarouselComponent slides={[1, 2, 3, 4, 5]} />
           </div>
           <div className={styles["Buttons"]}>
             <Counter
