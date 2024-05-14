@@ -2,7 +2,7 @@ import { FaWindowClose } from "react-icons/fa";
 import { CarouselComponent, Counter, Button, Modal } from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./ItemModalView.module.css";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 
 interface IItemModalViewProps {}
 
@@ -13,32 +13,29 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
     updateApp({ itemModalOpen: false });
   };
   const [isScrolled, setIsScrolled] = useState(false);
+  const scrollableContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollableContent = document.querySelector(
-        `.${styles["ScrollableContent"]}`
-      );
-      if (scrollableContent) {
-        const scrollTop = scrollableContent.scrollTop;
-        setIsScrolled(scrollTop > 70);
-        console.log("scrolling");
-      }
-    };
+    if (app?.itemModalOpen) {
+      const handleScroll = () => {
+        if (scrollableContentRef.current) {
+          const scrollTop = scrollableContentRef.current.scrollTop;
+          setIsScrolled(scrollTop > 70);
+        }
+      };
 
-    const scrollableContent = document.querySelector(
-      `.${styles["ScrollableContent"]}`
-    );
-    if (scrollableContent) {
-      scrollableContent.addEventListener("scroll", handleScroll);
+      const scrollableContent = scrollableContentRef.current;
+      if (scrollableContent) {
+        scrollableContent.addEventListener("scroll", handleScroll);
+      }
+
+      return () => {
+        if (scrollableContent) {
+          scrollableContent.removeEventListener("scroll", handleScroll);
+        }
+      };
     }
-
-    return () => {
-      if (scrollableContent) {
-        scrollableContent.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
+  }, [app?.itemModalOpen]);
 
   const { name, ingredients, price, id } = app!.itemSelected;
   const quantity = app!.basket.find((x) => x.id === id)?.quantity;
@@ -64,7 +61,10 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
           >
             <p>{name}</p>
           </div>
-          <div className={styles["ScrollableContent"]}>
+          <div
+            className={styles["ScrollableContent"]}
+            ref={scrollableContentRef}
+          >
             <img
               className={styles["ItemImage"]}
               src="https://www.garneczki.pl/blog/wp-content/uploads/2018/09/pizza-po-wiejsku-przepis.jpg"
