@@ -87,19 +87,19 @@ const CarouselComponent: React.FC<PropType> = (props) => {
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
   return (
-    <div className={styles["embla"]}>
-      <div className={styles["embla__controls"]}>
-        <div className={styles["embla__buttons"]}>
+    <div className={styles["Carousel"]}>
+      <div className={styles["Controls"]}>
+        <div className={styles["Buttons"]}>
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
       </div>
-      <div className={styles["embla__viewport"]} ref={emblaRef}>
-        <div className={styles["embla__container"]}>
+      <div className={styles["Viewport"]} ref={emblaRef}>
+        <div className={styles["Container"]}>
           {slides.map((index) => (
-            <div className={styles["embla__slide"]} key={index}>
+            <div className={styles["Slide"]} key={index}>
               <img
-                className={styles["embla__slide__img"]}
+                className={styles["Image"]}
                 src={`https://picsum.photos/600/350?v=${index}`}
                 alt="Your alt text"
               />

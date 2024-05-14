@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import styles from "./CarouselButtons.module.css";
 
 type PropType = PropsWithChildren<
   React.DetailedHTMLProps<
@@ -14,11 +15,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
   return (
     <button
       type="button"
-      className={`rounded-3xl ${
-        disabled
-          ? "text-muted"
-          : "text-secondary hover:bg-destructive hover:text-white duration-200 delay-80 "
-      }`}
+      className={styles["CarouselButton"]}
       disabled={disabled}
       onClick={onClick}
     >
@@ -35,11 +32,7 @@ export const NextButton: React.FC<PropType> = (props) => {
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-3xl ${
-        disabled
-          ? "text-muted"
-          : "text-secondary hover:bg-destructive hover:text-white duration-200 delay-80 "
-      }`}
+      className={styles["CarouselButton"]}
     >
       <FaAngleRight size={25} />
     </button>

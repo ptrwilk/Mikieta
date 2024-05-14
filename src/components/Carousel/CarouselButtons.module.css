@@ -1,0 +1,25 @@
+.CarouselButton {
+  border-radius: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+}
+
+.CarouselButton:not(:disabled):hover {
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  transition-duration: 200ms;
+  transition-delay: 80ms;
+}
+
+.CarouselButton:disabled {
+  background-color: var(--color-fourth);
+  color: var(--color-sixth);
+  border: 2px solid var(--color-fourth);
+}
+.Buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  margin: 10px;
+}
