@@ -5,7 +5,8 @@
   background-color: var(--color-fourth);
   border-radius: 5px;
   column-gap: 0.8rem;
-  width: fit-content;
+
+  justify-content: space-between;
 }
 
 .Counter button {
