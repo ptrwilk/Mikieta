@@ -68,6 +68,17 @@ export type OrderResponseModel = {
   url: string;
 };
 
+export type OrderStatusModel = {
+  status: OrderStatusType;
+  deliveryAt: Date;
+};
+
+export enum OrderStatusType {
+  Waiting,
+  Preparing,
+  Ready,
+}
+
 export enum ProductType {
   PizzaSmall,
   PizzaMedium,
