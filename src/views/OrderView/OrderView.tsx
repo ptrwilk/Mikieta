@@ -1,11 +1,11 @@
 import { Section, Status } from "@/components";
 import styles from "./OrderView.module.css";
-import { useSignalR } from "@/hooks";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { OrderStatusModel, OrderStatusType } from "@/types";
 import { get } from "@/apihelper";
 import { format } from "date-fns";
+import { useSignalR } from "ptrwilk-packages";
 
 const OrderView = () => {
   const { zamowienieId } = useParams();
@@ -20,9 +20,20 @@ const OrderView = () => {
     setStatus(model);
   };
 
-  useSignalR(+zamowienieId!, () => {
-    updateStatus();
-  });
+  useSignalR(
+    {
+      url: `${import.meta.env.VITE_API_URL}/messageHub`,
+      invoke: { methodName: "Join", args: [+zamowienieId!] },
+    },
+    [
+      {
+        methodName: "OrderChanged",
+        callback: () => {
+          updateStatus();
+        },
+      },
+    ]
+  );
 
   useEffect(() => {
     updateStatus();
