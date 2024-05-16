@@ -95,7 +95,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
             </div>
-            <CarouselComponent slides={[1, 2, 3, 4, 5]} />
+            <CarouselComponent />
           </div>
           <div className={styles["Buttons"]}>
             <Counter

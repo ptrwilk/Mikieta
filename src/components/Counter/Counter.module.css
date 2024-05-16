@@ -9,18 +9,10 @@
   justify-content: space-between;
 }
 
-.Counter button {
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  border-radius: 5px;
-}
-
-.Counter .IncreaseButton {
-  background-color: var(--color-eighth);
-  color: var(--color-seventh);
-}
-
 .Counter .DecreaseButton {
   background-color: var(--color-primary);
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  border-radius: 5px;
 }

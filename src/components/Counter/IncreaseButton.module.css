@@ -1,0 +1,8 @@
+.IncreaseButton {
+  background-color: var(--color-eighth) !important;
+  color: var(--color-seventh) !important;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  border-radius: 5px;
+}
