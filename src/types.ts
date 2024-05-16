@@ -64,8 +64,9 @@ export type ReservationRequestModel = {
 };
 
 export type OrderResponseModel = {
-  sessionId: string;
-  url: string;
+  sessionId?: string;
+  url?: string;
+  orderId?: number;
 };
 
 export type OrderStatusModel = {
