@@ -30,7 +30,7 @@ import {
 } from "@/types";
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -39,6 +39,8 @@ enum DeliveryTimingOption {
 
 const CheckoutView = () => {
   const [app, updateApp] = useAppContext();
+
+  const navigate = useNavigate();
 
   const isSmall = useMediaQuery({ maxWidth: 650 });
 
@@ -359,6 +361,8 @@ const CheckoutView = () => {
 
       if (res && res.url) {
         window.location.replace(res.url);
+      } else if (res && res.orderId) {
+        navigate(`/zamowienie/${res.orderId}`);
       }
     }
   };
@@ -371,7 +375,9 @@ const CheckoutView = () => {
         </div>
       )}
       <Button className="w-full mt-6" huge onClick={handleConfirm}>
-        Zamów i zapłać{" "}
+        {app!.order.paymentMethod === PaymentMethod.Transfer
+          ? "Zamów i zapłać"
+          : "Zamów"}{" "}
         {sum(app!.basket.map((x) => x.quantity * x.price)).toFixed(2)} zł
       </Button>
     </>
