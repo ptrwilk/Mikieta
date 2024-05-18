@@ -72,6 +72,7 @@ export type OrderResponseModel = {
 export type OrderStatusModel = {
   status: OrderStatusType;
   deliveryAt: Date;
+  deliveryMethod: DeliveryMethod2;
 };
 
 export enum OrderStatusType {
@@ -89,10 +90,17 @@ export enum ProductType {
   Snack,
 }
 
+//TODO: ujednolicic zmienić ten enum na ponizszy
 export enum DeliveryMethod {
   Delivery = "Delivery",
   TakeAway = "TakeAway",
   DinningIn = "DinningIn",
+}
+
+export enum DeliveryMethod2 {
+  Delivery,
+  TakeAway,
+  DinningIn,
 }
 
 export enum PaymentMethod {
