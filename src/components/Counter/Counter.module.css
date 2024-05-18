@@ -9,6 +9,12 @@
   justify-content: space-between;
 }
 
+.Counter .CounterQuantity {
+  font-size: 10px;
+  width: 0.6rem;
+  text-align: center;
+}
+
 .Counter .DecreaseButton {
   background-color: var(--color-primary);
   width: 25px;

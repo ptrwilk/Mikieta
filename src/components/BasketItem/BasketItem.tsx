@@ -25,7 +25,7 @@ const BasketItem: React.FC<IBasketItemProps> = ({
       <div className={styles["Right"]}>
         <p className={styles["Price"]}>{price! * quantity!} zł</p>
         <Counter
-          number={quantity}
+          quantity={quantity}
           onMinusClick={onRemoveItem}
           onPlusClick={onAddItem}
         />
