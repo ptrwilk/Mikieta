@@ -7,3 +7,27 @@
   padding: 6rem 1rem;
   max-width: 800px;
 }
+
+.ReservationView-Thanks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem 1rem;
+}
+
+.ReservationView-Thanks p {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .ReservationView-Thanks h2 {
+    font-size: 40px;
+  }
+
+  .ReservationView-Thanks p {
+    font-size: 20px;
+  }
+}
