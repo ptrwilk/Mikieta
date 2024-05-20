@@ -1,7 +1,7 @@
 export type Guid = string;
 
 export type PizzaModel = {
-  id: number;
+  id: Guid;
   name: string;
   price: number;
   ingredients: string[];
@@ -31,7 +31,7 @@ export type PersonModel = {
 };
 
 export type ProductQuantityModel = {
-  productId: number;
+  productId: Guid;
   quantity: number;
 };
 
@@ -66,7 +66,7 @@ export type ReservationRequestModel = {
 export type OrderResponseModel = {
   sessionId?: string;
   url?: string;
-  orderId?: number;
+  orderId?: Guid;
 };
 
 export type OrderStatusModel = {

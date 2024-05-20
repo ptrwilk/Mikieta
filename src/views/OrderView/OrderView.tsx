@@ -23,7 +23,7 @@ const OrderView = () => {
   useSignalR(
     {
       url: `${import.meta.env.VITE_API_URL}/messageHub`,
-      invoke: { methodName: "Join", args: [+zamowienieId!] },
+      invoke: { methodName: "Join", args: [zamowienieId!] },
     },
     [
       {
