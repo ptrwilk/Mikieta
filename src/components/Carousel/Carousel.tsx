@@ -15,35 +15,60 @@ import { NextButton, PrevButton } from "./CarouselButtons";
 import { Counter, IncreaseButton } from "..";
 import { usePrevNextButtons } from "./usePrevNextButtons";
 import styles from "./Carousel.module.css";
-import { PizzaModel, ProductType } from "@/types";
-import { useLoaderData } from "react-router-dom";
+import { ProductModel, getSubproductQuantityFromItemSelected } from "@/types";
+import { useAppContext } from "@/context/AppContext";
+
 const TWEEN_FACTOR_BASE = 0.3;
 const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 type PropType = {
+  items: ProductModel[];
   options?: EmblaOptionsType;
+  onDecreaseCarouselItem: (item: ProductModel) => void;
+  onIncreaseCarouselItem: (item: ProductModel) => void;
+  subproducts: ProductModel[];
 };
 
 const CarouselComponent: React.FC<PropType> = (props) => {
-  const { options } = props;
-  const [selectedSnacks, setSelectedSnacks] = useState<number[]>([]);
-  const toggleSnack = useCallback((snackId: number) => {
-    setSelectedSnacks((prevSelectedSnacks) => {
-      const index = prevSelectedSnacks.indexOf(snackId);
+  const {
+    items,
+    options,
+    onDecreaseCarouselItem,
+    onIncreaseCarouselItem,
+    subproducts = [],
+  } = props;
+
+  const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+
+  const [app] = useAppContext();
+
+  useEffect(() => {
+    if (app?.itemModalOpen) {
+      setSelectedItemIds(
+        app.itemSelected.subproducts
+          .filter((subproduct) => subproduct.quantity > 0)
+          .map((subproduct) => subproduct.id)
+      );
+    }
+  }, [app?.itemModalOpen, app?.itemSelected]);
+
+  const toggleItem = useCallback((itemId: number) => {
+    setSelectedItemIds((prevSelectedItems) => {
+      const index = prevSelectedItems.indexOf(itemId);
+      let selectedItems = [];
       if (index === -1) {
-        return [...prevSelectedSnacks, snackId];
+        selectedItems = [...prevSelectedItems, itemId];
       } else {
-        return prevSelectedSnacks.filter((id) => id !== snackId);
+        selectedItems = prevSelectedItems.filter((id) => id !== itemId);
       }
+      return selectedItems;
     });
   }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const tweenFactor = useRef(0);
-  const snacks = (useLoaderData() as PizzaModel[]).filter(
-    (product) => product.productType === ProductType.Snack
-  );
+
   const {
     prevBtnDisabled,
     nextBtnDisabled,
@@ -106,13 +131,24 @@ const CarouselComponent: React.FC<PropType> = (props) => {
       .on("scroll", tweenOpacity);
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
-  function handleSlideClick(
+  const handleSlideClick = (
     slideIndex: number
-  ): MouseEventHandler<HTMLDivElement> {
+  ): MouseEventHandler<HTMLDivElement> => {
     return () => {
-      toggleSnack(slideIndex);
+      toggleItem(slideIndex);
+
+      const isItemSelected = selectedItemIds.includes(slideIndex);
+
+      if (!isItemSelected) {
+        const selectedItem = items.find((item) => item.id === slideIndex);
+
+        if (selectedItem) {
+          onIncreaseCarouselItem(selectedItem);
+        }
+      }
     };
-  }
+  };
+
   return (
     <div className={styles["Carousel"]}>
       <div className={styles["Controls"]}>
@@ -124,15 +160,15 @@ const CarouselComponent: React.FC<PropType> = (props) => {
       </div>
       <div className={styles["Viewport"]} ref={emblaRef}>
         <div className={styles["Container"]}>
-          {snacks.map((snack, index) => (
+          {items.map((item, index) => (
             <div
               className={
-                selectedSnacks.indexOf(snack.id) !== -1
+                selectedItemIds.includes(item.id)
                   ? styles["SelectedSlide"]
                   : styles["Slide"]
               }
               key={index}
-              onClick={handleSlideClick(snack.id)}
+              onClick={handleSlideClick(item.id)}
             >
               <img
                 className={styles["Image"]}
@@ -140,15 +176,25 @@ const CarouselComponent: React.FC<PropType> = (props) => {
                 alt="Your alt text"
               />
               <div className={styles["ProductInfo"]}>
-                <div className={styles["ProductName"]}>{snack.name}</div>
+                <div className={styles["ProductName"]}>{item.name}</div>
                 <div className={styles["ProductPrice"]}>
                   {"+"}
-                  {snack.price}
+                  {item.price}
                 </div>
               </div>
-              {selectedSnacks.indexOf(snack.id) !== -1 ? (
-                <div className={styles["Counter"]}>
-                  <Counter number={snacks.length}></Counter>
+              {selectedItemIds.includes(item.id) ? (
+                <div
+                  className={styles["Counter"]}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Counter
+                    quantity={getSubproductQuantityFromItemSelected(
+                      subproducts,
+                      item.id
+                    )}
+                    onMinusClick={() => onDecreaseCarouselItem(item)}
+                    onPlusClick={() => onIncreaseCarouselItem(item)}
+                  ></Counter>
                 </div>
               ) : (
                 <div className={styles["AddButton"]}>

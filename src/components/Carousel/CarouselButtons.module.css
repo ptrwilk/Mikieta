@@ -3,6 +3,11 @@
   background-color: var(--color-primary);
   color: var(--color-secondary);
   border: 2px solid var(--color-secondary);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .CarouselButton:not(:disabled):hover {

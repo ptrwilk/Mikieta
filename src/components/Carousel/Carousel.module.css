@@ -1,37 +1,39 @@
 .Carousel {
+  margin-top: 1rem;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+  padding-bottom: 1.5rem;
+  background-color: var(--color-fourth);
 }
 
 .Viewport {
   overflow: hidden;
 }
+
 .Container {
   gap: 0.6rem;
   backface-visibility: hidden;
   display: flex;
 }
-.Slide {
-  height: 15rem;
-  flex: 0 0 45%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 0.8rem;
-  cursor: pointer;
-  border: 2px solid var(--color-primary);
-}
+
+.Slide,
 .SelectedSlide {
-  height: 15rem;
+  height: 13rem;
   flex: 0 0 45%;
   min-width: 0;
   display: flex;
   flex-direction: column;
   padding: 0.8rem;
   cursor: pointer;
-  border: 2px solid var(--color-secondary);
   border-radius: 0.35rem;
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-primary);
 }
+
+.SelectedSlide {
+  border-color: var(--color-secondary);
+}
+
 .Image {
   border-radius: 1.8rem;
   display: block;
@@ -44,7 +46,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 1.2rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }

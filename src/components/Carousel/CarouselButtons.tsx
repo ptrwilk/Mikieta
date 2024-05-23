@@ -19,7 +19,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
       disabled={disabled}
       onClick={onClick}
     >
-      <FaAngleLeft size={25} />
+      <FaAngleLeft size={16} />
     </button>
   );
 };
@@ -34,7 +34,7 @@ export const NextButton: React.FC<PropType> = (props) => {
       onClick={onClick}
       className={styles["CarouselButton"]}
     >
-      <FaAngleRight size={25} />
+      <FaAngleRight size={16} />
     </button>
   );
 };
