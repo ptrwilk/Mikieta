@@ -3,6 +3,12 @@ import { CarouselComponent, Counter, Button, Modal } from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./ItemModalView.module.css";
 import { FC, useEffect, useState, useRef } from "react";
+import {
+  ProductModel,
+  ProductType,
+  getProductQuantityFromBasket,
+} from "@/types";
+import { useLoaderData } from "react-router-dom";
 
 interface IItemModalViewProps {}
 
@@ -13,39 +19,114 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
     updateApp({ itemModalOpen: false });
   };
   const [isScrolled, setIsScrolled] = useState(false);
+  const [itemQuantity, setItemQuantity] = useState(1);
   const scrollableContentRef = useRef<HTMLDivElement>(null);
+  const { name, ingredients, price, id } = app!.itemSelected;
 
   useEffect(() => {
     if (app?.itemModalOpen) {
-      const handleScroll = () => {
-        if (scrollableContentRef.current) {
-          const scrollTop = scrollableContentRef.current.scrollTop;
-          setIsScrolled(scrollTop > 70);
-        }
-      };
-
-      const scrollableContent = scrollableContentRef.current;
-      if (scrollableContent) {
-        scrollableContent.addEventListener("scroll", handleScroll);
-      }
-
-      return () => {
-        if (scrollableContent) {
-          scrollableContent.removeEventListener("scroll", handleScroll);
-        }
-      };
+      setItemQuantity(1);
     }
   }, [app?.itemModalOpen]);
 
-  const { name, ingredients, price, id } = app!.itemSelected;
-  const quantity = app!.basket.find((x) => x.id === id)?.quantity;
-  function onRemoveItem(): void {
-    throw new Error("Function not implemented.");
-  }
+  useEffect(() => {
+    if (!app?.itemModalOpen) {
+      return;
+    }
 
-  function onAddItem(): void {
-    throw new Error("Function not implemented.");
-  }
+    const handleScroll = () => {
+      if (scrollableContentRef.current) {
+        const scrollTop = scrollableContentRef.current.scrollTop;
+        setIsScrolled(scrollTop > 70);
+      }
+    };
+
+    const scrollableContent = scrollableContentRef.current;
+    if (scrollableContent) {
+      scrollableContent.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (scrollableContent) {
+        scrollableContent.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [app?.itemModalOpen]);
+
+  const snacks = (useLoaderData() as ProductModel[]).filter(
+    (product) => product.productType === ProductType.Snack
+  );
+
+  const onDecreaseItemQuantity = (): void => {
+    if (itemQuantity > 1) {
+      setItemQuantity(itemQuantity - 1);
+    }
+  };
+
+  const onIncreaseItemQuantity = (): void => {
+    setItemQuantity(itemQuantity + 1);
+  };
+
+  const onAddToBasketClicked = (): void => {
+    closeModal();
+    const { basket, itemSelected } = app!;
+
+    const updatedBasket = [
+      ...basket,
+      { ...itemSelected, quantity: itemQuantity },
+    ];
+
+    updateApp({ basket: updatedBasket, itemModalOpen: false });
+  };
+
+  const decreaseCarouselItemQuantity = (item: ProductModel): void => {
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected);
+
+    const subproductIndex = itemSelectedCopy.subproducts.findIndex(
+      (subproduct) =>
+        subproduct.name === item.name &&
+        subproduct.productType === item.productType
+    );
+    if (itemSelectedCopy.subproducts[subproductIndex]?.quantity > 1) {
+      itemSelectedCopy.subproducts[subproductIndex] = {
+        ...itemSelectedCopy.subproducts[subproductIndex],
+        quantity: itemSelectedCopy.subproducts[subproductIndex].quantity - 1,
+      };
+    } else {
+      itemSelectedCopy.subproducts = itemSelectedCopy.subproducts.filter(
+        (subproduct) =>
+          !(
+            subproduct.name === item.name &&
+            subproduct.productType === item.productType
+          )
+      );
+    }
+
+    updateApp({ itemSelected: itemSelectedCopy });
+  };
+
+  const increaseCarouselItemQuantity = (item: ProductModel): void => {
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected);
+
+    const subproductIndex = itemSelectedCopy.subproducts.findIndex(
+      (subproduct) =>
+        subproduct.name === item.name &&
+        subproduct.productType === item.productType
+    );
+
+    if (subproductIndex !== -1) {
+      itemSelectedCopy.subproducts[subproductIndex] = {
+        ...itemSelectedCopy.subproducts[subproductIndex],
+        quantity: itemSelectedCopy.subproducts[subproductIndex].quantity + 1,
+      };
+    } else {
+      itemSelectedCopy.subproducts.push({ ...item, quantity: 1 });
+    }
+
+    updateApp({ itemSelected: itemSelectedCopy });
+  };
 
   return (
     <Modal open={app!.itemModalOpen} onClose={closeModal}>
@@ -75,36 +156,26 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
                 <p>{price}</p>
               </div>
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
-              <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
             </div>
-            <CarouselComponent />
+            <CarouselComponent
+              items={snacks}
+              onDecreaseCarouselItem={(item) =>
+                decreaseCarouselItemQuantity(item)
+              }
+              onIncreaseCarouselItem={(item) =>
+                increaseCarouselItemQuantity(item)
+              }
+              subproducts={app!.itemSelected.subproducts}
+            />
           </div>
           <div className={styles["Buttons"]}>
             <Counter
-              number={2}
-              onMinusClick={onRemoveItem}
-              onPlusClick={onAddItem}
+              quantity={itemQuantity}
+              onMinusClick={onDecreaseItemQuantity}
+              onPlusClick={onIncreaseItemQuantity}
             />
-            <Button>
-              Dodaj do koszyka {quantity ? quantity * price : price}
+            <Button onClick={() => onAddToBasketClicked()}>
+              Dodaj do koszyka {itemQuantity ? itemQuantity * price : price}
             </Button>
           </div>
         </div>
