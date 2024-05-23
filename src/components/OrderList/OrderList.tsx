@@ -1,11 +1,11 @@
 import styles from "./OrderList.module.css";
 import pizza3 from "../../assets/images/pizza3.webp";
-import { PizzaModel } from "../../types";
+import { ProductModel } from "../../types";
 import classNames from "classnames";
 
 interface IOrderListProps {
   className?: string;
-  items?: PizzaModel[];
+  items?: ProductModel[];
   onRemove?: (index: number) => void;
 }
 

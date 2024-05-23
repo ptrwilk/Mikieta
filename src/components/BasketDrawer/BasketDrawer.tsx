@@ -1,13 +1,13 @@
 import { Button, Drawer } from "..";
 import styles from "./BasketDrawer.module.css";
 import pizza3 from "../../assets/images/pizza3.webp";
-import { PizzaModel } from "../../types";
+import { ProductModel } from "../../types";
 import { sum } from "../../helpers";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 interface IBasketDrawerProps {
-  items?: PizzaModel[];
+  items?: ProductModel[];
   open?: boolean;
   onClose?: () => void;
   onRemove?: (index: number) => void;

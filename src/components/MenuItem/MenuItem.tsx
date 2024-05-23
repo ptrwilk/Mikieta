@@ -1,11 +1,11 @@
 import styles from "./MenuItem.module.css";
 import pizza from "../../../src/assets/images/pizza3.webp";
 import { ButtonShop } from "..";
-import { PizzaModel } from "@/types";
+import { ProductModel, getProductQuantityFromBasket } from "@/types";
 import { useAppContext } from "@/context/AppContext";
 
 interface IMenuItemProps {
-  product: PizzaModel;
+  product: ProductModel;
 }
 
 const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
@@ -14,7 +14,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
   const handlePizzaClick = () => {
     updateApp({
       itemModalOpen: true,
-      itemSelected: product,
+      itemSelected: { ...product, subproducts: [] },
     });
   };
 
@@ -30,7 +30,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
           className={styles["Button"]}
           price={price}
           onClick={handlePizzaClick}
-          amount={app!.basket.find((x) => x.id === product.id)?.quantity}
+          amount={getProductQuantityFromBasket(app!.basket, product.id)}
         />
       </div>
     </div>

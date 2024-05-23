@@ -14,7 +14,7 @@ import { FC, useEffect, useState } from "react";
 import {
   DeliveryMethod,
   DeliveryTimingOption,
-  PizzaModel,
+  ProductModel,
   ProductType,
 } from "@/types";
 import { useCombobox, useInput, useRadio } from "@/hooks";
@@ -166,18 +166,17 @@ const BasketModalView: FC = () => {
   };
 
   const addItem = (name: string, productType: ProductType) => {
-    const updatedBasket: PizzaModel[] = app!.basket.map((item) => {
+    const updatedBasket: ProductModel[] = app!.basket.map((item) => {
       if (item.name === name && item.productType === productType) {
         return { ...item, quantity: item.quantity + 1 };
       }
       return item;
     });
-
     updateApp({ basket: updatedBasket });
   };
 
   const removeItem = (name: string, productType: ProductType) => {
-    const updatedBasket = app!.basket.reduce((basket: PizzaModel[], item) => {
+    const updatedBasket = app!.basket.reduce((basket: ProductModel[], item) => {
       if (item.name === name && item.productType === productType) {
         if (item.quantity > 1) {
           basket.push({ ...item, quantity: item.quantity - 1 });
@@ -291,7 +290,7 @@ const BasketModalView: FC = () => {
             <Button onClick={handleConfirm} disabled={app!.basket.length === 0}>
               Do kasy |{" "}
               {app!.basket.reduce(
-                (totalPayment: number, item: PizzaModel) =>
+                (totalPayment: number, item: ProductModel) =>
                   totalPayment + item.quantity * item.price,
                 0
               )}

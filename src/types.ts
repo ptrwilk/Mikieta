@@ -1,12 +1,13 @@
 export type Guid = string;
 
-export type PizzaModel = {
+export type ProductModel = {
   id: number;
   name: string;
   price: number;
   ingredients: string[];
   productType: ProductType;
   quantity: number;
+  subproducts: ProductModel[];
 };
 
 export type OrderModel = {
@@ -100,4 +101,18 @@ export const translateProductType = (productType: ProductType): string => {
     default:
       return "Unknown product type";
   }
+};
+
+export const getProductQuantityFromBasket = (
+  basket: ProductModel[],
+  productId: number
+): number | undefined => {
+  return basket.find((x) => x.id === productId)?.quantity;
+};
+
+export const getSubproductQuantityFromItemSelected = (
+  subproducts: ProductModel[],
+  productId: number
+): number | undefined => {
+  return subproducts.find((x) => x.id === productId)?.quantity;
 };

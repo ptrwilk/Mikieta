@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import styles from "./PaymentSummary.module.css";
-import { PizzaModel } from "../../types";
+import { ProductModel } from "../../types";
 import pizza3 from "../../assets/images/pizza3.webp";
 import { forwardRef } from "react";
 
 interface IPaymentSummaryProps {
   className?: string;
-  items?: PizzaModel[];
+  items?: ProductModel[];
 }
 
 const PaymentSummary = forwardRef<any, IPaymentSummaryProps>(
