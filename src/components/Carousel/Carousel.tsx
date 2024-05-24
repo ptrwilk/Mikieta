@@ -40,6 +40,9 @@ const CarouselComponent: React.FC<PropType> = (props) => {
   } = props;
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+  const [previouslySelectedItemIds, setPreviouslySelectedItemIds] = useState<
+    number[]
+  >([]);
 
   const [app] = useAppContext();
 
@@ -131,21 +134,28 @@ const CarouselComponent: React.FC<PropType> = (props) => {
       .on("scroll", tweenOpacity);
   }, [emblaApi, setTweenFactor, tweenOpacity]);
 
+  const addToPreviouslySelectedItems = (slideIndex: number) => {
+    setPreviouslySelectedItemIds([...previouslySelectedItemIds, slideIndex]);
+  };
+
   const handleSlideClick = (
     slideIndex: number
   ): MouseEventHandler<HTMLDivElement> => {
     return () => {
-      toggleItem(slideIndex);
-
       const isItemSelected = selectedItemIds.includes(slideIndex);
+      const isItemPreviouslySelected =
+        previouslySelectedItemIds.includes(slideIndex);
+      const isItemNewlySelected = !isItemSelected && !isItemPreviouslySelected;
 
-      if (!isItemSelected) {
+      if (isItemNewlySelected) {
         const selectedItem = items.find((item) => item.id === slideIndex);
-
         if (selectedItem) {
           onIncreaseCarouselItem(selectedItem);
+          addToPreviouslySelectedItems(slideIndex);
         }
       }
+
+      toggleItem(slideIndex);
     };
   };
 
