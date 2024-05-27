@@ -48,26 +48,17 @@ const CarouselComponent: React.FC<PropType> = (props) => {
 
   useEffect(() => {
     if (app?.itemModalOpen) {
-      setSelectedItemIds(
+      setSelectedItemIds((prevSelectedItemIds) =>
         app.itemSelected.subproducts
-          .filter((subproduct) => subproduct.quantity > 0)
+          .filter(
+            (subproduct) =>
+              subproduct.quantity > 0 &&
+              prevSelectedItemIds.includes(subproduct.id)
+          )
           .map((subproduct) => subproduct.id)
       );
     }
   }, [app?.itemModalOpen, app?.itemSelected]);
-
-  const toggleItem = useCallback((itemId: number) => {
-    setSelectedItemIds((prevSelectedItems) => {
-      const index = prevSelectedItems.indexOf(itemId);
-      let selectedItems = [];
-      if (index === -1) {
-        selectedItems = [...prevSelectedItems, itemId];
-      } else {
-        selectedItems = prevSelectedItems.filter((id) => id !== itemId);
-      }
-      return selectedItems;
-    });
-  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const tweenFactor = useRef(0);
@@ -137,18 +128,37 @@ const CarouselComponent: React.FC<PropType> = (props) => {
   const addToPreviouslySelectedItems = (slideIndex: number) => {
     setPreviouslySelectedItemIds([...previouslySelectedItemIds, slideIndex]);
   };
+  const removeFromPreviouslySelectedItems = (itemId: number) => {
+    setPreviouslySelectedItemIds((prevIds) =>
+      prevIds.filter((id) => id !== itemId)
+    );
+  };
+
+  const toggleItem = useCallback((itemId: number) => {
+    setSelectedItemIds((prevSelectedItems) => {
+      const index = prevSelectedItems.indexOf(itemId);
+      let selectedItems = [];
+      if (index === -1) {
+        selectedItems = [...prevSelectedItems, itemId];
+      } else {
+        selectedItems = prevSelectedItems.filter((id) => id !== itemId);
+      }
+      return selectedItems;
+    });
+  }, []);
 
   const handleSlideClick = (
     slideIndex: number
   ): MouseEventHandler<HTMLDivElement> => {
     return () => {
       const isItemSelected = selectedItemIds.includes(slideIndex);
+
       const isItemPreviouslySelected =
         previouslySelectedItemIds.includes(slideIndex);
       const isItemNewlySelected = !isItemSelected && !isItemPreviouslySelected;
+      const selectedItem = items.find((item) => item.id === slideIndex);
 
       if (isItemNewlySelected) {
-        const selectedItem = items.find((item) => item.id === slideIndex);
         if (selectedItem) {
           onIncreaseCarouselItem(selectedItem);
           addToPreviouslySelectedItems(slideIndex);
@@ -158,9 +168,14 @@ const CarouselComponent: React.FC<PropType> = (props) => {
       toggleItem(slideIndex);
     };
   };
-
+  const handleDecreaseItem = (item: ProductModel) => {
+    if (item.quantity === 0) {
+      removeFromPreviouslySelectedItems(item.id);
+    }
+    onDecreaseCarouselItem(item);
+  };
   return (
-    <div className={styles["Carousel"]}>
+    <div>
       <div className={styles["Controls"]}>
         <span className={"uppercase text-xs"}>Nie żałuj sobie dobrego</span>
         <div className={styles["Buttons"]}>
@@ -202,7 +217,7 @@ const CarouselComponent: React.FC<PropType> = (props) => {
                       subproducts,
                       item.id
                     )}
-                    onMinusClick={() => onDecreaseCarouselItem(item)}
+                    onMinusClick={() => handleDecreaseItem(item)}
                     onPlusClick={() => onIncreaseCarouselItem(item)}
                   ></Counter>
                 </div>

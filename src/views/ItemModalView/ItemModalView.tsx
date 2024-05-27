@@ -3,11 +3,7 @@ import { CarouselComponent, Counter, Button, Modal } from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./ItemModalView.module.css";
 import { FC, useEffect, useState, useRef } from "react";
-import {
-  ProductModel,
-  ProductType,
-  getProductQuantityFromBasket,
-} from "@/types";
+import { ProductModel, ProductType } from "@/types";
 import { useLoaderData } from "react-router-dom";
 
 interface IItemModalViewProps {}
@@ -21,7 +17,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(1);
   const scrollableContentRef = useRef<HTMLDivElement>(null);
-  const { name, ingredients, price, id } = app!.itemSelected;
+  const { name, ingredients, price } = app!.itemSelected;
 
   useEffect(() => {
     if (app?.itemModalOpen) {
@@ -157,16 +153,18 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
               </div>
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
             </div>
-            <CarouselComponent
-              items={snacks}
-              onDecreaseCarouselItem={(item) =>
-                decreaseCarouselItemQuantity(item)
-              }
-              onIncreaseCarouselItem={(item) =>
-                increaseCarouselItemQuantity(item)
-              }
-              subproducts={app!.itemSelected.subproducts}
-            />
+            <div className={styles["Carousel"]}>
+              <CarouselComponent
+                items={snacks}
+                onDecreaseCarouselItem={(item) =>
+                  decreaseCarouselItemQuantity(item)
+                }
+                onIncreaseCarouselItem={(item) =>
+                  increaseCarouselItemQuantity(item)
+                }
+                subproducts={app!.itemSelected.subproducts}
+              />
+            </div>
           </div>
           <div className={styles["Buttons"]}>
             <Counter
