@@ -10,7 +10,7 @@ interface IMenuItemProps {
 
 const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
   const [app, updateApp] = useAppContext();
-  const { name, ingredients, price } = product;
+  const { name, ingredients, price, imageUrl } = product;
   const handlePizzaClick = () => {
     const existingPizza = app!.basket.find(
       (item) =>
@@ -32,7 +32,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
 
   return (
     <div className={styles["MenuItem"]}>
-      <img src={pizza} />
+      <img src={imageUrl ?? pizza} />
       <div className={styles["Content"]}>
         <div className={styles["Content-Text"]}>
           <p className={styles["Title"]}>{name}</p>
