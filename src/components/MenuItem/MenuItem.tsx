@@ -1,7 +1,10 @@
 import styles from "./MenuItem.module.css";
-import pizza from "../../../src/assets/images/pizza3.webp";
+import pizza from "../../../src/assets/images/pizza.jpg";
+import sauce from "../../../src/assets/images/sauce.jpg";
+import snack from "../../../src/assets/images/snack.jpg";
+import drink from "../../../src/assets/images/drink.jpg";
 import { ButtonShop } from "..";
-import { PizzaModel } from "@/types";
+import { PizzaModel, ProductType } from "@/types";
 import { useAppContext } from "@/context/AppContext";
 
 interface IMenuItemProps {
@@ -30,9 +33,22 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
     updateApp("basket", updatedBasked);
   };
 
+  const isPizza =
+    product.productType === ProductType.PizzaBig ||
+    product.productType === ProductType.PizzaMedium ||
+    product.productType === ProductType.PizzaSmall;
+
+  const img = isPizza
+    ? pizza
+    : product.productType === ProductType.Snack
+    ? snack
+    : product.productType === ProductType.Drink
+    ? drink
+    : sauce;
+
   return (
     <div className={styles["MenuItem"]}>
-      <img src={imageUrl ?? pizza} />
+      <img src={imageUrl ?? img} />
       <div className={styles["Content"]}>
         <div className={styles["Content-Text"]}>
           <p className={styles["Title"]}>{name}</p>
