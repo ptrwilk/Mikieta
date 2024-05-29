@@ -7,6 +7,7 @@ export type PizzaModel = {
   ingredients: string[];
   productType: ProductType;
   quantity: number;
+  imageUrl?: string;
 };
 
 export type OrderModel = {
