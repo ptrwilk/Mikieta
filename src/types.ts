@@ -7,8 +7,24 @@ export type ProductModel = {
   ingredients: string[];
   productType: ProductType;
   quantity: number;
-  subproducts: ProductModel[];
 };
+
+export type PizzaModel = ProductModel & {
+  doughType: DoughType;
+  pizzaSize?: PizzaSize;
+  subproducts?: ProductModel[];
+};
+
+export enum PizzaSize {
+  Small = "Small",
+  Medium = "Medium",
+  Large = "Large",
+}
+
+export enum DoughType {
+  ThickCrust = "ThickCrust",
+  ThinCrust = "ThinCrust",
+}
 
 export type OrderModel = {
   person?: PersonModel;
@@ -60,9 +76,7 @@ export type ReservationRequestModel = {
 };
 
 export enum ProductType {
-  PizzaSmall,
-  PizzaMedium,
-  PizzaBig,
+  Pizza,
   Drink,
   Sauce,
   Snack,
@@ -86,12 +100,8 @@ export enum DeliveryTimingOption {
 
 export const translateProductType = (productType: ProductType): string => {
   switch (productType) {
-    case ProductType.PizzaSmall:
-      return "mała";
-    case ProductType.PizzaMedium:
-      return "średnia";
-    case ProductType.PizzaBig:
-      return "duża";
+    case ProductType.Pizza:
+      return "pizza";
     case ProductType.Drink:
       return "drink";
     case ProductType.Sauce:

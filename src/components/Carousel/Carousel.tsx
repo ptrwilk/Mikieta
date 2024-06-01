@@ -15,7 +15,12 @@ import { NextButton, PrevButton } from "./CarouselButtons";
 import { Counter, IncreaseButton } from "..";
 import { usePrevNextButtons } from "./usePrevNextButtons";
 import styles from "./Carousel.module.css";
-import { ProductModel, getSubproductQuantityFromItemSelected } from "@/types";
+import {
+  PizzaModel,
+  ProductModel,
+  ProductType,
+  getSubproductQuantityFromItemSelected,
+} from "@/types";
 import { useAppContext } from "@/context/AppContext";
 
 const TWEEN_FACTOR_BASE = 0.3;
@@ -47,17 +52,20 @@ const CarouselComponent: React.FC<PropType> = (props) => {
   const [app] = useAppContext();
 
   useEffect(() => {
-    if (app?.itemModalOpen) {
-      setSelectedItemIds((prevSelectedItemIds) =>
-        app.itemSelected.subproducts
-          .filter(
-            (subproduct) =>
-              subproduct.quantity > 0 &&
-              prevSelectedItemIds.includes(subproduct.id)
-          )
-          .map((subproduct) => subproduct.id)
-      );
-    }
+    if (!app?.itemModalOpen) return;
+    if (app?.itemSelected?.productType !== ProductType.Pizza) return;
+
+    const itemSelected = app.itemSelected as PizzaModel;
+    if (!itemSelected.subproducts) return;
+    setSelectedItemIds((prevSelectedItemIds) =>
+      itemSelected
+        .subproducts!.filter(
+          (subproduct) =>
+            subproduct.quantity > 0 &&
+            prevSelectedItemIds.includes(subproduct.id)
+        )
+        .map((subproduct) => subproduct.id)
+    );
   }, [app?.itemModalOpen, app?.itemSelected]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options);

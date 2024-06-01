@@ -26,13 +26,7 @@ const MenuView = () => {
   );
 
   const items = [
-    { value: "PizzaSmall", text: "Pizza 32 CM.", type: ProductType.PizzaSmall },
-    {
-      value: "PizzaMedium",
-      text: "Pizza 40 CM.",
-      type: ProductType.PizzaMedium,
-    },
-    { value: "PizzaBig", text: "Pizza 50 CM.", type: ProductType.PizzaBig },
+    { value: "Pizza", text: "Pizza", type: ProductType.Pizza },
     { value: "Sauce", text: "Sosy do pizzy", type: ProductType.Sauce },
     { value: "Drink", text: "Napoje", type: ProductType.Drink },
     { value: "Snack", text: "Przekąski", type: ProductType.Snack },
@@ -63,7 +57,7 @@ const MenuView = () => {
         </ul>
       )}
       {!isMobile && (
-        <Tabs className={styles["Tabs"]} defaultValue="PizzaSmall">
+        <Tabs className={styles["Tabs"]} defaultValue="Pizza">
           <TabsList>
             {items.map(({ value, text }, key) => (
               <TabsTrigger key={key} value={value}>

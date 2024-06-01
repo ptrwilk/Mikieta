@@ -1,9 +1,15 @@
 import { FaWindowClose } from "react-icons/fa";
-import { CarouselComponent, Counter, Button, Modal } from "../../components";
+import {
+  CarouselComponent,
+  Counter,
+  Button,
+  Modal,
+  Checkbox,
+} from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./ItemModalView.module.css";
 import { FC, useEffect, useState, useRef } from "react";
-import { ProductModel, ProductType } from "@/types";
+import { PizzaModel, ProductModel, ProductType } from "@/types";
 import { useLoaderData } from "react-router-dom";
 
 interface IItemModalViewProps {}
@@ -17,7 +23,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(1);
   const scrollableContentRef = useRef<HTMLDivElement>(null);
-  const { name, ingredients, price } = app!.itemSelected;
+  const { name, ingredients, price, productType } = app!.itemSelected;
 
   useEffect(() => {
     if (app?.itemModalOpen) {
@@ -49,8 +55,11 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
     };
   }, [app?.itemModalOpen]);
 
-  const snacks = (useLoaderData() as ProductModel[]).filter(
+  const snacks = ((useLoaderData() as ProductModel[]) || []).filter(
     (product) => product.productType === ProductType.Snack
+  );
+  const sauces = ((useLoaderData() as ProductModel[]) || []).filter(
+    (product) => product.productType === ProductType.Sauce
   );
 
   const onDecreaseItemQuantity = (): void => {
@@ -76,14 +85,22 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
   };
 
   const decreaseCarouselItemQuantity = (item: ProductModel): void => {
-    const { itemSelected } = app!;
-    const itemSelectedCopy = structuredClone(itemSelected);
+    if (productType !== ProductType.Pizza) {
+      return;
+    }
 
-    const subproductIndex = itemSelectedCopy.subproducts.findIndex(
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
+
+    const subproductIndex = itemSelectedCopy.subproducts?.findIndex(
       (subproduct) =>
         subproduct.name === item.name &&
         subproduct.productType === item.productType
     );
+
+    if (subproductIndex === undefined) return;
+    if (!itemSelectedCopy.subproducts) return;
+
     if (itemSelectedCopy.subproducts[subproductIndex]?.quantity > 1) {
       itemSelectedCopy.subproducts[subproductIndex] = {
         ...itemSelectedCopy.subproducts[subproductIndex],
@@ -103,26 +120,34 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
   };
 
   const increaseCarouselItemQuantity = (item: ProductModel): void => {
-    const { itemSelected } = app!;
-    const itemSelectedCopy = structuredClone(itemSelected);
+    if (productType !== ProductType.Pizza) {
+      return;
+    }
 
-    const subproductIndex = itemSelectedCopy.subproducts.findIndex(
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
+
+    const subproductIndex = itemSelectedCopy.subproducts?.findIndex(
       (subproduct) =>
         subproduct.name === item.name &&
         subproduct.productType === item.productType
     );
+    if (subproductIndex === undefined) return;
 
-    if (subproductIndex !== -1) {
+    if (subproductIndex !== -1 && itemSelectedCopy.subproducts) {
       itemSelectedCopy.subproducts[subproductIndex] = {
         ...itemSelectedCopy.subproducts[subproductIndex],
         quantity: itemSelectedCopy.subproducts[subproductIndex].quantity + 1,
       };
     } else {
-      itemSelectedCopy.subproducts.push({ ...item, quantity: 1 });
+      itemSelectedCopy.subproducts?.push({ ...item, quantity: 1 });
     }
 
     updateApp({ itemSelected: itemSelectedCopy });
   };
+  function checkCheckbox(checked: boolean | undefined) {
+    console.log(checked);
+  }
 
   return (
     <Modal open={app!.itemModalOpen} onClose={closeModal}>
@@ -153,18 +178,37 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
               </div>
               <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
             </div>
-            <div className={styles["Carousel"]}>
-              <CarouselComponent
-                items={snacks}
-                onDecreaseCarouselItem={(item) =>
-                  decreaseCarouselItemQuantity(item)
-                }
-                onIncreaseCarouselItem={(item) =>
-                  increaseCarouselItemQuantity(item)
-                }
-                subproducts={app!.itemSelected.subproducts}
-              />
-            </div>
+            {/* <div className={styles["Carousel"]}>
+              {sauces.map((sauce, index) => (
+                <Checkbox
+                  key={index}
+                  onCheckChange={(checked) => {
+                    checkCheckbox(checked);
+                  }}
+                  className="ml-12"
+                >
+                  <p>{sauce.name}</p>
+                </Checkbox>
+              ))}
+            </div> */}
+            {productType === ProductType.Pizza && (
+              <div className={styles["Carousel"]}>
+                <CarouselComponent
+                  items={snacks}
+                  onDecreaseCarouselItem={(item) =>
+                    decreaseCarouselItemQuantity(item)
+                  }
+                  onIncreaseCarouselItem={(item) =>
+                    increaseCarouselItemQuantity(item)
+                  }
+                  subproducts={
+                    app!.itemSelected.productType === ProductType.Pizza
+                      ? (app!.itemSelected as PizzaModel).subproducts || []
+                      : []
+                  }
+                />
+              </div>
+            )}
           </div>
           <div className={styles["Buttons"]}>
             <Counter

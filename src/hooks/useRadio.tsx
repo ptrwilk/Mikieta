@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { validate } from "./helpers";
 import { Validator } from "./types";
 
@@ -20,23 +20,7 @@ export const useRadio = (
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [errorValues, setErrorValues] = useState<string[]>([]);
 
-  useEffect(() => {
-    if (valueChangeTrigger) {
-      checkError();
-    }
-  }, [valueChangeTrigger]);
-
-  const updateError = (
-    error?: boolean,
-    errorMessage?: string,
-    errorValues?: string[]
-  ) => {
-    setError(error);
-    setErrorMessage(errorMessage);
-    setErrorValues(errorValues ?? []);
-  };
-
-  const checkError = (): boolean => {
+  const checkError = useCallback((): boolean => {
     if (!error) {
       const {
         error: e,
@@ -48,6 +32,22 @@ export const useRadio = (
     }
 
     return error;
+  }, [error, value, validators]);
+
+  useEffect(() => {
+    if (valueChangeTrigger) {
+      checkError();
+    }
+  }, [checkError, valueChangeTrigger]);
+
+  const updateError = (
+    error?: boolean,
+    errorMessage?: string,
+    errorValues?: string[]
+  ) => {
+    setError(error);
+    setErrorMessage(errorMessage);
+    setErrorValues(errorValues ?? []);
   };
 
   const handleChange = (value?: string) => {

@@ -296,7 +296,7 @@ const CheckoutView = () => {
     if (name.value && phone.value && email.value) {
       name.checkError();
     }
-  }, []);
+  }, [email.value, name, phone.value]);
 
   const handleConfirm = async () => {
     const inputs = [
