@@ -153,28 +153,31 @@ const BasketModalView: FC = () => {
     updateApp("basket", []);
   };
 
-  const addItem = (name: string, productType: ProductType) => {
-    const updatedBasket: PizzaModel[] = app!.basket.map((item) => {
-      if (item.name === name && item.productType === productType) {
-        return { ...item, quantity: item.quantity + 1 };
+  const addItem = (item: PizzaModel) => {
+    const updatedBasket: PizzaModel[] = app!.basket.map((product) => {
+      if (item.id === product.id) {
+        return { ...product, quantity: product.quantity + 1 };
       }
-      return item;
+      return product;
     });
 
     updateApp("basket", updatedBasket);
   };
 
-  const removeItem = (name: string, productType: ProductType) => {
-    const updatedBasket = app!.basket.reduce((basket: PizzaModel[], item) => {
-      if (item.name === name && item.productType === productType) {
-        if (item.quantity > 1) {
-          basket.push({ ...item, quantity: item.quantity - 1 });
+  const removeItem = (item: PizzaModel) => {
+    const updatedBasket = app!.basket.reduce(
+      (basket: PizzaModel[], product) => {
+        if (item.id === product.id) {
+          if (product.quantity > 1) {
+            basket.push({ ...product, quantity: product.quantity - 1 });
+          }
+        } else {
+          basket.push(product);
         }
-      } else {
-        basket.push(item);
-      }
-      return basket;
-    }, []);
+        return basket;
+      },
+      []
+    );
 
     updateApp("basket", updatedBasket);
   };
@@ -229,10 +232,8 @@ const BasketModalView: FC = () => {
                   <li key={key}>
                     <BasketItem
                       item={item}
-                      onRemoveItem={() =>
-                        removeItem(item.name, item.productType)
-                      }
-                      onAddItem={() => addItem(item.name, item.productType)}
+                      onRemoveItem={() => removeItem(item)}
+                      onAddItem={() => addItem(item)}
                     />
                   </li>
                 ))}

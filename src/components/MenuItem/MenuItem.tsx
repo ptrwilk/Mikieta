@@ -15,16 +15,11 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
   const [app, updateApp] = useAppContext();
   const { name, ingredients, price, imageUrl } = product;
   const handlePizzaClick = () => {
-    const existingPizza = app!.basket.find(
-      (item) =>
-        //TODO: Change it to Id
-        item.name === product.name && item.productType === product.productType
-    );
+    const existingPizza = app!.basket.find((item) => item.id === product.id);
 
     const updatedBasked = existingPizza
       ? app!.basket.map((item) =>
-          //TODO: Change it to Id
-          item.name === product.name
+          item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
@@ -33,18 +28,14 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
     updateApp("basket", updatedBasked);
   };
 
-  const isPizza =
-    product.productType === ProductType.PizzaBig ||
-    product.productType === ProductType.PizzaMedium ||
-    product.productType === ProductType.PizzaSmall;
-
-  const img = isPizza
-    ? pizza
-    : product.productType === ProductType.Snack
-    ? snack
-    : product.productType === ProductType.Drink
-    ? drink
-    : sauce;
+  const img =
+    product.productType === ProductType.Pizza
+      ? pizza
+      : product.productType === ProductType.Snack
+      ? snack
+      : product.productType === ProductType.Drink
+      ? drink
+      : sauce;
 
   return (
     <div className={styles["MenuItem"]}>
