@@ -20,7 +20,8 @@
   font-weight: 400;
 }
 
-.BasketItem .ProductDetails .Ingredients {
+.BasketItem .ProductDetails .Ingredients,
+.Description {
   font-size: 14px;
   font-weight: 300;
   font-style: italic;

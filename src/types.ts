@@ -4,11 +4,21 @@ export type PizzaModel = {
   id: Guid;
   name: string;
   price: number;
-  ingredients: string[];
+  ingredients: IngredientModel[];
   productType: ProductType;
   pizzaType?: PizzaType | null;
-  quantity: number;
+  quantity?: number;
   imageUrl?: string;
+  description?: string;
+};
+
+export type IngredientModel = {
+  id?: Guid;
+  name: string;
+  priceSmall: number;
+  priceMedium: number;
+  priceLarge: number;
+  prices: number[];
 };
 
 export type OrderModel = {

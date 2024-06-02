@@ -6,6 +6,7 @@ import drink from "../../../src/assets/images/drink.jpg";
 import { ButtonShop } from "..";
 import { PizzaModel, ProductType } from "@/types";
 import { useAppContext } from "@/context/AppContext";
+import { productToPrice } from "@/helpers";
 
 interface IMenuItemProps {
   product: PizzaModel;
@@ -13,14 +14,14 @@ interface IMenuItemProps {
 
 const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
   const [app, updateApp] = useAppContext();
-  const { name, ingredients, price, imageUrl } = product;
+  const { name, ingredients, imageUrl, description } = product;
   const handlePizzaClick = () => {
     const existingPizza = app!.basket.find((item) => item.id === product.id);
 
     const updatedBasked = existingPizza
       ? app!.basket.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity! + 1 }
             : item
         )
       : [...app!.basket, { ...product, quantity: 1 }];
@@ -43,11 +44,15 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
       <div className={styles["Content"]}>
         <div className={styles["Content-Text"]}>
           <p className={styles["Title"]}>{name}</p>
-          <p className={styles["Ingredients"]}>{ingredients?.join(", ")}</p>
+          {description ? (
+            <p>{description}</p>
+          ) : (
+            <p>{ingredients.map((x) => x.name).join(", ")}</p>
+          )}
         </div>
         <ButtonShop
           className={styles["Button"]}
-          price={price}
+          price={productToPrice(product)}
           onClick={handlePizzaClick}
           amount={app!.basket.find((x) => x.id === product.id)?.quantity}
         />

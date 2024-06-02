@@ -1,6 +1,7 @@
 import { PizzaModel, translateProductType } from "@/types";
 import { Counter } from "..";
 import styles from "./BasketItem.module.css";
+import { productToPrice } from "@/helpers";
 
 interface IBasketItemProps {
   item?: PizzaModel;
@@ -14,10 +15,10 @@ const BasketItem: React.FC<IBasketItemProps> = ({
   onAddItem,
 }) => {
   const {
-    price,
     name,
     productType,
     pizzaType,
+    description,
     ingredients = [],
     quantity,
   } = item || {};
@@ -28,10 +29,16 @@ const BasketItem: React.FC<IBasketItemProps> = ({
           {name}{" "}
           <span>{`(${translateProductType(productType!, pizzaType)})`}</span>
         </p>
-        <p className={styles["Ingredients"]}> {ingredients.join(", ")}</p>
+        {description ? (
+          <p className={styles["Description"]}>{description}</p>
+        ) : (
+          <p className={styles["Ingredients"]}>
+            {ingredients.map((x) => x.name).join(", ")}
+          </p>
+        )}
       </div>
       <div className={styles["Right"]}>
-        <p className={styles["Price"]}>{price! * quantity!} zł</p>
+        <p className={styles["Price"]}>{productToPrice(item!)} zł</p>
         <Counter
           number={quantity}
           onMinusClick={onRemoveItem}
