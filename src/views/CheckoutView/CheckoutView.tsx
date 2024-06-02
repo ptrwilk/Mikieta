@@ -18,7 +18,12 @@ import {
   useTextArea,
 } from "@/hooks";
 import { useAppContext } from "@/context/AppContext";
-import { convertTimeToDate, getEnumValue, sum } from "@/helpers";
+import {
+  convertTimeToDate,
+  getEnumValue,
+  productToPrice,
+  sum,
+} from "@/helpers";
 import { comboBoxOpeningHours } from "@/const";
 import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
@@ -378,7 +383,7 @@ const CheckoutView = () => {
         {app!.order.paymentMethod === PaymentMethod.Transfer
           ? "Zamów i zapłać"
           : "Zamów"}{" "}
-        {sum(app!.basket.map((x) => x.quantity * x.price)).toFixed(2)} zł
+        {sum(app!.basket.map((x) => productToPrice(x))).toFixed(2)} zł
       </Button>
     </>
   );
@@ -558,11 +563,15 @@ const CheckoutView = () => {
           </div>
         )}
         <ul className={styles["Products"]}>
-          {app!.basket.map(({ name, price, quantity }, key) => (
+          {app!.basket.map((item, key) => (
             <li key={key}>
-              <p>{quantity > 1 ? `${quantity}x ${name}` : name}</p>
+              <p>
+                {item.quantity! > 1
+                  ? `${item.quantity}x ${item.name}`
+                  : item.name}
+              </p>
               <p className="flex-shrink-0">
-                {(price * quantity).toFixed(2)} zł
+                {productToPrice(item).toFixed(2)} zł
               </p>
             </li>
           ))}

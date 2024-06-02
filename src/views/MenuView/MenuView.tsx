@@ -93,7 +93,7 @@ const MenuView = () => {
         </ul>
       )}
       {!isMobile && (
-        <Tabs className={styles["Tabs"]} defaultValue="4">
+        <Tabs className={styles["Tabs"]} defaultValue="0">
           <TabsList>
             {items.map(({ index, text }, key) => (
               <TabsTrigger key={key} value={index}>

@@ -11,15 +11,11 @@ import {
 import { useAppContext } from "../../context/AppContext";
 import styles from "./BasketModalView.module.css";
 import { FC, useEffect, useState } from "react";
-import {
-  DeliveryMethod,
-  DeliveryTimingOption,
-  PizzaModel,
-  ProductType,
-} from "@/types";
+import { DeliveryMethod, DeliveryTimingOption, PizzaModel } from "@/types";
 import { useCombobox, useInput, useRadio } from "@/hooks";
 import { comboBoxOpeningHours } from "@/const";
 import { useNavigate } from "react-router-dom";
+import { productToPrice } from "@/helpers";
 
 const BasketModalView: FC = () => {
   const [app, updateApp] = useAppContext();
@@ -156,7 +152,7 @@ const BasketModalView: FC = () => {
   const addItem = (item: PizzaModel) => {
     const updatedBasket: PizzaModel[] = app!.basket.map((product) => {
       if (item.id === product.id) {
-        return { ...product, quantity: product.quantity + 1 };
+        return { ...product, quantity: product.quantity! + 1 };
       }
       return product;
     });
@@ -168,8 +164,8 @@ const BasketModalView: FC = () => {
     const updatedBasket = app!.basket.reduce(
       (basket: PizzaModel[], product) => {
         if (item.id === product.id) {
-          if (product.quantity > 1) {
-            basket.push({ ...product, quantity: product.quantity - 1 });
+          if (product.quantity! > 1) {
+            basket.push({ ...product, quantity: product.quantity! - 1 });
           }
         } else {
           basket.push(product);
@@ -281,7 +277,7 @@ const BasketModalView: FC = () => {
               Do kasy |{" "}
               {app!.basket.reduce(
                 (totalPayment: number, item: PizzaModel) =>
-                  totalPayment + item.quantity * item.price,
+                  totalPayment + productToPrice(item),
                 0
               )}
               {" zł"}
