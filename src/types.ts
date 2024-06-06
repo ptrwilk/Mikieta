@@ -12,6 +12,17 @@ export type PizzaModel = {
   description?: string;
 };
 
+export type DeliveryModel = {
+  street: string;
+  homeNumber: string;
+  city: string;
+};
+
+export type DeliveryCheckError = {
+  errorType: DeliveryCheckErrorType;
+  message: string;
+};
+
 export type IngredientModel = {
   id?: Guid;
   name: string;
@@ -86,6 +97,10 @@ export type OrderStatusModel = {
   deliveryAt: Date;
   deliveryMethod: DeliveryMethod2;
 };
+
+export enum DeliveryCheckErrorType {
+  LocationNotFound,
+}
 
 export enum OrderStatusType {
   Waiting,

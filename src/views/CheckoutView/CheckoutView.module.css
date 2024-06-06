@@ -58,8 +58,6 @@
 
 .CheckoutView .ErrorMessage {
   margin-top: 1.5rem;
-  padding: 1rem;
-  background: var(--color-error-2);
 }
 
 @media (max-width: 650px) {

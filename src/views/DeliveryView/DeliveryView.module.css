@@ -1,4 +1,6 @@
 .DeliveryView {
+  display: flex;
+  flex-direction: column;
   padding: 6rem 1rem;
   max-width: 800px;
 }
@@ -15,6 +17,7 @@
 }
 
 .DeliveryView .Button {
+  align-self: flex-start;
   margin-top: 2rem;
 }
 
