@@ -2,6 +2,7 @@ import {
   Button,
   Checkbox,
   Combobox,
+  Message,
   ModalRadio,
   Section,
   Switch,
@@ -375,9 +376,11 @@ const CheckoutView = () => {
   const OrderButton = () => (
     <>
       {showErrorMessage && (
-        <div className={styles["ErrorMessage"]}>
-          <p>Popraw dane w formularzu!</p>
-        </div>
+        <Message
+          className={styles["ErrorMessage"]}
+          message="Popraw dane w formularzu!"
+          error
+        />
       )}
       <Button className="w-full mt-6" huge onClick={handleConfirm}>
         {app!.order.paymentMethod === PaymentMethod.Transfer

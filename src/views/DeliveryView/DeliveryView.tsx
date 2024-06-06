@@ -1,7 +1,10 @@
-import { Button, Section, TextInput } from "@/components";
+import { Button, Message, Section, TextInput } from "@/components";
 import styles from "./DeliveryView.module.css";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { useInput } from "@/hooks";
+import { post } from "@/apihelper";
+import { DeliveryCheckError, DeliveryModel } from "@/types";
+import { useState } from "react";
 
 const DeliveryView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
@@ -25,12 +28,42 @@ const DeliveryView = () => {
     },
   ]);
 
-  const handleConfirm = () => {
+  const [message, setMessage] = useState<
+    { text: string; error: boolean } | undefined
+  >();
+
+  const handleConfirm = async () => {
     const inputs = [street, homeNumber, city];
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
       //error
     } else {
-      //success
+      const response = (await post("delivery/check", {
+        street: street.value,
+        homeNumber: homeNumber.value,
+        city: city.value,
+      } as DeliveryModel)) as boolean | DeliveryCheckError;
+
+      if (typeof response !== "boolean") {
+        setMessage({
+          text: "Podany adres nie istnieje, lub nie jest wystarczająco dokładny",
+          error: true,
+        });
+      } else {
+        const canDeliver = response as boolean;
+
+        if (canDeliver) {
+          setMessage({
+            //TODO: Create a ticket allowing to specify Cena dostawy
+            text: "Dowozimy na twój adres. Cena dostawy: 4zł",
+            error: false,
+          });
+        } else {
+          setMessage({
+            text: "Niestety nie dowozimy na podany adres. Skontakuj się z nami jeżeli masz wątpiwość: +44 333 111 222",
+            error: true,
+          });
+        }
+      }
     }
   };
 
@@ -48,6 +81,13 @@ const DeliveryView = () => {
           {...city}
         />
       </div>
+      {message && (
+        <Message
+          className="mt-4 self-start"
+          message={message.text}
+          error={message.error}
+        />
+      )}
       <Button className={styles["Button"]} huge onClick={handleConfirm}>
         Sprawdź
       </Button>
