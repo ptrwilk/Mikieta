@@ -325,7 +325,7 @@ const CheckoutView = () => {
     } else {
       setShowErrorMessage(false);
 
-      const response = await post("order", {
+      const res = (await post("order", {
         productQuantities: app!.basket.map((x) => ({
           productId: x.id,
           quantity: x.quantity,
@@ -361,9 +361,7 @@ const CheckoutView = () => {
                 sms: bySmsEtc.checked,
               }
             : null,
-      } as OrderRequestModel);
-
-      const res = (await response.json()) as OrderResponseModel;
+      } as OrderRequestModel)) as OrderResponseModel;
 
       if (res && res.url) {
         window.location.replace(res.url);
