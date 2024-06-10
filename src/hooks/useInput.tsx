@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { validate } from "./helpers";
 import { Validator } from "./types";
 
 export const useInput = (
   validators?: Validator<string | undefined>[],
   defaultValue?: string | undefined,
-  valueChangeCallback?: (value: string | undefined) => void
+  valueChangeCallback?: (value: string | undefined) => void,
+  onLostFocusAndChanged?: () => void
 ) => {
+  const prevValue = useRef<string | undefined>(defaultValue);
   const [value, setValue] = useState<string | undefined>(defaultValue);
   const [error, setError] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
@@ -33,6 +35,13 @@ export const useInput = (
 
   const handleErrorChange = (error: boolean) => setError(error);
 
+  const handleOnBlur = () => {
+    if (prevValue.current !== value) {
+      onLostFocusAndChanged?.();
+      prevValue.current = value;
+    }
+  };
+
   return {
     value: value,
     error: error,
@@ -40,5 +49,6 @@ export const useInput = (
     onValueChange: handleValueChange,
     onErrorChange: handleErrorChange,
     checkError: checkError,
+    onBlur: handleOnBlur,
   };
 };

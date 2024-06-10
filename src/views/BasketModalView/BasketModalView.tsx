@@ -11,11 +11,20 @@ import {
 import { useAppContext } from "../../context/AppContext";
 import styles from "./BasketModalView.module.css";
 import { FC, useEffect, useState } from "react";
-import { DeliveryMethod, DeliveryTimingOption, PizzaModel } from "@/types";
+import {
+  DeliveryCheckErrorType,
+  DeliveryMethod,
+  DeliveryResponseModel,
+  DeliveryTimingOption,
+  OrderModel,
+  PizzaModel,
+} from "@/types";
 import { useCombobox, useInput, useRadio } from "@/hooks";
 import { comboBoxOpeningHours } from "@/const";
 import { useNavigate } from "react-router-dom";
 import { productToPrice } from "@/helpers";
+import { post } from "@/apihelper";
+import { DeliveryMessage } from "../shared/DeliveryMessage";
 
 const BasketModalView: FC = () => {
   const [app, updateApp] = useAppContext();
@@ -91,11 +100,12 @@ const BasketModalView: FC = () => {
       },
     ],
     app!.order.street,
-    (value) =>
-      updateApp("order", {
-        ...app!.order,
-        street: value,
-      })
+    (value) => {
+      updateApp("order", { ...app!.order, street: value });
+    },
+    () => {
+      onAddressChange(app!.order);
+    }
   );
 
   const houseNumber = useInput(
@@ -107,11 +117,12 @@ const BasketModalView: FC = () => {
       },
     ],
     app!.order.houseNumber,
-    (value) =>
-      updateApp("order", {
-        ...app!.order,
-        houseNumber: value,
-      })
+    (value) => {
+      updateApp("order", { ...app!.order, houseNumber: value });
+    },
+    () => {
+      onAddressChange(app!.order);
+    }
   );
 
   const deliveryCities = useCombobox(
@@ -128,18 +139,41 @@ const BasketModalView: FC = () => {
       { value: "Rybnik", label: "Rybnik" },
     ],
     app!.order.deliveryCity,
-    (value) =>
-      updateApp("order", {
-        ...app!.order,
-        deliveryCity: value,
-      })
+    (value) => {
+      const model = { ...app!.order, deliveryCity: value };
+      updateApp("order", model);
+      onAddressChange(model);
+    }
   );
 
   const [isBasketEmpty, setIsBasketEmpty] = useState(true);
 
+  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
+
   useEffect(() => {
     setIsBasketEmpty(app?.basket.length === 0);
   }, [app?.basket.length]);
+
+  useEffect(() => {
+    if (app?.order) {
+      onAddressChange(app!.order);
+    }
+  }, []);
+
+  const onAddressChange = async ({
+    street,
+    deliveryCity,
+    houseNumber,
+  }: OrderModel) => {
+    const model = { street, city: deliveryCity, homeNumber: houseNumber };
+
+    const response = (await post(
+      "delivery/check",
+      model
+    )) as DeliveryResponseModel;
+
+    setMessage(response.hasError ? response : undefined);
+  };
 
   const closeModal = () => {
     updateApp("basketModalOpen", false);
@@ -179,6 +213,7 @@ const BasketModalView: FC = () => {
   };
 
   const handleConfirm = () => {
+    const messageError = { checkError: () => message?.hasError };
     const inputs = [
       openingHours,
       deliveryTiming,
@@ -186,6 +221,7 @@ const BasketModalView: FC = () => {
       street,
       houseNumber,
       deliveryCities,
+      messageError,
     ];
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
     } else {
@@ -245,23 +281,26 @@ const BasketModalView: FC = () => {
               <p className="mt-4 text-base">Sposób realizacji:</p>
               <ModalRadio {...deliveryMethod} />
               {deliveryMethod.selectedValue === DeliveryMethod.Delivery && (
-                <div className={styles["Delivery"]}>
-                  <Combobox
-                    className={styles["DeliveryCities"]}
-                    caption="Miejscowość"
-                    {...deliveryCities}
-                  />
-                  <TextInput
-                    className={styles["Street"]}
-                    caption="Ulica"
-                    placeholder="Twoja ulica..."
-                    {...street}
-                  />
-                  <TextInput
-                    caption="Nr domu"
-                    placeholder="Twója nr domu..."
-                    {...houseNumber}
-                  />
+                <div>
+                  <div className={styles["Delivery"]}>
+                    <Combobox
+                      className={styles["DeliveryCities"]}
+                      caption="Miejscowość"
+                      {...deliveryCities}
+                    />
+                    <TextInput
+                      className={styles["Street"]}
+                      caption="Ulica"
+                      placeholder="Twoja ulica..."
+                      {...street}
+                    />
+                    <TextInput
+                      caption="Nr domu"
+                      placeholder="Twója nr domu..."
+                      {...houseNumber}
+                    />
+                  </div>
+                  <DeliveryMessage className="mt-4" message={message} />
                 </div>
               )}
             </div>

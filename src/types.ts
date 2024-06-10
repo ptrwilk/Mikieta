@@ -18,9 +18,11 @@ export type DeliveryModel = {
   city: string;
 };
 
-export type DeliveryCheckError = {
-  errorType: DeliveryCheckErrorType;
-  message: string;
+export type DeliveryResponseModel = {
+  errorType?: DeliveryCheckErrorType;
+  errorMessage?: string;
+  hasError: boolean;
+  deliveryPrice?: number;
 };
 
 export type IngredientModel = {
@@ -100,6 +102,7 @@ export type OrderStatusModel = {
 
 export enum DeliveryCheckErrorType {
   LocationNotFound,
+  OutOfDeliveryRange,
 }
 
 export enum OrderStatusType {
