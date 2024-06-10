@@ -15,6 +15,7 @@ interface ITextInputProps {
   numeric?: boolean;
   onValueChange?: (value: string | undefined) => void;
   onErrorChange?: (error: boolean) => void;
+  onBlur?: () => void;
 }
 
 const TextInput: React.FC<ITextInputProps> = (props) => {

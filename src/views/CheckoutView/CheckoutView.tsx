@@ -30,6 +30,8 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import {
   DeliveryMethod,
+  DeliveryResponseModel,
+  OrderModel,
   OrderRequestModel,
   OrderResponseModel,
   PaymentMethod,
@@ -37,6 +39,7 @@ import {
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
 import { NavLink, useNavigate } from "react-router-dom";
+import { DeliveryMessage } from "../shared/DeliveryMessage";
 
 enum DeliveryTimingOption {
   RightAway = "RightAway",
@@ -167,7 +170,10 @@ const CheckoutView = () => {
       updateApp("order", {
         ...app!.order,
         street: value,
-      })
+      }),
+    () => {
+      onAddressChange(app!.order);
+    }
   );
   const houseNumber = useInput(
     [
@@ -181,7 +187,10 @@ const CheckoutView = () => {
       updateApp("order", {
         ...app!.order,
         houseNumber: value,
-      })
+      }),
+    () => {
+      onAddressChange(app!.order);
+    }
   );
   const city = useInput(
     [
@@ -195,7 +204,10 @@ const CheckoutView = () => {
       updateApp("order", {
         ...app!.order,
         deliveryCity: value,
-      })
+      }),
+    () => {
+      onAddressChange(app!.order);
+    }
   );
   const flatNumber = useInput([], app!.order.flatNumber, (value) =>
     updateApp("order", {
@@ -291,13 +303,35 @@ const CheckoutView = () => {
 
   const comments = useTextArea();
 
+  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
+  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
+
   useEffect(() => {
     if (name.value && phone.value && email.value) {
       name.checkError();
     }
+
+    onAddressChange(app!.order);
   }, []);
 
+  const onAddressChange = async ({
+    street,
+    deliveryCity,
+    houseNumber,
+  }: OrderModel) => {
+    const model = { street, city: deliveryCity, homeNumber: houseNumber };
+
+    const response = (await post(
+      "delivery/check",
+      model
+    )) as DeliveryResponseModel;
+
+    setMessage(response.hasError ? response : undefined);
+    setDeliveryPrice(response.deliveryPrice ?? 0);
+  };
+
   const handleConfirm = async () => {
+    const messageError = { checkError: () => message?.hasError };
     const inputs = [
       paymentMethod,
       deliveryTiming,
@@ -306,6 +340,7 @@ const CheckoutView = () => {
       phone,
       email,
       rules,
+      messageError,
     ];
 
     const residence = [street, houseNumber, city];
@@ -384,7 +419,11 @@ const CheckoutView = () => {
         {app!.order.paymentMethod === PaymentMethod.Transfer
           ? "Zamów i zapłać"
           : "Zamów"}{" "}
-        {sum(app!.basket.map((x) => productToPrice(x))).toFixed(2)} zł
+        {sum([
+          ...app!.basket.map((x) => productToPrice(x)),
+          deliveryPrice,
+        ]).toFixed(2)}{" "}
+        zł
       </Button>
     </>
   );
@@ -431,6 +470,7 @@ const CheckoutView = () => {
                 />
                 <TextInput caption="Piętro" captionTop {...floor} />
               </div>
+              <DeliveryMessage message={message} />
             </div>
           )}
           <div className="flex flex-col gap-2">
@@ -577,12 +617,14 @@ const CheckoutView = () => {
             </li>
           ))}
         </ul>
-        {!isSmall && (
-          <>
-            <hr className="mt-8" />
-            <OrderButton />
-          </>
+        <hr className="mt-8" />
+        {deliveryPrice !== 0 && (
+          <div className="flex justify-between mt-2">
+            <p>Dostawa</p>
+            <p>{deliveryPrice.toFixed(2)} zł</p>
+          </div>
         )}
+        {!isSmall && <OrderButton />}
       </div>
     </Section>
   );

@@ -3,8 +3,13 @@ import styles from "./DeliveryView.module.css";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { useInput } from "@/hooks";
 import { post } from "@/apihelper";
-import { DeliveryCheckError, DeliveryModel } from "@/types";
+import {
+  DeliveryCheckErrorType,
+  DeliveryModel,
+  DeliveryResponseModel,
+} from "@/types";
 import { useState } from "react";
+import { DeliveryMessage } from "../shared/DeliveryMessage";
 
 const DeliveryView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
@@ -28,9 +33,7 @@ const DeliveryView = () => {
     },
   ]);
 
-  const [message, setMessage] = useState<
-    { text: string; error: boolean } | undefined
-  >();
+  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
 
   const handleConfirm = async () => {
     const inputs = [street, homeNumber, city];
@@ -41,29 +44,9 @@ const DeliveryView = () => {
         street: street.value,
         homeNumber: homeNumber.value,
         city: city.value,
-      } as DeliveryModel)) as boolean | DeliveryCheckError;
+      } as DeliveryModel)) as DeliveryResponseModel;
 
-      if (typeof response !== "boolean") {
-        setMessage({
-          text: "Podany adres nie istnieje, lub nie jest wystarczająco dokładny",
-          error: true,
-        });
-      } else {
-        const canDeliver = response as boolean;
-
-        if (canDeliver) {
-          setMessage({
-            //TODO: Create a ticket allowing to specify Cena dostawy
-            text: "Dowozimy na twój adres. Cena dostawy: 4zł",
-            error: false,
-          });
-        } else {
-          setMessage({
-            text: "Niestety nie dowozimy na podany adres. Skontakuj się z nami jeżeli masz wątpiwość: +44 333 111 222",
-            error: true,
-          });
-        }
-      }
+      setMessage(response);
     }
   };
 
@@ -81,13 +64,7 @@ const DeliveryView = () => {
           {...city}
         />
       </div>
-      {message && (
-        <Message
-          className="mt-4 self-start"
-          message={message.text}
-          error={message.error}
-        />
-      )}
+      <DeliveryMessage className="mt-4 self-start" message={message} />
       <Button className={styles["Button"]} huge onClick={handleConfirm}>
         Sprawdź
       </Button>
