@@ -461,7 +461,7 @@ const CheckoutView = () => {
                   {...houseNumber}
                 />
               </div>
-              <TextInput caption="Miasto" captionTop star {...city} />
+              <TextInput caption="Miejscowość" captionTop star {...city} />
               <div className={styles["Content-1"]}>
                 <TextInput
                   caption="Numer mieszkania"

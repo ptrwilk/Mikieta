@@ -58,7 +58,7 @@ const DeliveryView = () => {
         <TextInput caption="Numer domu" star captionTop {...homeNumber} />
         <TextInput
           className={styles["City"]}
-          caption="Miasto"
+          caption="Miejscowość"
           star
           captionTop
           {...city}
