@@ -13,10 +13,12 @@ import { ReservationRequestModel } from "@/types";
 import classNames from "classnames";
 import { useState } from "react";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
+import { useAppContext } from "@/context/AppContext";
 
 const ReservationView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
 
+  const [app, updateApp] = useAppContext();
   const [thanksVisible, setThanksVisible] = useState(false);
 
   const reservation = useDateTimePicker(
@@ -68,6 +70,7 @@ const ReservationView = () => {
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
       //error
     } else {
+      updateApp("loading", true);
       await post("reservation", {
         reservationDate: reservation.date,
         email: email.value,
@@ -76,6 +79,7 @@ const ReservationView = () => {
         phone: phone.value,
         comments: comments.value,
       } as ReservationRequestModel);
+      updateApp("loading", false);
 
       setThanksVisible(true);
     }
@@ -122,7 +126,12 @@ const ReservationView = () => {
             <TextInput caption="E-mail" captionTop {...email} />
             <TextInput caption="Imię i nazwisko" captionTop {...name} />
             <TextArea caption="Uwagi..." rows={3} {...comments} />
-            <Button className="self-start" huge onClick={handleConfirm}>
+            <Button
+              className="self-start"
+              huge
+              onClick={handleConfirm}
+              loading={app!.loading}
+            >
               Wyślij rezerwację
             </Button>
           </div>

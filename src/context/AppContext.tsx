@@ -5,6 +5,7 @@ type AppState = {
   basket: PizzaModel[];
   order: OrderModel;
   basketModalOpen: boolean;
+  loading: boolean;
 };
 
 const AppContext = createContext<
@@ -26,6 +27,7 @@ export const AppContextProvider = ({ children }: { children: any }) => {
       person: {},
     },
     basketModalOpen: false,
+    loading: false,
   });
 
   const updateState = <K extends keyof AppState>(

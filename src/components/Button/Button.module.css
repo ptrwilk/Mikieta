@@ -42,3 +42,7 @@
 .Button.Button-Border {
   border: 2px solid var(--color-primary);
 }
+
+.Button.Button-Loading {
+  cursor: default;
+}

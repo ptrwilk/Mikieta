@@ -163,10 +163,12 @@ const BasketModalView: FC = () => {
   }: OrderModel) => {
     const model = { street, city: deliveryCity, homeNumber: houseNumber };
 
+    updateApp("loading", true);
     const response = (await post(
       "delivery/check",
       model
     )) as DeliveryResponseModel;
+    updateApp("loading", false);
 
     setMessage(response.hasError ? response : undefined);
   };
@@ -309,7 +311,11 @@ const BasketModalView: FC = () => {
             >
               Kontynuuj zakupy
             </Button>
-            <Button onClick={handleConfirm} disabled={app!.basket.length === 0}>
+            <Button
+              onClick={handleConfirm}
+              disabled={app!.basket.length === 0}
+              loading={app!.loading}
+            >
               Do kasy |{" "}
               {app!.basket.reduce(
                 (totalPayment: number, item: PizzaModel) =>
