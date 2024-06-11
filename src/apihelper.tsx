@@ -26,6 +26,7 @@ export const get = (path: string, convert?: (item: any) => any) => {
 };
 
 export const post = (path: string, body: any) => execute("POST", path, body);
+export const put = (path: string, body?: any) => execute("PUT", path, body);
 
 const execute = (
   method: string,
