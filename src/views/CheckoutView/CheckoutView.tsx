@@ -321,10 +321,12 @@ const CheckoutView = () => {
   }: OrderModel) => {
     const model = { street, city: deliveryCity, homeNumber: houseNumber };
 
+    updateApp("loading", true);
     const response = (await post(
       "delivery/check",
       model
     )) as DeliveryResponseModel;
+    updateApp("loading", false);
 
     setMessage(response.hasError ? response : undefined);
     setDeliveryPrice(response.deliveryPrice ?? 0);
@@ -360,6 +362,7 @@ const CheckoutView = () => {
     } else {
       setShowErrorMessage(false);
 
+      updateApp("loading", true);
       const res = (await post("order", {
         productQuantities: app!.basket.map((x) => ({
           productId: x.id,
@@ -397,6 +400,7 @@ const CheckoutView = () => {
               }
             : null,
       } as OrderRequestModel)) as OrderResponseModel;
+      updateApp("loading", false);
 
       if (res && res.url) {
         window.location.replace(res.url);
@@ -415,7 +419,12 @@ const CheckoutView = () => {
           error
         />
       )}
-      <Button className="w-full mt-6" huge onClick={handleConfirm}>
+      <Button
+        className="w-full mt-6"
+        huge
+        onClick={handleConfirm}
+        loading={app!.loading}
+      >
         {app!.order.paymentMethod === PaymentMethod.Transfer
           ? "Zamów i zapłać"
           : "Zamów"}{" "}

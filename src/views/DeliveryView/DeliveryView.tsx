@@ -1,18 +1,17 @@
-import { Button, Message, Section, TextInput } from "@/components";
+import { Button, Section, TextInput } from "@/components";
 import styles from "./DeliveryView.module.css";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { useInput } from "@/hooks";
 import { post } from "@/apihelper";
-import {
-  DeliveryCheckErrorType,
-  DeliveryModel,
-  DeliveryResponseModel,
-} from "@/types";
+import { DeliveryModel, DeliveryResponseModel } from "@/types";
 import { useState } from "react";
 import { DeliveryMessage } from "../shared/DeliveryMessage";
+import { useAppContext } from "@/context/AppContext";
 
 const DeliveryView = () => {
   const REQUIRED_VALUE = "wartość wymagana";
+
+  const [app, updateApp] = useAppContext();
 
   const street = useInput([
     {
@@ -40,11 +39,13 @@ const DeliveryView = () => {
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
       //error
     } else {
+      updateApp("loading", true);
       const response = (await post("delivery/check", {
         street: street.value,
         homeNumber: homeNumber.value,
         city: city.value,
       } as DeliveryModel)) as DeliveryResponseModel;
+      updateApp("loading", false);
 
       setMessage(response);
     }
@@ -65,7 +66,12 @@ const DeliveryView = () => {
         />
       </div>
       <DeliveryMessage className="mt-4 self-start" message={message} />
-      <Button className={styles["Button"]} huge onClick={handleConfirm}>
+      <Button
+        className={styles["Button"]}
+        huge
+        onClick={handleConfirm}
+        loading={app!.loading}
+      >
         Sprawdź
       </Button>
     </Section>

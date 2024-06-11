@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import styles from "./Button.module.css";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "../Spinner/Spinner";
 
 interface IButtonProps {
   children: any;
@@ -13,6 +14,7 @@ interface IButtonProps {
   to?: string;
   disabled?: boolean;
   border?: boolean;
+  loading?: boolean;
   onClick?: () => void;
 }
 
@@ -27,6 +29,7 @@ const Button: React.FC<IButtonProps> = ({
   light = false,
   disabled = false,
   border = false,
+  loading,
   to,
 }) => {
   const navigate = useNavigate();
@@ -41,8 +44,8 @@ const Button: React.FC<IButtonProps> = ({
 
   return (
     <button
-      onClick={disabled ? undefined : handleClick}
-      className={classNames(styles["Button"], className, {
+      onClick={disabled || loading ? undefined : handleClick}
+      className={classNames(styles["Button"], "relative", className, {
         [styles["Button-light"]]: dark === false,
         [styles["Button-tab"]]: tab,
         [styles["Button-icon"]]: icon,
@@ -51,9 +54,12 @@ const Button: React.FC<IButtonProps> = ({
         [styles["Button-light2"]]: light,
         [styles["Button-disabled"]]: disabled,
         [styles["Button-Border"]]: border,
+        [styles["Button-Loading"]]: loading,
       })}
     >
-      {children}
+      <Spinner loading={loading} size={huge ? 40 : 25}>
+        {children}
+      </Spinner>
     </button>
   );
 };

@@ -38,3 +38,4 @@ export * from "./ListItem/ListItem";
 export * from "./Logo/Logo";
 export * from "./Title/Title";
 export * from "./Message/Message";
+export * from "./Spinner/Spinner";
