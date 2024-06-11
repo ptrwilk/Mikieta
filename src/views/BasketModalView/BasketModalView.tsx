@@ -125,7 +125,7 @@ const BasketModalView: FC = () => {
     }
   );
 
-  const deliveryCities = useCombobox(
+  const deliveryCity = useInput(
     [
       {
         validate: (value) =>
@@ -133,16 +133,12 @@ const BasketModalView: FC = () => {
         errorMessage: REQUIRED_VALUE,
       },
     ],
-    [
-      { value: "Czerwionka", label: "Czerwionka" },
-      { value: "Leszczyny", label: "Leszczyny" },
-      { value: "Rybnik", label: "Rybnik" },
-    ],
     app!.order.deliveryCity,
     (value) => {
-      const model = { ...app!.order, deliveryCity: value };
-      updateApp("order", model);
-      onAddressChange(model);
+      updateApp("order", { ...app!.order, deliveryCity: value });
+    },
+    () => {
+      onAddressChange(app!.order);
     }
   );
 
@@ -220,7 +216,7 @@ const BasketModalView: FC = () => {
       deliveryMethod,
       street,
       houseNumber,
-      deliveryCities,
+      deliveryCity,
       messageError,
     ];
     if ([...inputs.map((x) => x.checkError())].filter((x) => x).length > 0) {
@@ -283,20 +279,21 @@ const BasketModalView: FC = () => {
               {deliveryMethod.selectedValue === DeliveryMethod.Delivery && (
                 <div>
                   <div className={styles["Delivery"]}>
-                    <Combobox
+                    <TextInput
                       className={styles["DeliveryCities"]}
                       caption="Miejscowość"
-                      {...deliveryCities}
+                      placeholder="Miejscowość..."
+                      {...deliveryCity}
                     />
                     <TextInput
                       className={styles["Street"]}
                       caption="Ulica"
-                      placeholder="Twoja ulica..."
+                      placeholder="Ulica..."
                       {...street}
                     />
                     <TextInput
                       caption="Nr domu"
-                      placeholder="Twója nr domu..."
+                      placeholder="Nr domu..."
                       {...houseNumber}
                     />
                   </div>

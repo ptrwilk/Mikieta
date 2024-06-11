@@ -46,7 +46,7 @@ const DeliverySection = forwardRef((_, ref) => {
     <div className={styles["DeliverySection"]}>
       <div className={styles["Inputs"]}>
         <TextInput caption="Ulica" placeholder="Jakaś 25" {...street} />
-        <TextInput caption="Miasto" placeholder="Gliwice" {...city} />
+        <TextInput caption="Miejscowość" placeholder="Gliwice" {...city} />
         <TextInput
           caption="Kod pocztowy"
           placeholder="44-444"
