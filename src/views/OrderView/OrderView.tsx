@@ -3,11 +3,13 @@ import styles from "./OrderView.module.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DeliveryMethod2, OrderStatusModel, OrderStatusType } from "@/types";
-import { get } from "@/apihelper";
+import { get, put } from "@/apihelper";
 import { format } from "date-fns";
 import { useSignalR } from "ptrwilk-packages";
+import { useAppContext } from "@/context/AppContext";
 
 const OrderView = () => {
+  const [_, updateApp] = useAppContext();
   const { zamowienieId } = useParams();
 
   const [status, setStatus] = useState<OrderStatusModel | undefined>();
@@ -16,6 +18,13 @@ const OrderView = () => {
     const model = (await get(
       `order/${zamowienieId}/status`
     )) as OrderStatusModel;
+
+    if (model.canClearBasket) {
+      await put(`order/${zamowienieId}/clear-can-clear-basket`);
+
+      localStorage.removeItem("basket");
+      updateApp("basket", []);
+    }
 
     setStatus(model);
   };

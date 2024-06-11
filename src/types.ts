@@ -98,6 +98,7 @@ export type OrderStatusModel = {
   status: OrderStatusType;
   deliveryAt: Date;
   deliveryMethod: DeliveryMethod2;
+  canClearBasket: boolean;
 };
 
 export enum DeliveryCheckErrorType {
