@@ -9,6 +9,7 @@ import {
 } from "@/components";
 import { Phone } from "lucide-react";
 import { MdAccessTime, MdOutlineHome } from "react-icons/md";
+import { GrDeliver } from "react-icons/gr";
 
 const ContactView = () => {
   return (
@@ -78,7 +79,7 @@ const ContactView = () => {
             title="Godziny Dostawy"
             icon={
               <div className={styles["Circle"]}>
-                <MdAccessTime color="var(--color-secondary)" size={30} />
+                <GrDeliver color="var(--color-secondary)" size={30} />
               </div>
             }
             content={
