@@ -21,10 +21,8 @@ const Spinner: React.FC<ISpinnerProps> = ({
         <div className={classNames(styles["Spinner"], className)}>
           <div className="opacity-0">{children}</div>
           <div
-            className={classNames(
-              styles["Spinner-AnimatedCircle"],
-              `w-[${size}px] h-[${size}px]`
-            )}
+            className={classNames(styles["Spinner-AnimatedCircle"])}
+            style={{ width: size, height: size }}
           />
         </div>
       ) : (

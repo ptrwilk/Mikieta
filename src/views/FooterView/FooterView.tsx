@@ -3,12 +3,15 @@ import styles from "./FooterView.module.css";
 import { FaFacebookF } from "react-icons/fa";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
+import { useAppContext } from "@/context/AppContext";
 
 interface IFooterViewProps {
   className?: string;
 }
 
 const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
+  const [app] = useAppContext();
+
   return (
     <div className={classNames(className, styles["FooterView"])} id="contact">
       <ul>
@@ -17,8 +20,11 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
         </li>
         <li>
           <div className={classNames(styles["Content"], styles["Content-2"])}>
-            <p>Jakaś 2/4, 44-123 Zabrze</p>
-            <p>Telefon: 333 111 222</p>
+            <p>
+              {app!.settings?.street}, {app!.settings?.zipCode}{" "}
+              {app!.settings?.city}
+            </p>
+            <p>Telefon: {app!.settings?.phone}</p>
             <p className={styles["Location"]}>
               <NavLink to="">Mapa dojazdu</NavLink>
             </p>
@@ -29,7 +35,7 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
             <p>Obserwuj nas na:</p>
             <ul>
               <li>
-                <NavLink to="">
+                <NavLink to={app!.settings?.facebook ?? ""} target="_blank">
                   <FaFacebookF />
                 </NavLink>
               </li>

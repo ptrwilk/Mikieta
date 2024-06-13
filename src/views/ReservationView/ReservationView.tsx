@@ -99,8 +99,8 @@ const ReservationView = () => {
             <p>
               Otrzymasz od nas informację zwrotną telefonicznie lub e-mailem w
               ciągu 24 godzin. Jeśli po tym czasie nie otrzymasz żadnej
-              wiadomości, prosimy o kontakt pod numerem 333 111 222 lub adresem
-              e-mail siema@nara.com.
+              wiadomości, prosimy o kontakt pod numerem {app!.settings?.phone}{" "}
+              lub adresem e-mail {app!.settings?.email}.
             </p>
           </div>
         </>
@@ -112,7 +112,7 @@ const ReservationView = () => {
           />
           <p className="self-start mt-12">
             Potrzebujesz stolik na dzisiaj? Zadzwoń:{" "}
-            <span className="font-bold">333 111 222</span>
+            <span className="font-bold">{app!.settings?.phone}</span>
           </p>
           <div className="flex flex-col gap-8 w-full mt-4">
             <DateTimePicker caption="Zarezerwuj stolik na" {...reservation} />

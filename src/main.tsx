@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./styles/global.css";
 import "./styles/theme.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AppContextProvider } from "./context/AppContext.tsx";
+import { AppContextProvider, useAppContext } from "./context/AppContext.tsx";
 import { PaymentView } from "./views/PaymentView/PaymentView.tsx";
 import { DeliveryViewOld } from "./views/DeliveryViewOld/DeliveryViewOld.tsx";
 import { Layout } from "./Layout.tsx";
@@ -15,6 +15,7 @@ import { ContactView } from "./views/ContactView/ContactView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
 import { OrderView } from "./views/OrderView/OrderView.tsx";
 import { get } from "./apihelper.tsx";
+import { SettingModel } from "./types.ts";
 
 const router = createBrowserRouter([
   {
@@ -85,10 +86,25 @@ const router = createBrowserRouter([
   },
 ]);
 
+const SettingsProvider = () => {
+  const [_, updateApp] = useAppContext();
+
+  useEffect(() => {
+    (async () => {
+      const res = (await get("setting")) as SettingModel;
+
+      updateApp("settings", res);
+    })();
+  }, []);
+
+  return <></>;
+};
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AppContextProvider>
       <RouterProvider router={router} />
+      <SettingsProvider />
     </AppContextProvider>
   </React.StrictMode>
 );

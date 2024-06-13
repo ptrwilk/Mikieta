@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react";
-import { OrderModel, PizzaModel } from "../types";
+import { OrderModel, PizzaModel, SettingModel } from "../types";
 
 type AppState = {
   basket: PizzaModel[];
   order: OrderModel;
   basketModalOpen: boolean;
   loading: boolean;
+  settings?: SettingModel;
 };
 
 const AppContext = createContext<
@@ -40,7 +41,7 @@ export const AppContextProvider = ({ children }: { children: any }) => {
     if (stateKey === "order") {
       localStorage.setItem("order", JSON.stringify(newValue));
     }
-    setState({ ...state, [stateKey]: newValue });
+    setState((prev) => ({ ...prev, [stateKey]: newValue }));
   };
 
   return (

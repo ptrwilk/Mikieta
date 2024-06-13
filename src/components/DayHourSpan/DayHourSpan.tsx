@@ -11,7 +11,8 @@ const DayHourSpan: React.FC<IDayHourSpanProps> = ({ text, from, to }) => {
     <p className={styles["DayHourSpan"]}>
       {text}:
       <span>
-        {from} - {to}
+        {/* Time that comes is expected to be in format 00:00:00 */}
+        {from.substring(0, 5)} - {to.substring(0, 5)}
       </span>
     </p>
   );
