@@ -10,8 +10,12 @@ import {
 import { Phone } from "lucide-react";
 import { MdAccessTime, MdOutlineHome } from "react-icons/md";
 import { GrDeliver } from "react-icons/gr";
+import { AboutUsDayHourAccordeon } from "../shared/AboutUsDayHourAccordeon/AboutUsDayHourAccordeon";
+import { useAppContext } from "@/context/AppContext";
 
 const ContactView = () => {
+  const [app] = useAppContext();
+
   return (
     <Section className={styles["ContactView"]}>
       <SubHeader
@@ -31,7 +35,10 @@ const ContactView = () => {
             content={
               <div className="text-center">
                 <p className="font-light">Mikieta</p>
-                <p className="font-light">Jakaś 4/5, 44-444 Costam</p>
+                <p className="font-light">
+                  {app!.settings?.street}, {app!.settings?.zipCode}{" "}
+                  {app!.settings?.city}
+                </p>
               </div>
             }
           />
@@ -44,61 +51,31 @@ const ContactView = () => {
                 <Phone color="var(--color-secondary)" size={30} />
               </div>
             }
-            content={<p className="font-light">Telefon: +44 123 144 555</p>}
+            content={
+              <p className="font-light">Telefon: {app!.settings?.phone}</p>
+            }
           />
         </li>
         <li>
-          <AboutUsItem
-            title="Godziny Otwarcia"
+          <AboutUsDayHourAccordeon
+            title="Godziny otwarcia"
             icon={
               <div className={styles["Circle"]}>
                 <MdAccessTime color="var(--color-secondary)" size={30} />
               </div>
             }
-            content={
-              <Accordeon
-                trigger={() => (
-                  <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
-                )}
-                content={
-                  <>
-                    <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Środa" from="11:00" to="23:00" />
-                    <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Piątek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Sobota" from="11:00" to="23:00" />
-                    <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
-                  </>
-                }
-              />
-            }
+            hours={app!.settings?.openingHours}
           />
         </li>
         <li>
-          <AboutUsItem
+          <AboutUsDayHourAccordeon
             title="Godziny Dostawy"
             icon={
               <div className={styles["Circle"]}>
                 <GrDeliver color="var(--color-secondary)" size={30} />
               </div>
             }
-            content={
-              <Accordeon
-                trigger={() => (
-                  <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
-                )}
-                content={
-                  <>
-                    <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Środa" from="11:00" to="23:00" />
-                    <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Piątek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Sobota" from="11:00" to="23:00" />
-                    <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
-                  </>
-                }
-              />
-            }
+            hours={app!.settings?.deliveryHours}
           />
         </li>
       </ul>

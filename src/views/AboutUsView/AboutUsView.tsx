@@ -11,8 +11,12 @@ import { MdAccessTime } from "react-icons/md";
 import { PiCookingPot } from "react-icons/pi";
 import { LuPhone } from "react-icons/lu";
 import { GrLocation } from "react-icons/gr";
+import { useAppContext } from "@/context/AppContext";
+import { AboutUsDayHourAccordeon } from "../shared/AboutUsDayHourAccordeon/AboutUsDayHourAccordeon";
 
 const AboutUsView = () => {
+  const [app] = useAppContext();
+
   return (
     <div className={styles["AboutUsView"]}>
       <Section variant="ul">
@@ -24,9 +28,11 @@ const AboutUsView = () => {
               <div
                 className={classNames(styles["Content"], styles["Content-1"])}
               >
-                <p>Mikieta</p>
-                <p>Jakaś 4/5</p>
-                <p>44-123 Gdynia</p>
+                <p className="font-light">Mikieta</p>
+                <p className="font-light">{app!.settings?.street}</p>
+                <p className="font-light">
+                  {app!.settings?.zipCode} {app!.settings?.city}
+                </p>
               </div>
             }
           />
@@ -39,32 +45,16 @@ const AboutUsView = () => {
               <div
                 className={classNames(styles["Content"], styles["Content-2"])}
               >
-                <p>+48 514 222 111</p>
+                <p className="font-light">{app!.settings?.phone}</p>
               </div>
             }
           />
         </li>
         <li>
-          <AboutUsItem
-            title={"Godziny otwarcia"}
+          <AboutUsDayHourAccordeon
+            title="Godziny otwarcia"
             icon={<MdAccessTime size={100} />}
-            content={
-              <Accordeon
-                trigger={() => (
-                  <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
-                )}
-                content={
-                  <>
-                    <DayHourSpan text="Wtorek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Środa" from="11:00" to="23:00" />
-                    <DayHourSpan text="Czwartek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Piątek" from="11:00" to="23:00" />
-                    <DayHourSpan text="Sobota" from="11:00" to="23:00" />
-                    <DayHourSpan text="Niedziela" from="11:00" to="23:00" />
-                  </>
-                }
-              />
-            }
+            hours={app!.settings?.openingHours}
           />
         </li>
         <li>
