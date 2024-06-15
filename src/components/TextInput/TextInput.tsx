@@ -1,6 +1,4 @@
-import { PhoneTextInput } from "./PhoneTextInput";
 import { TextInputShared } from "./Shared/TextInputShared/TextInputShared";
-import { ZipCodeTextInput } from "./ZipCodeTextInput";
 
 interface ITextInputProps {
   className?: string;
@@ -8,7 +6,6 @@ interface ITextInputProps {
   caption?: string;
   captionTop?: boolean;
   value?: string;
-  type?: "zip-code" | "phone";
   error?: boolean;
   errorMessage?: string;
   star?: boolean;
@@ -19,15 +16,7 @@ interface ITextInputProps {
 }
 
 const TextInput: React.FC<ITextInputProps> = (props) => {
-  const { type } = props;
-
-  return type === "zip-code" ? (
-    <ZipCodeTextInput {...props} />
-  ) : type === "phone" ? (
-    <PhoneTextInput {...props} />
-  ) : (
-    <TextInputShared {...props} />
-  );
+  return <TextInputShared {...props} />;
 };
 
 export { TextInput };

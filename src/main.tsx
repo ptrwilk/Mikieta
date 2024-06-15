@@ -5,8 +5,6 @@ import "./styles/global.css";
 import "./styles/theme.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AppContextProvider, useAppContext } from "./context/AppContext.tsx";
-import { PaymentView } from "./views/PaymentView/PaymentView.tsx";
-import { DeliveryViewOld } from "./views/DeliveryViewOld/DeliveryViewOld.tsx";
 import { Layout } from "./Layout.tsx";
 import { MenuView } from "./views/MenuView/MenuView.tsx";
 import { CheckoutView } from "./views/CheckoutView/CheckoutView.tsx";
@@ -21,19 +19,6 @@ const router = createBrowserRouter([
   {
     element: <App />,
     path: "/",
-    children: [
-      {
-        element: <PaymentView />,
-        path: "payment",
-      },
-      {
-        element: <DeliveryViewOld />,
-        path: "delivery/:deliveryId",
-        loader: ({ params: { deliveryId } }) => {
-          return fetch(`http://localhost:5105/delivery/${deliveryId}`);
-        },
-      },
-    ],
   },
   {
     element: (
