@@ -1,12 +1,6 @@
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import styles from "./ContactView.module.css";
-import {
-  AboutUsItem,
-  Accordeon,
-  DayHourSpan,
-  Map,
-  Section,
-} from "@/components";
+import { AboutUsItem, Map, Section } from "@/components";
 import { Phone } from "lucide-react";
 import { MdAccessTime, MdOutlineHome } from "react-icons/md";
 import { GrDeliver } from "react-icons/gr";

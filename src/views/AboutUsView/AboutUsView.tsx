@@ -1,10 +1,4 @@
-import {
-  AboutUsItem,
-  Accordeon,
-  Button,
-  DayHourSpan,
-  Section,
-} from "../../components";
+import { AboutUsItem, Button, Section } from "../../components";
 import styles from "./AboutUsView.module.css";
 import classNames from "classnames";
 import { MdAccessTime } from "react-icons/md";

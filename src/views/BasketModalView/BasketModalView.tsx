@@ -12,7 +12,6 @@ import { useAppContext } from "../../context/AppContext";
 import styles from "./BasketModalView.module.css";
 import { FC, useEffect, useState } from "react";
 import {
-  DeliveryCheckErrorType,
   DeliveryMethod,
   DeliveryResponseModel,
   DeliveryTimingOption,
