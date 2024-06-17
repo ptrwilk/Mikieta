@@ -14,6 +14,7 @@ import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
 import { OrderView } from "./views/OrderView/OrderView.tsx";
 import { get } from "./apihelper.tsx";
 import { SettingModel } from "./types.ts";
+import { ErrorView } from "./views/ErrorView/ErrorView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       </Layout>
     ),
     path: "/zamowienie/:zamowienieId",
+  },
+  {
+    element: <ErrorView />,
+    path: "/*",
   },
 ]);
 
