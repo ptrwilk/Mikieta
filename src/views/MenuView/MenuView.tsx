@@ -2,13 +2,13 @@ import { useLoaderData } from "react-router-dom";
 import { Accordeon, MenuItem, Section } from "../../components";
 import styles from "./MenuView.module.css";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PizzaModel, PizzaType, ProductType } from "@/types";
+import { ProductModel, PizzaType, ProductType } from "@/types";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 
 const MenuView = () => {
-  const products = useLoaderData() as PizzaModel[];
+  const products = useLoaderData() as ProductModel[];
 
   const isMobile = useMediaQuery({ maxWidth: 920 });
 

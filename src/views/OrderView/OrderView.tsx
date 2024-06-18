@@ -2,7 +2,7 @@ import { Section, Status } from "@/components";
 import styles from "./OrderView.module.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { DeliveryMethod2, OrderStatusModel, OrderStatusType } from "@/types";
+import { DeliveryMethod, OrderStatusModel, OrderStatusType } from "@/types";
 import { get, put } from "@/apihelper";
 import { format } from "date-fns";
 import { useSignalR } from "ptrwilk-packages";
@@ -65,7 +65,7 @@ const OrderView = () => {
       number: 3,
       title: "Gotowe!",
       text:
-        status?.deliveryMethod === DeliveryMethod2.Delivery
+        status?.deliveryMethod === DeliveryMethod.Delivery
           ? "Jesteśmy w drodze do ciebie"
           : "Twoje zamówienie jest gotowe odbioru",
       status: OrderStatusType.Ready,
@@ -78,7 +78,7 @@ const OrderView = () => {
         <h2>Dziękujemy za złożenie zamówienia!</h2>
         {status !== undefined && status!.status !== OrderStatusType.Waiting && (
           <p>
-            {status.deliveryMethod === DeliveryMethod2.Delivery
+            {status.deliveryMethod === DeliveryMethod.Delivery
               ? "Twoje zamówienie będzie dostarczone"
               : "Twoje zamówienie będzie gotowe do odbioru"}{" "}
             o {format(status!.deliveryAt, "HH:mm")}

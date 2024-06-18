@@ -16,7 +16,7 @@ import {
   DeliveryResponseModel,
   DeliveryTimingOption,
   OrderModel,
-  PizzaModel,
+  ProductModel,
 } from "@/types";
 import { useCombobox, useInput, useRadio } from "@/hooks";
 import { comboBoxOpeningHours } from "@/const";
@@ -180,8 +180,8 @@ const BasketModalView: FC = () => {
     updateApp("basket", []);
   };
 
-  const addItem = (item: PizzaModel) => {
-    const updatedBasket: PizzaModel[] = app!.basket.map((product) => {
+  const addItem = (item: ProductModel) => {
+    const updatedBasket: ProductModel[] = app!.basket.map((product) => {
       if (item.id === product.id) {
         return { ...product, quantity: product.quantity! + 1 };
       }
@@ -191,9 +191,9 @@ const BasketModalView: FC = () => {
     updateApp("basket", updatedBasket);
   };
 
-  const removeItem = (item: PizzaModel) => {
+  const removeItem = (item: ProductModel) => {
     const updatedBasket = app!.basket.reduce(
-      (basket: PizzaModel[], product) => {
+      (basket: ProductModel[], product) => {
         if (item.id === product.id) {
           if (product.quantity! > 1) {
             basket.push({ ...product, quantity: product.quantity! - 1 });
@@ -317,7 +317,7 @@ const BasketModalView: FC = () => {
             >
               Do kasy |{" "}
               {app!.basket.reduce(
-                (totalPayment: number, item: PizzaModel) =>
+                (totalPayment: number, item: ProductModel) =>
                   totalPayment + productToPrice(item),
                 0
               )}

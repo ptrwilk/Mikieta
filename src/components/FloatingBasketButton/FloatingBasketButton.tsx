@@ -3,7 +3,7 @@ import { Button } from "../../components";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./FloatingBasketButton.module.css";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { PizzaModel } from "@/types";
+import { ProductModel } from "@/types";
 import classNames from "classnames";
 
 const FloatingBasketButton = () => {
@@ -15,7 +15,7 @@ const FloatingBasketButton = () => {
   const computeBasketValue = useCallback((): number => {
     if (!app?.basket) return 0;
     return app.basket.reduce(
-      (total: number, item: PizzaModel) => total + (item.quantity ?? 0),
+      (total: number, item: ProductModel) => total + (item.quantity ?? 0),
       0
     );
   }, [app?.basket]);
