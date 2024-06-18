@@ -1,10 +1,10 @@
-import { PizzaModel, translateProductType } from "@/types";
+import { ProductModel, translateProductType } from "@/types";
 import { Counter } from "..";
 import styles from "./BasketItem.module.css";
 import { productToPrice } from "@/helpers";
 
 interface IBasketItemProps {
-  item?: PizzaModel;
+  item?: ProductModel;
   onRemoveItem?: () => void;
   onAddItem?: () => void;
 }

@@ -6,7 +6,6 @@ import { Spinner } from "../Spinner/Spinner";
 interface IButtonProps {
   children: any;
   className?: string;
-  dark?: boolean;
   tab?: boolean;
   icon?: boolean;
   huge?: boolean;
@@ -23,7 +22,6 @@ const Button: React.FC<IButtonProps> = ({
   className,
   tab,
   onClick,
-  dark = true,
   icon = false,
   huge = false,
   light = false,
@@ -46,12 +44,10 @@ const Button: React.FC<IButtonProps> = ({
     <button
       onClick={disabled || loading ? undefined : handleClick}
       className={classNames(styles["Button"], "relative", className, {
-        [styles["Button-light"]]: dark === false,
         [styles["Button-tab"]]: tab,
         [styles["Button-icon"]]: icon,
         [styles["Button-huge"]]: huge,
-        //TODO: refactor this
-        [styles["Button-light2"]]: light,
+        [styles["Button-light"]]: light,
         [styles["Button-disabled"]]: disabled,
         [styles["Button-Border"]]: border,
         [styles["Button-Loading"]]: loading,

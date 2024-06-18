@@ -4,8 +4,10 @@ import {
   maskMatch,
   method2,
   method3,
+  productToPrice,
   replaceWithMask,
 } from "./helpers";
+import { ProductModel, PizzaType, ProductType } from "./types";
 
 test("method", () => {
   expect(
@@ -158,4 +160,66 @@ test("replace with mask", () => {
   expect(replaceWithMask("1 2", "# #", "##")).toBe("12");
   expect(replaceWithMask("+1 2", "+# #", "+##")).toBe("+12");
   expect(replaceWithMask("+12", "+##", "+# #")).toBe("+1 2");
+});
+
+test("productToPrice", () => {
+  var product: ProductModel = {
+    productType: ProductType.Pizza,
+    id: "12",
+    name: "Pizza",
+    price: 12,
+    ingredients: [
+      {
+        name: "1",
+        priceSmall: 1,
+        priceMedium: 2,
+        priceLarge: 3,
+        prices: [1, 2, 3],
+      },
+      {
+        name: "2",
+        priceSmall: 1.5,
+        priceMedium: 2.5,
+        priceLarge: 3.5,
+        prices: [1.5, 2.5, 3.5],
+      },
+    ],
+  };
+
+  expect(productToPrice({ ...product, price: 0 })).toBe(0);
+  expect(productToPrice({ ...product, price: 12 })).toBe(12);
+  expect(productToPrice({ ...product, price: 12, quantity: 2 })).toBe(24);
+  expect(
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Small })
+  ).toBe(14.5);
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Small,
+      quantity: 2,
+    })
+  ).toBe(29);
+  expect(
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Medium })
+  ).toBe(16.5);
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Medium,
+      quantity: 2,
+    })
+  ).toBe(33);
+  expect(
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Large })
+  ).toBe(18.5);
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Large,
+      quantity: 2,
+    })
+  ).toBe(37);
 });

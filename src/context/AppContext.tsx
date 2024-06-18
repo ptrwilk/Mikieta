@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
-import { OrderModel, PizzaModel, SettingModel } from "../types";
+import { OrderModel, ProductModel, SettingModel } from "../types";
 
 type AppState = {
-  basket: PizzaModel[];
+  basket: ProductModel[];
   order: OrderModel;
   basketModalOpen: boolean;
   loading: boolean;

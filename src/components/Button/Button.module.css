@@ -9,11 +9,6 @@
   cursor: pointer;
 }
 
-.Button.Button-light {
-  background: transparent;
-  border: 1px solid var(--color-primary);
-}
-
 .Button.Button-tab {
   background: #f8f8f8;
   color: var(--color-black);
@@ -29,7 +24,7 @@
   padding: 1rem 2rem;
 }
 
-.Button.Button-light2 {
+.Button.Button-light {
   background: transparent;
   color: var(--color-primary);
 }

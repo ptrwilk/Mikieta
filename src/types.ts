@@ -18,7 +18,7 @@ export type SettingHoursModel = {
   to: string;
 };
 
-export type PizzaModel = {
+export type ProductModel = {
   id: Guid;
   name: string;
   price: number;
@@ -115,45 +115,38 @@ export type OrderResponseModel = {
 export type OrderStatusModel = {
   status: OrderStatusType;
   deliveryAt: Date;
-  deliveryMethod: DeliveryMethod2;
+  deliveryMethod: DeliveryMethod;
   canClearBasket: boolean;
 };
 
 export enum DeliveryCheckErrorType {
-  LocationNotFound,
-  OutOfDeliveryRange,
+  LocationNotFound = "LocationNotFound",
+  OutOfDeliveryRange = "OutOfDeliveryRange",
 }
 
 export enum OrderStatusType {
-  Waiting,
-  Preparing,
-  Ready,
+  Waiting = "Waiting",
+  Preparing = "Preparing",
+  Ready = "Ready",
 }
 
 export enum ProductType {
-  Pizza,
-  Drink,
-  Sauce,
-  Snack,
+  Pizza = "Pizza",
+  Drink = "Drink",
+  Sauce = "Sauce",
+  Snack = "Snack",
 }
 
 export enum PizzaType {
-  Small,
-  Medium,
-  Large,
+  Small = "Small",
+  Medium = "Medium",
+  Large = "Large",
 }
 
-//TODO: ujednolicic zmienić ten enum na ponizszy
 export enum DeliveryMethod {
   Delivery = "Delivery",
   TakeAway = "TakeAway",
   DinningIn = "DinningIn",
-}
-
-export enum DeliveryMethod2 {
-  Delivery,
-  TakeAway,
-  DinningIn,
 }
 
 export enum PaymentMethod {

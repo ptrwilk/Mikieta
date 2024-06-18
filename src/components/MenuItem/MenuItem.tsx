@@ -4,12 +4,12 @@ import sauce from "../../../src/assets/images/sauce.jpg";
 import snack from "../../../src/assets/images/snack.jpg";
 import drink from "../../../src/assets/images/drink.jpg";
 import { ButtonShop } from "..";
-import { PizzaModel, ProductType } from "@/types";
+import { ProductModel, ProductType } from "@/types";
 import { useAppContext } from "@/context/AppContext";
 import { productToPrice } from "@/helpers";
 
 interface IMenuItemProps {
-  product: PizzaModel;
+  product: ProductModel;
 }
 
 const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
