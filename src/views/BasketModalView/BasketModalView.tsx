@@ -32,6 +32,8 @@ const BasketModalView: FC = () => {
 
   const REQUIRED_VALUE = "wartość wymagana";
 
+  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
+
   const deliveryTiming = useRadio(
     [
       {
@@ -64,11 +66,17 @@ const BasketModalView: FC = () => {
     ],
     undefined,
     app!.order.deliveryMethod,
-    (value) =>
+    (value) => {
+      if (value === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      } else {
+        setMessage(undefined);
+      }
       updateApp("order", {
         ...app!.order,
         deliveryMethod: value as any,
-      })
+      });
+    }
   );
 
   const openingHours = useCombobox(
@@ -102,7 +110,9 @@ const BasketModalView: FC = () => {
       updateApp("order", { ...app!.order, street: value });
     },
     () => {
-      onAddressChange(app!.order);
+      if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      }
     }
   );
 
@@ -119,7 +129,9 @@ const BasketModalView: FC = () => {
       updateApp("order", { ...app!.order, houseNumber: value });
     },
     () => {
-      onAddressChange(app!.order);
+      if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      }
     }
   );
 
@@ -136,20 +148,23 @@ const BasketModalView: FC = () => {
       updateApp("order", { ...app!.order, deliveryCity: value });
     },
     () => {
-      onAddressChange(app!.order);
+      if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      }
     }
   );
 
   const [isBasketEmpty, setIsBasketEmpty] = useState(true);
-
-  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
 
   useEffect(() => {
     setIsBasketEmpty(app?.basket.length === 0);
   }, [app?.basket.length]);
 
   useEffect(() => {
-    if (app?.order) {
+    if (
+      app?.order &&
+      deliveryMethod.selectedValue === DeliveryMethod.Delivery
+    ) {
       onAddressChange(app!.order);
     }
   }, []);
@@ -209,7 +224,9 @@ const BasketModalView: FC = () => {
   };
 
   const handleConfirm = () => {
-    const messageError = { checkError: () => message?.hasError };
+    const messageError = {
+      checkError: () => message?.hasError,
+    };
     const inputs = [
       openingHours,
       deliveryTiming,
