@@ -116,10 +116,6 @@ const CheckoutView = () => {
         label: "Odbiór własny",
         value: DeliveryMethod.TakeAway,
       },
-      {
-        label: "Zjem na miejscu",
-        value: DeliveryMethod.DinningIn,
-      },
     ],
     undefined,
     app!.order.deliveryMethod,
