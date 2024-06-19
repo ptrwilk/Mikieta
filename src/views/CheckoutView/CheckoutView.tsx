@@ -53,6 +53,9 @@ const CheckoutView = () => {
 
   const isSmall = useMediaQuery({ maxWidth: 650 });
 
+  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
+  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
+
   const [commentsVisible, setCommentsVisible] = useState(false);
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -119,11 +122,18 @@ const CheckoutView = () => {
     ],
     undefined,
     app!.order.deliveryMethod,
-    (value) =>
+    (value) => {
+      if (value === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      } else {
+        setMessage(undefined);
+        setDeliveryPrice(0);
+      }
       updateApp("order", {
         ...app!.order,
         deliveryMethod: value as any,
-      })
+      });
+    }
   );
 
   const [paymentSwitched, setPaymentSwitched] = useState(true);
@@ -168,7 +178,9 @@ const CheckoutView = () => {
         street: value,
       }),
     () => {
-      onAddressChange(app!.order);
+      if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      }
     }
   );
   const houseNumber = useInput(
@@ -185,7 +197,9 @@ const CheckoutView = () => {
         houseNumber: value,
       }),
     () => {
-      onAddressChange(app!.order);
+      if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      }
     }
   );
   const city = useInput(
@@ -202,7 +216,9 @@ const CheckoutView = () => {
         deliveryCity: value,
       }),
     () => {
-      onAddressChange(app!.order);
+      if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+        onAddressChange(app!.order);
+      }
     }
   );
   const flatNumber = useInput([], app!.order.flatNumber, (value) =>
@@ -299,15 +315,13 @@ const CheckoutView = () => {
 
   const comments = useTextArea();
 
-  const [message, setMessage] = useState<DeliveryResponseModel | undefined>();
-  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
-
   useEffect(() => {
     if (name.value && phone.value && email.value) {
       name.checkError();
     }
-
-    onAddressChange(app!.order);
+    if (deliveryMethod.selectedValue === DeliveryMethod.Delivery) {
+      onAddressChange(app!.order);
+    }
   }, []);
 
   const onAddressChange = async ({
@@ -449,7 +463,7 @@ const CheckoutView = () => {
                   ? "Dostawa"
                   : deliveryMethod.selectedValue === DeliveryMethod.TakeAway
                   ? "Odbiór własny"
-                  : "Zjem na miejscu"}
+                  : ""}
               </p>
             }
           >
