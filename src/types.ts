@@ -146,7 +146,6 @@ export enum PizzaType {
 export enum DeliveryMethod {
   Delivery = "Delivery",
   TakeAway = "TakeAway",
-  DinningIn = "DinningIn",
 }
 
 export enum PaymentMethod {

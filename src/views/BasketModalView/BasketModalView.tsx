@@ -61,7 +61,6 @@ const BasketModalView: FC = () => {
     [
       { value: DeliveryMethod.Delivery, label: "Dostawa" },
       { value: DeliveryMethod.TakeAway, label: "Odbiór własny" },
-      { value: DeliveryMethod.DinningIn, label: "Zjem na miejscu" },
     ],
     undefined,
     app!.order.deliveryMethod,
