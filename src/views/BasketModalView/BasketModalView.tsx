@@ -263,8 +263,12 @@ const BasketModalView: FC = () => {
   };
 
   return (
-    <Modal open={app!.basketModalOpen} onClose={closeModal}>
-      <div className={styles["BasketModalView"]}>
+    <Modal
+      className={styles["BasketModalView"]}
+      open={app!.basketModalOpen}
+      onClose={closeModal}
+    >
+      <div className={styles["BasketModalView-Content"]}>
         <img src="https://przepis3.umcs.stronazen.pl/wp-content/uploads/2023/12/zdrowa_pizza_przepis_justbefit_8-1-e1701706553588.webp" />
         <div className={styles["Content"]}>
           <div className={styles["ScrollableContent"]}>
