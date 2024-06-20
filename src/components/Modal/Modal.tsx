@@ -1,13 +1,20 @@
 import { useEffect } from "react";
 import styles from "./Modal.module.css";
+import classNames from "classnames";
 
 interface IModalProps {
+  className?: string;
   open?: boolean;
   onClose?: () => void;
   children: any;
 }
 
-const Modal: React.FC<IModalProps> = ({ open, children, onClose }) => {
+const Modal: React.FC<IModalProps> = ({
+  className,
+  open,
+  children,
+  onClose,
+}) => {
   useEffect(() => {
     // When the modal is open, add a class to body to prevent scrolling
     if (open) {
@@ -26,7 +33,7 @@ const Modal: React.FC<IModalProps> = ({ open, children, onClose }) => {
   }
 
   return (
-    <div className={styles["Modal"]} onClick={onClose}>
+    <div className={classNames(className, styles["Modal"])} onClick={onClose}>
       <div className={styles["Content"]} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>

@@ -1,29 +1,34 @@
 .BasketModalView {
+  align-items: flex-start;
+  padding-top: 3rem;
+  overflow-y: auto;
+}
+
+.BasketModalView .BasketModalView-Content {
   display: flex;
   width: 90vw;
   max-width: 800px;
-  height: 95vh;
 }
 
-.BasketModalView img {
+.BasketModalView .BasketModalView-Content img {
   width: 150px;
   object-fit: cover;
 }
 
-.BasketModalView .Content {
+.BasketModalView .BasketModalView-Content .Content {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.BasketModalView .ScrollableContent {
+.BasketModalView .BasketModalView-Content .ScrollableContent {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 
-.BasketModalView .Header {
+.BasketModalView .BasketModalView-Content .Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,51 +36,51 @@
   background-color: var(--color-fourth);
 }
 
-.BasketModalView .Title {
+.BasketModalView .BasketModalView-Content .Title {
   font-weight: 600;
   font-size: 18px;
 }
 
-.BasketModalView .Buttons {
+.BasketModalView .BasketModalView-Content .Buttons {
   display: flex;
   padding: 1rem;
 }
 
-.BasketModalView .Buttons {
+.BasketModalView .BasketModalView-Content .Buttons {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: auto;
+  margin-top: 1rem;
 }
 
-.BasketModalView .Buttons button {
+.BasketModalView .BasketModalView-Content .Buttons button {
   flex: 1;
 }
 
-.BasketModalView .ContinueShoppingButton {
+.BasketModalView .BasketModalView-Content .ContinueShoppingButton {
   border: 2px solid var(--color-secondary);
   background-color: var(--color-primary);
   color: var(--color-black);
 }
 
-.BasketModalView .CloseButton {
+.BasketModalView .BasketModalView-Content .CloseButton {
   background: transparent;
 }
 
-.BasketModalView .BasketInfo {
+.BasketModalView .BasketModalView-Content .BasketInfo {
   padding-left: 20px;
   padding-right: 20px;
   text-align: start;
 }
 
-.BasketModalView .BasketInfo .Products {
+.BasketModalView .BasketModalView-Content .BasketInfo .Products {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
-.BasketModalView .EmptyBasketInfo {
+.BasketModalView .BasketModalView-Content .EmptyBasketInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -86,47 +91,57 @@
   color: var(--color-sixth);
 }
 
-.BasketModalView .Delivery {
+.BasketModalView .BasketModalView-Content .Delivery {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.5rem;
   margin-top: 1rem;
 }
 
-.BasketModalView .DeliveryCities {
+.BasketModalView .BasketModalView-Content .DeliveryCities {
   grid-column: 1 / span 3;
 }
 
-.BasketModalView .Street {
+.BasketModalView .BasketModalView-Content .Street {
   grid-column: 1 / span 2;
 }
 
 @media (max-width: 650px) {
   .BasketModalView {
+    padding: 0;
+  }
+
+  .BasketModalView .BasketModalView-Content .Buttons {
+    position: sticky;
+    bottom: 0;
+    background: var(--color-primary);
+  }
+
+  .BasketModalView .BasketModalView-Content {
     width: 100vw;
   }
 
-  .BasketModalView img {
+  .BasketModalView .BasketModalView-Content img {
     width: 0;
   }
 }
 
 @media (max-width: 475px) {
-  .BasketModalView .Delivery {
+  .BasketModalView .BasketModalView-Content .Delivery {
     grid-template-columns: 1fr;
   }
 
-  .BasketModalView .DeliveryCities {
+  .BasketModalView .BasketModalView-Content .DeliveryCities {
     grid-column: 1;
   }
 
-  .BasketModalView .Street {
+  .BasketModalView .BasketModalView-Content .Street {
     grid-column: 1;
   }
 }
 
 @media (max-width: 430px) {
-  .BasketModalView .Buttons {
+  .BasketModalView .BasketModalView-Content .Buttons {
     flex-direction: column;
   }
 }
