@@ -36,6 +36,11 @@ export const useCombobox = (
     valueChangeCallback?.(value);
   };
 
+  const handleSetValue = (value: string | undefined) => {
+    setValue(value);
+    valueChangeCallback?.(value);
+  };
+
   return {
     options: options,
     value: value,
@@ -43,5 +48,6 @@ export const useCombobox = (
     errorMessage: errorMessage,
     onChange: handleChange,
     checkError: checkError,
+    setValue: handleSetValue,
   };
 };

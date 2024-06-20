@@ -19,9 +19,8 @@ import {
   ProductModel,
 } from "@/types";
 import { useCombobox, useInput, useRadio } from "@/hooks";
-import { comboBoxOpeningHours } from "@/const";
 import { useNavigate } from "react-router-dom";
-import { productToPrice } from "@/helpers";
+import { getDayIndex, getTimeIntervals, productToPrice } from "@/helpers";
 import { post } from "@/apihelper";
 import { DeliveryMessage } from "../shared/DeliveryMessage";
 
@@ -53,6 +52,36 @@ const BasketModalView: FC = () => {
         deliveryTiming: value as any,
       })
   );
+
+  const getHours = (deliveryMethod?: DeliveryMethod) => {
+    return getTimeIntervals(
+      ((deliveryMethod === DeliveryMethod.TakeAway
+        ? app!.settings?.openingHours
+        : app!.settings?.deliveryHours) ?? [])[getDayIndex()]
+    ).map((x) => ({
+      label: x,
+      value: x,
+    }));
+  };
+
+  const openingHours = useCombobox(
+    [
+      {
+        validate: (value) =>
+          !!value ||
+          deliveryTiming.selectedValue === DeliveryTimingOption.RightAway,
+        errorMessage: REQUIRED_VALUE,
+      },
+    ],
+    getHours(app!.order.deliveryMethod),
+    app!.order.openingHour,
+    (value) =>
+      updateApp("order", {
+        ...app!.order,
+        openingHour: value,
+      })
+  );
+
   const deliveryMethod = useRadio(
     [
       {
@@ -72,29 +101,19 @@ const BasketModalView: FC = () => {
       } else {
         setMessage(undefined);
       }
+
       updateApp("order", {
         ...app!.order,
         deliveryMethod: value as any,
       });
-    }
-  );
 
-  const openingHours = useCombobox(
-    [
-      {
-        validate: (value) =>
-          !!value ||
-          deliveryTiming.selectedValue === DeliveryTimingOption.RightAway,
-        errorMessage: REQUIRED_VALUE,
-      },
-    ],
-    comboBoxOpeningHours,
-    app!.order.openingHour,
-    (value) =>
-      updateApp("order", {
-        ...app!.order,
-        openingHour: value,
-      })
+      const hours = getHours(value as DeliveryMethod);
+      var containsHours = hours.some((x) => x.value === app!.order.openingHour);
+
+      if (!containsHours) {
+        openingHours.setValue(undefined);
+      }
+    }
   );
 
   const street = useInput(
