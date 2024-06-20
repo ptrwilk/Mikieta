@@ -21,11 +21,12 @@ import {
 import { useAppContext } from "@/context/AppContext";
 import {
   convertTimeToDate,
+  getDayIndex,
   getEnumValue,
+  getTimeIntervals,
   productToPrice,
   sum,
 } from "@/helpers";
-import { comboBoxOpeningHours } from "@/const";
 import { FaShoppingCart } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import {
@@ -62,9 +63,20 @@ const CheckoutView = () => {
 
   const REQUIRED_VALUE = "wartość wymagana";
 
+  const getHours = (deliveryMethod?: DeliveryMethod) => {
+    return getTimeIntervals(
+      ((deliveryMethod === DeliveryMethod.TakeAway
+        ? app!.settings?.openingHours
+        : app!.settings?.deliveryHours) ?? [])[getDayIndex()]
+    ).map((x) => ({
+      label: x,
+      value: x,
+    }));
+  };
+
   const openingHours = useCombobox(
     [],
-    comboBoxOpeningHours,
+    getHours(app!.order.deliveryMethod),
     app?.order.openingHour,
     (value) =>
       updateApp("order", {
@@ -133,6 +145,13 @@ const CheckoutView = () => {
         ...app!.order,
         deliveryMethod: value as any,
       });
+
+      const hours = getHours(value as DeliveryMethod);
+      var containsHours = hours.some((x) => x.value === app!.order.openingHour);
+
+      if (!containsHours) {
+        openingHours.setValue(undefined);
+      }
     }
   );
 
