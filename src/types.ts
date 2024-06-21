@@ -9,6 +9,7 @@ export type SettingModel = {
   deliveryPrice?: number;
   deliveryRange?: number;
   email?: string;
+  adminWebsiteUrl: string;
   openingHours: SettingHoursModel[];
   deliveryHours: SettingHoursModel[];
 };
