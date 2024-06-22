@@ -60,7 +60,7 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
           <div className={styles["Separator"]} />
           <NavLink to="">Zgody marketingowe</NavLink>
           <div className={styles["Separator"]} />
-          <NavLink to={app?.settings?.adminWebsiteUrl ?? ""}>
+          <NavLink to={app?.settings?.adminWebsiteUrl ?? ""} target="_blank">
             Panel Restauratora
           </NavLink>
         </div>
