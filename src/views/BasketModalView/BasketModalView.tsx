@@ -102,17 +102,14 @@ const BasketModalView: FC = () => {
         setMessage(undefined);
       }
 
-      updateApp("order", {
-        ...app!.order,
-        deliveryMethod: value as any,
-      });
-
       const hours = getHours(value as DeliveryMethod);
       var containsHours = hours.some((x) => x.value === app!.order.openingHour);
 
-      if (!containsHours) {
-        openingHours.setValue(undefined);
-      }
+      updateApp("order", {
+        ...app!.order,
+        deliveryMethod: value as any,
+        openingHour: !containsHours ? undefined : app!.order.openingHour,
+      });
     }
   );
 
