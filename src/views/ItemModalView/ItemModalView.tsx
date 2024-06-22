@@ -74,80 +74,41 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
 
   const onAddToBasketClicked = (): void => {
     closeModal();
-    const { basket, itemSelected } = app!;
+    const { basket, itemSelected, itemEdited } = app!;
 
-    const updatedBasket = [
-      ...basket,
-      { ...itemSelected, quantity: itemQuantity },
-    ];
+    let updatedItem = { ...itemSelected, quantity: itemQuantity };
+
+    if (itemSelected.productType === ProductType.Pizza) {
+      const pizza = itemSelected as PizzaModel;
+
+      updatedItem = {
+        ...updatedItem,
+        subproducts: pizza.subproducts,
+      };
+    }
+
+    const updatedBasket = [...basket, updatedItem];
 
     updateApp({ basket: updatedBasket, itemModalOpen: false });
   };
 
-  const decreaseCarouselItemQuantity = (item: ProductModel): void => {
-    if (productType !== ProductType.Pizza) {
-      return;
-    }
-
-    const { itemSelected } = app!;
-    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
-
-    const subproductIndex = itemSelectedCopy.subproducts?.findIndex(
-      (subproduct) =>
-        subproduct.name === item.name &&
-        subproduct.productType === item.productType
-    );
-
-    if (subproductIndex === undefined) return;
-    if (!itemSelectedCopy.subproducts) return;
-
-    if (itemSelectedCopy.subproducts[subproductIndex]?.quantity > 1) {
-      itemSelectedCopy.subproducts[subproductIndex] = {
-        ...itemSelectedCopy.subproducts[subproductIndex],
-        quantity: itemSelectedCopy.subproducts[subproductIndex].quantity - 1,
-      };
-    } else {
-      itemSelectedCopy.subproducts = itemSelectedCopy.subproducts.filter(
-        (subproduct) =>
-          !(
-            subproduct.name === item.name &&
-            subproduct.productType === item.productType
-          )
-      );
-    }
-
-    updateApp({ itemSelected: itemSelectedCopy });
-  };
-
-  const increaseCarouselItemQuantity = (item: ProductModel): void => {
-    if (productType !== ProductType.Pizza) {
-      return;
-    }
-
-    const { itemSelected } = app!;
-    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
-
-    const subproductIndex = itemSelectedCopy.subproducts?.findIndex(
-      (subproduct) =>
-        subproduct.name === item.name &&
-        subproduct.productType === item.productType
-    );
-    if (subproductIndex === undefined) return;
-
-    if (subproductIndex !== -1 && itemSelectedCopy.subproducts) {
-      itemSelectedCopy.subproducts[subproductIndex] = {
-        ...itemSelectedCopy.subproducts[subproductIndex],
-        quantity: itemSelectedCopy.subproducts[subproductIndex].quantity + 1,
-      };
-    } else {
-      itemSelectedCopy.subproducts?.push({ ...item, quantity: 1 });
-    }
-
-    updateApp({ itemSelected: itemSelectedCopy });
-  };
   function checkCheckbox(checked: boolean | undefined) {
     console.log(checked);
   }
+
+  const calculateTotalPrice = () => {
+    let totalPrice = price;
+    if (productType === ProductType.Pizza) {
+      const pizza = app!.itemSelected as PizzaModel;
+      if (pizza.subproducts) {
+        totalPrice += pizza.subproducts.reduce(
+          (sum, subproduct) => sum + subproduct.price,
+          0
+        );
+      }
+    }
+    return totalPrice * itemQuantity;
+  };
 
   return (
     <Modal open={app!.itemModalOpen} onClose={closeModal}>
@@ -193,20 +154,7 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
             </div> */}
             {productType === ProductType.Pizza && (
               <div className={styles["Carousel"]}>
-                <CarouselComponent
-                  items={snacks}
-                  onDecreaseCarouselItem={(item) =>
-                    decreaseCarouselItemQuantity(item)
-                  }
-                  onIncreaseCarouselItem={(item) =>
-                    increaseCarouselItemQuantity(item)
-                  }
-                  subproducts={
-                    app!.itemSelected.productType === ProductType.Pizza
-                      ? (app!.itemSelected as PizzaModel).subproducts || []
-                      : []
-                  }
-                />
+                <CarouselComponent />
               </div>
             )}
           </div>
@@ -216,8 +164,13 @@ const ItemModalView: FC<IItemModalViewProps> = () => {
               onMinusClick={onDecreaseItemQuantity}
               onPlusClick={onIncreaseItemQuantity}
             />
+            {/* <Button onClick={() => onAddToBasketClicked()}>
+              {isEditing ? "Edytuj koszyk" : "Dodaj do koszyka"}{" "}
+              {/* {calculateTotalPrice()} */}
+
             <Button onClick={() => onAddToBasketClicked()}>
-              Dodaj do koszyka {itemQuantity ? itemQuantity * price : price}
+              {"Dodaj do koszyka"}
+              {/* {calculateTotalPrice()} */}
             </Button>
           </div>
         </div>

@@ -22,51 +22,49 @@ import {
   getSubproductQuantityFromItemSelected,
 } from "@/types";
 import { useAppContext } from "@/context/AppContext";
+import { useLoaderData } from "react-router-dom";
 
 const TWEEN_FACTOR_BASE = 0.3;
 const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 type PropType = {
-  items: ProductModel[];
   options?: EmblaOptionsType;
-  onDecreaseCarouselItem: (item: ProductModel) => void;
-  onIncreaseCarouselItem: (item: ProductModel) => void;
-  subproducts: ProductModel[];
 };
 
 const CarouselComponent: React.FC<PropType> = (props) => {
-  const {
-    items,
-    options,
-    onDecreaseCarouselItem,
-    onIncreaseCarouselItem,
-    subproducts = [],
-  } = props;
+  const { options } = props;
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [previouslySelectedItemIds, setPreviouslySelectedItemIds] = useState<
     number[]
   >([]);
 
-  const [app] = useAppContext();
-
+  const [app, updateApp] = useAppContext();
   useEffect(() => {
-    if (!app?.itemModalOpen) return;
-    if (app?.itemSelected?.productType !== ProductType.Pizza) return;
+    const { itemSelected } = app!;
 
-    const itemSelected = app.itemSelected as PizzaModel;
-    if (!itemSelected.subproducts) return;
-    setSelectedItemIds((prevSelectedItemIds) =>
-      itemSelected
-        .subproducts!.filter(
-          (subproduct) =>
-            subproduct.quantity > 0 &&
-            prevSelectedItemIds.includes(subproduct.id)
-        )
-        .map((subproduct) => subproduct.id)
-    );
-  }, [app?.itemModalOpen, app?.itemSelected]);
+    if (itemSelected?.productType !== ProductType.Pizza) return;
+
+    const pizzaSelected = app!.itemSelected as PizzaModel;
+    if (!pizzaSelected.subproducts) return;
+    const selectedItems = [
+      ...pizzaSelected
+        .subproducts!.filter((subproduct) => subproduct.quantity > 0)
+        .map((subproduct) => subproduct.id),
+    ];
+    setSelectedItemIds(() => selectedItems);
+    setPreviouslySelectedItemIds(() => selectedItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // useEffect(() => {
+  //   if (getSubproductQuantityFromItemSelected(subproducts, 6) === undefined) {
+  //     removeFromPreviouslySelectedItems(6);
+  //     toggleItem(6);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [app!.itemSelected]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const tweenFactor = useRef(0);
@@ -77,6 +75,31 @@ const CarouselComponent: React.FC<PropType> = (props) => {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
+
+  const items = ((useLoaderData() as ProductModel[]) || []).filter(
+    (product) => product.productType === ProductType.Snack
+  );
+
+  //useEffect(() => {
+  const getItemEdited = (): PizzaModel => {
+    const itemEdited = structuredClone(app!.itemSelected) as PizzaModel;
+    if (app!.itemSelected.productType === ProductType.Pizza) {
+      const existingSubproducts = itemEdited.subproducts || [];
+      const mergedSubproducts = items.map((snack) => {
+        const existing = existingSubproducts.find((sub) => sub.id === snack.id);
+        return existing ? { ...snack, ...existing } : snack;
+      });
+      itemEdited.subproducts = mergedSubproducts;
+    }
+
+    console.log("itemEdited", itemEdited);
+    return itemEdited;
+  };
+
+  const { subproducts, ...rest } = getItemEdited();
+
+  // getItemEdited();
+  //}, [app, items]);
 
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
@@ -145,6 +168,7 @@ const CarouselComponent: React.FC<PropType> = (props) => {
   const toggleItem = useCallback((itemId: number) => {
     setSelectedItemIds((prevSelectedItems) => {
       const index = prevSelectedItems.indexOf(itemId);
+      //console.log(index);
       let selectedItems = [];
       if (index === -1) {
         selectedItems = [...prevSelectedItems, itemId];
@@ -163,24 +187,107 @@ const CarouselComponent: React.FC<PropType> = (props) => {
 
       const isItemPreviouslySelected =
         previouslySelectedItemIds.includes(slideIndex);
+
       const isItemNewlySelected = !isItemSelected && !isItemPreviouslySelected;
+
       const selectedItem = items.find((item) => item.id === slideIndex);
 
       if (isItemNewlySelected) {
         if (selectedItem) {
-          onIncreaseCarouselItem(selectedItem);
+          //handleIncreaseItem(selectedItem);
           addToPreviouslySelectedItems(slideIndex);
         }
+      }
+      if (!isItemSelected && selectedItem) {
+        handleIncreaseItem(selectedItem);
+      }
+
+      if (isItemSelected && selectedItem) {
+        setQuantityToZero(selectedItem);
       }
 
       toggleItem(slideIndex);
     };
   };
-  const handleDecreaseItem = (item: ProductModel) => {
-    if (item.quantity === 0) {
-      removeFromPreviouslySelectedItems(item.id);
+
+  const setQuantityToZero = (item: ProductModel) => {
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
+
+    if (!itemSelectedCopy.subproducts) return;
+
+    itemSelectedCopy.subproducts = itemSelectedCopy.subproducts.filter(
+      (subproduct) =>
+        !(
+          subproduct.name === item.name &&
+          subproduct.productType === item.productType
+        )
+    );
+
+    updateApp({ itemSelected: itemSelectedCopy });
+  };
+  const decreaseItemCount = (item: ProductModel) => {
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
+
+    const subproductIndex = itemSelectedCopy.subproducts?.findIndex(
+      (subproduct) =>
+        subproduct.name === item.name &&
+        subproduct.productType === item.productType
+    );
+
+    if (subproductIndex === undefined) return;
+    if (!itemSelectedCopy.subproducts) return;
+
+    if (itemSelectedCopy.subproducts[subproductIndex]?.quantity > 1) {
+      itemSelectedCopy.subproducts[subproductIndex] = {
+        ...itemSelectedCopy.subproducts[subproductIndex],
+        quantity: itemSelectedCopy.subproducts[subproductIndex].quantity - 1,
+      };
+    } else {
+      itemSelectedCopy.subproducts = itemSelectedCopy.subproducts.filter(
+        (subproduct) =>
+          !(
+            subproduct.name === item.name &&
+            subproduct.productType === item.productType
+          )
+      );
     }
-    onDecreaseCarouselItem(item);
+
+    updateApp({ itemSelected: itemSelectedCopy });
+  };
+  const handleDecreaseItem = (item: ProductModel) => {
+    if (
+      getSubproductQuantityFromItemSelected(subproducts || [], item.id) === 1
+    ) {
+      removeFromPreviouslySelectedItems(item.id);
+      toggleItem(item.id);
+    }
+
+    decreaseItemCount(item);
+  };
+
+  const handleIncreaseItem = (item: ProductModel) => {
+    const { itemSelected } = app!;
+    const itemSelectedCopy = structuredClone(itemSelected) as PizzaModel;
+
+    const subproductIndex = itemSelectedCopy.subproducts?.findIndex(
+      (subproduct) =>
+        subproduct.name === item.name &&
+        subproduct.productType === item.productType
+    );
+    if (subproductIndex === undefined) return;
+
+    if (subproductIndex !== -1 && itemSelectedCopy.subproducts) {
+      itemSelectedCopy.subproducts[subproductIndex] = {
+        ...itemSelectedCopy.subproducts[subproductIndex],
+        quantity: itemSelectedCopy.subproducts[subproductIndex].quantity + 1,
+      };
+    } else {
+      itemSelectedCopy.subproducts?.push({ ...item, quantity: 1 });
+    }
+    console.log("itemSelectedCopy", itemSelectedCopy);
+    updateApp({ itemSelected: itemSelectedCopy });
   };
   return (
     <div>
@@ -222,11 +329,11 @@ const CarouselComponent: React.FC<PropType> = (props) => {
                 >
                   <Counter
                     quantity={getSubproductQuantityFromItemSelected(
-                      subproducts,
+                      subproducts || [],
                       item.id
                     )}
                     onMinusClick={() => handleDecreaseItem(item)}
-                    onPlusClick={() => onIncreaseCarouselItem(item)}
+                    onPlusClick={() => handleIncreaseItem(item)}
                   ></Counter>
                 </div>
               ) : (

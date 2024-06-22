@@ -6,6 +6,7 @@ type AppState = {
   order: OrderModel;
   basketModalOpen: boolean;
   itemSelected: ProductModel;
+  itemEdited: ProductModel;
   itemModalOpen: boolean;
 };
 
@@ -23,6 +24,7 @@ export const AppContextProvider = ({ children }: { children: any }) => {
     },
     basketModalOpen: false,
     itemSelected: parse(localStorage.getItem("itemSelected")),
+    itemEdited: parse(localStorage.getItem("itemEdited")),
     itemModalOpen: false,
   });
 

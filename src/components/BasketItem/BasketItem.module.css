@@ -26,7 +26,17 @@
   font-style: italic;
 }
 
+.BasketItem .ProductDetails .Subproducts {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-seventh);
+}
+
 .BasketItem .Right .Price {
   text-align: end;
   font-weight: bold;
+}
+.BasketItem .Right .EditButton {
+  background: transparent;
+  padding: 0;
 }
