@@ -33,38 +33,26 @@ const MenuView = () => {
     {
       productType: ProductType.Pizza,
       pizzaType: PizzaType.Small,
-      text: "Pizza 32 CM.",
+      text: "Pizza",
       index: "0",
-    },
-    {
-      productType: ProductType.Pizza,
-      pizzaType: PizzaType.Medium,
-      text: "Pizza 40 CM.",
-      index: "1",
-    },
-    {
-      productType: ProductType.Pizza,
-      pizzaType: PizzaType.Large,
-      text: "Pizza 50 CM.",
-      index: "2",
     },
     {
       productType: ProductType.Sauce,
       pizzaType: null,
       text: "Sosy do pizzy",
-      index: "3",
+      index: "1",
     },
     {
       productType: ProductType.Drink,
       pizzaType: null,
       text: "Napoje",
-      index: "4",
+      index: "2",
     },
     {
       productType: ProductType.Snack,
       pizzaType: null,
       text: "Przekąski",
-      index: "5",
+      index: "3",
     },
   ];
 
