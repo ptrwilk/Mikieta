@@ -5,6 +5,7 @@ type AppState = {
   basket: ProductModel[];
   order: OrderModel;
   basketModalOpen: boolean;
+  purchaseModel?: ProductModel;
   loading: boolean;
   settings?: SettingModel;
 };

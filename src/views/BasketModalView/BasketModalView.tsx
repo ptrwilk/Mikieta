@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { getDayIndex, getTimeIntervals, productToPrice } from "@/helpers";
 import { post } from "@/apihelper";
 import { DeliveryMessage } from "../shared/DeliveryMessage";
+import { DialogHeader } from "../shared/DialogHeader/DialogHeader";
 
 const BasketModalView: FC = () => {
   const [app, updateApp] = useAppContext();
@@ -269,7 +270,7 @@ const BasketModalView: FC = () => {
         <img src="https://przepis3.umcs.stronazen.pl/wp-content/uploads/2023/12/zdrowa_pizza_przepis_justbefit_8-1-e1701706553588.webp" />
         <div className={styles["Content"]}>
           <div className={styles["ScrollableContent"]}>
-            <div className={styles["Header"]}>
+            <DialogHeader onClose={closeModal}>
               <div className="flex items-center px-1 gap-3">
                 <p className={styles["Title"]}>Koszyk</p>
                 {!isBasketEmpty && (
@@ -281,10 +282,7 @@ const BasketModalView: FC = () => {
                   </p>
                 )}
               </div>
-              <Button onClick={closeModal} className={styles["CloseButton"]}>
-                <FaWindowClose size={24} color="var(--color-secondary)" />
-              </Button>
-            </div>
+            </DialogHeader>
             <div className={styles["BasketInfo"]}>
               {app!.basket.length === 0 && (
                 <div className={styles["EmptyBasketInfo"]}>

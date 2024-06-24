@@ -30,3 +30,5 @@ export * from "./Logo/Logo";
 export * from "./Title/Title";
 export * from "./Message/Message";
 export * from "./Spinner/Spinner";
+export * from "./Border/Border";
+export * from "./Counter/CounterSecond";

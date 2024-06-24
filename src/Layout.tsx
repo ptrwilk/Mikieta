@@ -12,6 +12,7 @@ import { FooterView } from "./views/FooterView/FooterView";
 import classNames from "classnames";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { PurchaseDetailsModalView } from "./views/PurchaseDetailsModalView/PurchaseDetailsModalView";
 
 interface ILayoutProps {
   children: any;
@@ -61,6 +62,7 @@ const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
       {basketVisible && <FloatingBasketButton />}
       <FooterView className="mt-auto" />
       <BasketModalView />
+      <PurchaseDetailsModalView />
     </div>
   );
 };

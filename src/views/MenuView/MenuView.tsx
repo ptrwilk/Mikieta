@@ -6,11 +6,17 @@ import { ProductModel, PizzaType, ProductType } from "@/types";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
+import { useAppContext } from "@/context/AppContext";
 
 const MenuView = () => {
+  const [app, updateApp] = useAppContext();
   const products = useLoaderData() as ProductModel[];
 
   const isMobile = useMediaQuery({ maxWidth: 920 });
+
+  const handleClick = (product: ProductModel) => {
+    updateApp("purchaseModel", product);
+  };
 
   const MenuItems = (productType: ProductType, pizzaType: PizzaType | null) => {
     return (
@@ -21,7 +27,10 @@ const MenuView = () => {
           )
           .map((product, key) => (
             <li key={key}>
-              <MenuItem product={product} />
+              <MenuItem
+                product={product}
+                onClick={() => handleClick(product)}
+              />
               <div className={styles["Hr"]} />
             </li>
           ))}
