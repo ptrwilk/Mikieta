@@ -10,24 +10,12 @@ import { productToPrice } from "@/helpers";
 
 interface IMenuItemProps {
   product: ProductModel;
+  onClick?: () => void;
 }
 
-const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
-  const [app, updateApp] = useAppContext();
+const MenuItem: React.FC<IMenuItemProps> = ({ product, onClick }) => {
+  const [app] = useAppContext();
   const { name, ingredients, imageUrl, description } = product;
-  const handlePizzaClick = () => {
-    const existingPizza = app!.basket.find((item) => item.id === product.id);
-
-    const updatedBasked = existingPizza
-      ? app!.basket.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity! + 1 }
-            : item
-        )
-      : [...app!.basket, { ...product, quantity: 1 }];
-
-    updateApp("basket", updatedBasked);
-  };
 
   const img =
     product.productType === ProductType.Pizza
@@ -53,7 +41,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product }) => {
         <ButtonShop
           className={styles["Button"]}
           price={productToPrice(product)}
-          onClick={handlePizzaClick}
+          onClick={onClick}
           amount={app!.basket.find((x) => x.id === product.id)?.quantity}
         />
       </div>
