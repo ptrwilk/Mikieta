@@ -36,6 +36,7 @@ import {
   OrderRequestModel,
   OrderResponseModel,
   PaymentMethod,
+  translateProductType,
 } from "@/types";
 import { post } from "@/apihelper";
 import { validateEmail, validatePhone } from "@/hooks/types";
@@ -642,11 +643,15 @@ const CheckoutView = () => {
         )}
         <ul className={styles["Products"]}>
           {app!.basket.map((item, key) => (
-            <li key={key}>
+            <li className="flex gap-4" key={key}>
               <p>
                 {item.quantity! > 1
                   ? `${item.quantity}x ${item.name}`
                   : item.name}
+                <span className="font-normal text-sm">
+                  {" "}
+                  ({translateProductType(item.productType, item.pizzaType)})
+                </span>
               </p>
               <p className="flex-shrink-0">
                 {productToPrice(item).toFixed(2)} zł
