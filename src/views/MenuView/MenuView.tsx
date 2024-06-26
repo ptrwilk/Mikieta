@@ -6,7 +6,7 @@ import { ProductModel, PizzaType, ProductType } from "@/types";
 import { SubHeader } from "@/components/SubHeader/SubHeader";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
-import { useAppContext } from "@/context/AppContext";
+import { updateBasket, useAppContext } from "@/context/AppContext";
 
 const MenuView = () => {
   const [app, updateApp] = useAppContext();
@@ -15,16 +15,22 @@ const MenuView = () => {
   const isMobile = useMediaQuery({ maxWidth: 920 });
 
   const handleClick = (product: ProductModel) => {
-    updateApp("purchaseModel", product);
+    if (product.productType === ProductType.Pizza) {
+      updateApp("purchaseModel", {
+        ...product,
+        pizzaType: PizzaType.Small,
+        quantity: 1,
+      });
+    } else {
+      updateBasket(app!, updateApp, { ...product, quantity: 1 });
+    }
   };
 
-  const MenuItems = (productType: ProductType, pizzaType: PizzaType | null) => {
+  const MenuItems = (productType: ProductType) => {
     return (
       <ul className={styles["Items"]}>
         {products
-          .filter(
-            (x) => x.productType === productType && x.pizzaType === pizzaType
-          )
+          .filter((x) => x.productType === productType)
           .map((product, key) => (
             <li key={key}>
               <MenuItem
@@ -70,7 +76,7 @@ const MenuView = () => {
       <SubHeader header="Dowiedz się więcej" title="O NASZYM MENU" />
       {isMobile && (
         <ul className={classNames(styles["Tabs"], "flex flex-col gap-4")}>
-          {items.map(({ text, productType, pizzaType }, key) => (
+          {items.map(({ text, productType }, key) => (
             <li key={key}>
               <Accordeon
                 trigger={(expanded) => (
@@ -83,7 +89,7 @@ const MenuView = () => {
                     {text}
                   </p>
                 )}
-                content={<>{MenuItems(productType, pizzaType)}</>}
+                content={<>{MenuItems(productType)}</>}
               />
             </li>
           ))}
@@ -98,9 +104,9 @@ const MenuView = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          {items.map(({ productType, pizzaType, index }, key) => (
+          {items.map(({ productType, index }, key) => (
             <TabsContent key={key} value={index}>
-              {MenuItems(productType, pizzaType)}
+              {MenuItems(productType)}
             </TabsContent>
           ))}
         </Tabs>

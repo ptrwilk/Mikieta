@@ -22,13 +22,14 @@ export type SettingHoursModel = {
 export type ProductModel = {
   id: Guid;
   name: string;
-  price: number;
+  price?: number;
   ingredients: IngredientModel[];
   productType: ProductType;
   pizzaType?: PizzaType | null;
   quantity?: number;
   imageUrl?: string;
   description?: string;
+  pizzaSizePrice: { [key in PizzaType]: number };
 };
 
 export type DeliveryModel = {
@@ -77,6 +78,7 @@ export type PersonModel = {
 export type ProductQuantityModel = {
   productId: Guid;
   quantity: number;
+  pizzaType?: PizzaType;
 };
 
 export type OrderRequestModel = {

@@ -1,36 +1,51 @@
-import { Border, Button, CounterSecond, Modal } from "@/components";
-import { useAppContext } from "@/context/AppContext";
+import { Border, Button, CounterSecond, Modal, ModalRadio } from "@/components";
+import { updateBasket, useAppContext } from "@/context/AppContext";
 import { DialogHeader } from "../shared/DialogHeader/DialogHeader";
 import pizzaImg from "../../assets/images/pizza.jpg";
 import { productToPrice } from "@/helpers";
 import styles from "./PurchaseDetailsModalView.module.css";
-import { useState } from "react";
+import { PizzaType } from "@/types";
 
 const PurchaseDetailsModalView = () => {
   const [app, updateApp] = useAppContext();
 
-  const { name, ingredients, imageUrl } = app!.purchaseModel || {};
+  const { name, ingredients, imageUrl, pizzaSizePrice, quantity, pizzaType } =
+    app!.purchaseModel || {};
 
-  const [quantity, setQuantity] = useState(1);
+  const Price = ({ type }: { type: PizzaType }) => (
+    <p>
+      {pizzaSizePrice &&
+        `${productToPrice({
+          ...app!.purchaseModel!,
+          pizzaType: type,
+        }).toFixed(2)} zł`}
+    </p>
+  );
+
+  const sizes = [
+    {
+      value: PizzaType.Small,
+      label: "Pizza 32 cm",
+      child: <Price type={PizzaType.Small} />,
+    },
+    {
+      value: PizzaType.Medium,
+      label: "Pizza 40 cm",
+      child: <Price type={PizzaType.Medium} />,
+    },
+    {
+      value: PizzaType.Large,
+      label: "Pizza 50 cm",
+      child: <Price type={PizzaType.Large} />,
+    },
+  ];
 
   const close = () => {
     updateApp("purchaseModel", undefined);
-    setQuantity(1);
   };
 
   const addToBasket = () => {
-    const product = app!.purchaseModel!;
-    const existingProduct = app!.basket.find((item) => item.id === product.id);
-
-    const updatedBasked = existingProduct
-      ? app!.basket.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity! + quantity }
-            : item
-        )
-      : [...app!.basket, { ...product, quantity: quantity }];
-
-    updateApp("basket", updatedBasked);
+    updateBasket(app!, updateApp, app!.purchaseModel!);
 
     close();
   };
@@ -60,18 +75,41 @@ const PurchaseDetailsModalView = () => {
             {ingredients?.map((x) => x.name).join(", ")}
           </p>
         </div>
+        <Border />
+        <div className="p-4">
+          <ModalRadio
+            childAlwaysVisible
+            childRight
+            captionBold
+            caption="Rozmiar"
+            options={sizes}
+            onValueChange={(value) =>
+              updateApp("purchaseModel", {
+                ...app!.purchaseModel!,
+                pizzaType: value,
+              })
+            }
+            selectedValue={pizzaType}
+          />
+        </div>
         <div className="flex justify-between gap-4 p-4 bg-[var(--color-fourth)]">
           <CounterSecond
             quantity={quantity}
-            onIncrease={() => setQuantity((prev) => prev + 1)}
-            onDecrease={() => setQuantity((prev) => prev - 1)}
+            onIncrease={() =>
+              updateApp("purchaseModel", {
+                ...app!.purchaseModel!,
+                quantity: quantity! + 1,
+              })
+            }
+            onDecrease={() =>
+              updateApp("purchaseModel", {
+                ...app!.purchaseModel!,
+                quantity: quantity! - 1,
+              })
+            }
           />
           <Button huge onClick={addToBasket}>
-            Dodaj do koszyka +{" "}
-            {productToPrice({
-              ...app!.purchaseModel!,
-              quantity: quantity,
-            }).toFixed(2)}{" "}
+            Dodaj do koszyka + {productToPrice(app!.purchaseModel).toFixed(2)}{" "}
             zł
           </Button>
         </div>

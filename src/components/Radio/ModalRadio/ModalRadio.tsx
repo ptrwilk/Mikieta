@@ -2,16 +2,22 @@ import classNames from "classnames";
 import styles from "./ModalRadio.module.css";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
+type Option = {
+  value: string;
+  label: string;
+  child?: any;
+  description?: string;
+};
+
 interface ModalRadioProps {
-  options?: Array<{
-    value: string;
-    label: string;
-    child?: any;
-    description?: string;
-  }>;
+  options?: Option[];
+  className?: string;
   selectedValue: any;
   border?: boolean;
   caption?: string;
+  captionBold?: boolean;
+  childRight?: boolean;
+  childAlwaysVisible?: boolean;
   error?: boolean;
   errorMessage?: string;
   errorValues?: string[];
@@ -21,9 +27,13 @@ interface ModalRadioProps {
 
 const ModalRadio: React.FC<ModalRadioProps> = ({
   options,
+  className,
   selectedValue,
   border,
   caption,
+  captionBold,
+  childRight,
+  childAlwaysVisible,
   error,
   errorMessage,
   errorValues,
@@ -32,12 +42,12 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
 }) => {
   return (
     <RadioGroup
-      className={styles["RadioGroup"]}
+      className={classNames(styles["RadioGroup"], className)}
       value={selectedValue}
       onValueChange={onValueChange}
     >
       {caption && (
-        <p>
+        <p className={classNames({ "font-semibold": captionBold })}>
           {caption}
           {star && <span className={styles["Star"]}>*</span>}
         </p>
@@ -46,6 +56,7 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
         <label
           key={option.value}
           className={classNames(styles["Label"], {
+            [styles["Label-WithChild"]]: !!option.child,
             [styles["Label-Border"]]: border,
             [styles["Label-Selected"]]:
               border && selectedValue === option.value,
@@ -68,9 +79,17 @@ const ModalRadio: React.FC<ModalRadioProps> = ({
               {option.description}
             </p>
           </div>
-          {option.child && selectedValue === option.value && (
-            <div className={styles["Child"]}>{option.child}</div>
-          )}
+          {option.child &&
+            (childAlwaysVisible || selectedValue === option.value) && (
+              <div
+                className={classNames(
+                  { [styles["Child"]]: !childRight },
+                  { [styles["Child-Right"]]: childRight }
+                )}
+              >
+                {option.child}
+              </div>
+            )}
         </label>
       ))}
       {errorMessage && (error || (errorValues?.length ?? 0) > 0) && (

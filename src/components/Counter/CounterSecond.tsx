@@ -3,13 +3,13 @@ import { Button as ComponentButton } from "../Button/Button";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 
 interface ICounterSecondProps {
-  quantity: number;
+  quantity?: number;
   onDecrease?: () => void;
   onIncrease?: () => void;
 }
 
 const CounterSecond: React.FC<ICounterSecondProps> = ({
-  quantity,
+  quantity = 0,
   onDecrease,
   onIncrease,
 }) => {

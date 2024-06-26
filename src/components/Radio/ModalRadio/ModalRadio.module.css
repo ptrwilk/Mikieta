@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.RadioGroup .Label-WithChild {
+  grid-template-columns: auto 1fr 1fr;
+}
+
 .RadioGroup .Star {
   color: var(--color-error);
 }
@@ -35,6 +39,10 @@
 }
 
 .RadioGroup .Child {
-  grid-column: span 2;
+  grid-column: span 3;
   margin-top: 1rem;
+}
+
+.RadioGroup .Child-Right {
+  justify-self: end;
 }

@@ -59,6 +59,11 @@ export const useRadio = (
     valueChangeCallback?.(value);
   };
 
+  const handleSetValue = (value: string | undefined) => {
+    setValue(value);
+    valueChangeCallback?.(value);
+  };
+
   return {
     options: options,
     error: error,
@@ -67,5 +72,6 @@ export const useRadio = (
     onValueChange: handleChange,
     checkError: checkError,
     errorValues: errorValues,
+    setValue: handleSetValue,
   };
 };

@@ -1,4 +1,4 @@
-import { ProductModel, PizzaType } from "./types";
+import { ProductModel, PizzaType, ProductType } from "./types";
 
 type Groupable = {
   [key: string]: any;
@@ -178,12 +178,18 @@ function getEnumIndex(enumObj: any, enumValue: any): number {
 
 export const productToPrice = (product: ProductModel) => {
   return (
-    (product.price +
+    ((product.productType === ProductType.Pizza
+      ? product.pizzaSizePrice[product.pizzaType ?? PizzaType.Small]
+      : product.price ?? 0) +
       sum(
         product.ingredients.map((x) => {
-          var index = getEnumIndex(PizzaType, product.pizzaType);
+          var pizzaType =
+            product.productType === ProductType.Pizza
+              ? product.pizzaType ?? PizzaType.Small
+              : undefined;
+          var index = getEnumIndex(PizzaType, pizzaType);
 
-          return isNill(product.pizzaType) ? 0 : x.prices[index];
+          return isNill(pizzaType) ? 0 : x.prices[index];
         })
       )) *
     (product.quantity || 1)

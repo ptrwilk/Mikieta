@@ -8,7 +8,7 @@ import {
   ModalRadio,
   TextInput,
 } from "../../components";
-import { useAppContext } from "../../context/AppContext";
+import { updateBasket, useAppContext } from "../../context/AppContext";
 import styles from "./BasketModalView.module.css";
 import { FC, useEffect, useState } from "react";
 import {
@@ -212,32 +212,11 @@ const BasketModalView: FC = () => {
   };
 
   const addItem = (item: ProductModel) => {
-    const updatedBasket: ProductModel[] = app!.basket.map((product) => {
-      if (item.id === product.id) {
-        return { ...product, quantity: product.quantity! + 1 };
-      }
-      return product;
-    });
-
-    updateApp("basket", updatedBasket);
+    updateBasket(app!, updateApp, { ...item, quantity: 1 });
   };
 
-  const removeItem = (item: ProductModel) => {
-    const updatedBasket = app!.basket.reduce(
-      (basket: ProductModel[], product) => {
-        if (item.id === product.id) {
-          if (product.quantity! > 1) {
-            basket.push({ ...product, quantity: product.quantity! - 1 });
-          }
-        } else {
-          basket.push(product);
-        }
-        return basket;
-      },
-      []
-    );
-
-    updateApp("basket", updatedBasket);
+  const removeItem = (product: ProductModel) => {
+    updateBasket(app!, updateApp, { ...product, quantity: 1 }, "remove");
   };
 
   const handleConfirm = () => {
