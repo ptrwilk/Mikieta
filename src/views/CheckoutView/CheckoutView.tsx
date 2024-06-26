@@ -394,6 +394,7 @@ const CheckoutView = () => {
         productQuantities: app!.basket.map((x) => ({
           productId: x.id,
           quantity: x.quantity,
+          pizzaType: x.pizzaType,
         })),
         deliveryTiming:
           deliveryTiming.selectedValue === DeliveryTimingOption.HourSelection
