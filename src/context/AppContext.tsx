@@ -6,6 +6,7 @@ type AppState = {
   order: OrderModel;
   basketModalOpen: boolean;
   purchaseModel?: ProductModel;
+  snacks: ProductModel[];
   loading: boolean;
   settings?: SettingModel;
 };
@@ -28,6 +29,7 @@ export const AppContextProvider = ({ children }: { children: any }) => {
     order: parse(localStorage.getItem("order")) ?? {
       person: {},
     },
+    snacks: [],
     basketModalOpen: false,
     loading: false,
   });
@@ -66,34 +68,43 @@ export const updateBasket = (
     stateKey: K,
     newValue: AppState[K]
   ) => void,
-  product: ProductModel,
+  products: ProductModel[],
   type: "add" | "remove" = "add"
 ) => {
   const equals = (item1: ProductModel, item2: ProductModel) =>
     item1.id === item2.id && item1.pizzaType === item2.pizzaType;
-  const existingProduct = app!.basket.find((item) => equals(item, product));
 
-  let updatedBasked: ProductModel[] = [];
+  let updatedBasked = [...app!.basket];
 
-  if (type === "add") {
-    updatedBasked = existingProduct
-      ? app!.basket.map((item) =>
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
+    const existingProduct = app!.basket.find((item) => equals(item, product));
+
+    if (!existingProduct) {
+      updatedBasked = [
+        ...updatedBasked,
+        { ...product, quantity: product!.quantity },
+      ];
+    } else {
+      if (type === "add") {
+        updatedBasked = updatedBasked.map((item) =>
           equals(item, product)
             ? { ...item, quantity: item.quantity! + product.quantity! }
             : item
-        )
-      : [...app!.basket, { ...product, quantity: product!.quantity }];
-  } else {
-    updatedBasked = app!.basket.reduce((basket: ProductModel[], item) => {
-      if (equals(item, product)) {
-        if (item.quantity! > 1) {
-          basket.push({ ...item, quantity: item.quantity! - 1 });
-        }
+        );
       } else {
-        basket.push(item);
+        updatedBasked = updatedBasked.reduce((basket: ProductModel[], item) => {
+          if (equals(item, product)) {
+            if (item.quantity! > 1) {
+              basket.push({ ...item, quantity: item.quantity! - 1 });
+            }
+          } else {
+            basket.push(item);
+          }
+          return basket;
+        }, []);
       }
-      return basket;
-    }, []);
+    }
   }
 
   updateApp("basket", updatedBasked);

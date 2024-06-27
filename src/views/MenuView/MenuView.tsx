@@ -21,8 +21,12 @@ const MenuView = () => {
         pizzaType: PizzaType.Small,
         quantity: 1,
       });
+      updateApp(
+        "snacks",
+        products.filter((x) => x.productType === ProductType.Snack)
+      );
     } else {
-      updateBasket(app!, updateApp, { ...product, quantity: 1 });
+      updateBasket(app!, updateApp, [{ ...product, quantity: 1 }]);
     }
   };
 

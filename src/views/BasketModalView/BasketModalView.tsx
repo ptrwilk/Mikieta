@@ -212,11 +212,11 @@ const BasketModalView: FC = () => {
   };
 
   const addItem = (item: ProductModel) => {
-    updateBasket(app!, updateApp, { ...item, quantity: 1 });
+    updateBasket(app!, updateApp, [{ ...item, quantity: 1 }]);
   };
 
   const removeItem = (product: ProductModel) => {
-    updateBasket(app!, updateApp, { ...product, quantity: 1 }, "remove");
+    updateBasket(app!, updateApp, [{ ...product, quantity: 1 }], "remove");
   };
 
   const handleConfirm = () => {
