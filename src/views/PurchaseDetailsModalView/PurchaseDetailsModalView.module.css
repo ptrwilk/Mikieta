@@ -1,6 +1,8 @@
 .PurchaseDetailsModalView {
   width: 90vw;
   max-width: 600px;
+  height: 100vh;
+  overflow: auto;
 }
 
 @media (max-width: 400px) {
