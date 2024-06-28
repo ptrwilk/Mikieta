@@ -17,6 +17,8 @@
 }
 .embla__slide {
   flex: 0 0 var(--slide-size);
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   padding-left: var(--slide-spacing);
 }
