@@ -1,4 +1,11 @@
-import { Border, Button, CounterSecond, Modal, ModalRadio } from "@/components";
+import {
+  Border,
+  Button,
+  Checkbox,
+  CounterSecond,
+  Modal,
+  ModalRadio,
+} from "@/components";
 import { updateBasket, useAppContext } from "@/context/AppContext";
 import { DialogHeader } from "../shared/DialogHeader/DialogHeader";
 import pizzaImg from "../../assets/images/pizza.jpg";
@@ -9,6 +16,7 @@ import { useEffect, useState } from "react";
 import { SnacksCarouselSection } from "./Sections/SnacksCarouselSection";
 import { useMediaQuery } from "react-responsive";
 import { SnacksListSection } from "./Sections/SnacksListSection";
+import { Ingredients } from "../shared/Ingredients";
 
 const PurchaseDetailsModalView = () => {
   const [app, updateApp] = useAppContext();
@@ -109,9 +117,7 @@ const PurchaseDetailsModalView = () => {
               <p className="font-semibold">{name}</p>
               <p>{productToPrice(app!.purchaseModel!).toFixed(2)} zł</p>
             </div>
-            <p className="text-[14px] mt-2">
-              {ingredients?.map((x) => x.name).join(", ")}
-            </p>
+            <Ingredients ingredients={ingredients} />
           </div>
           <Border />
           <div className="p-4">
@@ -145,6 +151,27 @@ const PurchaseDetailsModalView = () => {
               />
             )}
           </div>
+        </div>
+        <div className="px-4">
+          <p className="font-semibold">Składniki</p>
+          <ul className="flex flex-col gap-4 p-4">
+            {ingredients?.map((item, key) => (
+              <li key={key}>
+                <Checkbox
+                  checked={!item.removed}
+                  children={<p>{item.name}</p>}
+                  onCheckChange={(checked) => {
+                    updateApp("purchaseModel", {
+                      ...app!.purchaseModel!,
+                      ingredients: app!.purchaseModel!.ingredients!.map((x) =>
+                        x.id === item.id ? { ...x, removed: !checked } : x
+                      ),
+                    });
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="sticky bottom-0 z-10 flex justify-between gap-4 p-4 bg-[var(--color-fourth)]">
           <CounterSecond

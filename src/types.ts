@@ -52,6 +52,7 @@ export type IngredientModel = {
   priceMedium: number;
   priceLarge: number;
   prices: number[];
+  removed?: boolean;
 };
 
 export type OrderModel = {
