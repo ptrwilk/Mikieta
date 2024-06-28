@@ -5,12 +5,15 @@ import pizzaImg from "../../assets/images/pizza.jpg";
 import { productToPrice, sum } from "@/helpers";
 import styles from "./PurchaseDetailsModalView.module.css";
 import { PizzaType, ProductModel } from "@/types";
-import EmblaCarousel from "@/components/ui/EmblaCarousel/EmblaCarousel";
-import src from "../../assets/images/snack.jpg";
 import { useEffect, useState } from "react";
+import { SnacksCarouselSection } from "./Sections/SnacksCarouselSection";
+import { useMediaQuery } from "react-responsive";
+import { SnacksListSection } from "./Sections/SnacksListSection";
 
 const PurchaseDetailsModalView = () => {
   const [app, updateApp] = useAppContext();
+
+  const isMobile = useMediaQuery({ maxWidth: 500 });
 
   const { name, ingredients, imageUrl, pizzaSizePrice, quantity, pizzaType } =
     app!.purchaseModel || {};
@@ -72,6 +75,22 @@ const PurchaseDetailsModalView = () => {
       .map((x) => (x.price ?? 0) * (x.quantity ?? 0))
   );
 
+  const increase = (item: ProductModel) => {
+    setSnacks((prev) =>
+      prev.map((x) =>
+        x.id === item.id ? { ...x, quantity: (x.quantity ?? 0) + 1 } : x
+      )
+    );
+  };
+
+  const decrease = (item: ProductModel) => {
+    setSnacks((prev) =>
+      prev.map((x) =>
+        x.id === item.id ? { ...x, quantity: (x.quantity ?? 0) - 1 } : x
+      )
+    );
+  };
+
   return (
     <Modal
       className="items-start"
@@ -112,48 +131,19 @@ const PurchaseDetailsModalView = () => {
             />
           </div>
           <div className="p-4">
-            <EmblaCarousel
-              caption="NIE ŻAŁUJ SOBIE DOBREGO"
-              items={snacks}
-              render={(item: ProductModel) => (
-                <div className="flex flex-col p-4 border">
-                  <img
-                    className="w-full h-[150px] object-fill"
-                    src={item.imageUrl ?? src}
-                  />
-                  <div className="flex justify-between gap-4 mt-2">
-                    <p className="font-medium">{item.name} </p>
-                    <p className="shrink-0">
-                      {productToPrice(item).toFixed(2)} zł
-                    </p>
-                  </div>
-                  <CounterSecond
-                    className="self-end mt-8"
-                    minValue={0}
-                    minValueVisilbe={false}
-                    quantity={item.quantity}
-                    onIncrease={() => {
-                      setSnacks((prev) =>
-                        prev.map((x) =>
-                          x.id === item.id
-                            ? { ...x, quantity: (x.quantity ?? 0) + 1 }
-                            : x
-                        )
-                      );
-                    }}
-                    onDecrease={() => {
-                      setSnacks((prev) =>
-                        prev.map((x) =>
-                          x.id === item.id
-                            ? { ...x, quantity: (x.quantity ?? 0) - 1 }
-                            : x
-                        )
-                      );
-                    }}
-                  />
-                </div>
-              )}
-            />
+            {isMobile ? (
+              <SnacksListSection
+                snacks={snacks}
+                onIncrease={increase}
+                onDecrease={decrease}
+              />
+            ) : (
+              <SnacksCarouselSection
+                snacks={snacks}
+                onIncrease={increase}
+                onDecrease={decrease}
+              />
+            )}
           </div>
         </div>
         <div className="sticky bottom-0 z-10 flex justify-between gap-4 p-4 bg-[var(--color-fourth)]">
