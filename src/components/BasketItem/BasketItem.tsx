@@ -1,52 +1,54 @@
-import { ProductModel, translateProductType } from "@/types";
-import { Counter } from "..";
-import styles from "./BasketItem.module.css";
-import { productToPrice } from "@/helpers";
+import { ProductModel, translateProductType } from '@/types';
+import { Counter } from '..';
+import styles from './BasketItem.module.css';
+import { productToPrice } from '@/helpers';
+import { Ingredients } from '@/views/shared/Ingredients';
 
 interface IBasketItemProps {
-  item?: ProductModel;
-  onRemoveItem?: () => void;
-  onAddItem?: () => void;
+	item?: ProductModel;
+	onRemoveItem?: () => void;
+	onAddItem?: () => void;
 }
 
 const BasketItem: React.FC<IBasketItemProps> = ({
-  item,
-  onRemoveItem,
-  onAddItem,
+	item,
+	onRemoveItem,
+	onAddItem,
 }) => {
-  const {
-    name,
-    productType,
-    pizzaType,
-    description,
-    ingredients = [],
-    quantity,
-  } = item || {};
-  return (
-    <div className={styles["BasketItem"]}>
-      <div className={styles["ProductDetails"]}>
-        <p className={styles["Name"]}>
-          {name}{" "}
-          <span>{`(${translateProductType(productType!, pizzaType)})`}</span>
-        </p>
-        {description ? (
-          <p className={styles["Description"]}>{description}</p>
-        ) : (
-          <p className={styles["Ingredients"]}>
-            {ingredients.map((x) => x.name).join(", ")}
-          </p>
-        )}
-      </div>
-      <div className={styles["Right"]}>
-        <p className={styles["Price"]}>{productToPrice(item!)} zł</p>
-        <Counter
-          number={quantity}
-          onMinusClick={onRemoveItem}
-          onPlusClick={onAddItem}
-        />
-      </div>
-    </div>
-  );
+	const {
+		name,
+		productType,
+		pizzaType,
+		description,
+		ingredients = [],
+		quantity,
+	} = item || {};
+	return (
+		<div className={styles['BasketItem']}>
+			<div className={styles['ProductDetails']}>
+				<p className={styles['Name']}>
+					{name}{' '}
+					<span>{`(${translateProductType(productType!, pizzaType)})`}</span>
+				</p>
+				{description ? (
+					<p className={styles['Description']}>{description}</p>
+				) : (
+					<Ingredients
+						className='font-light italic'
+						ingredients={ingredients}
+					/>
+				)}
+			</div>
+			<div className={styles['Right']}>
+				<p className={styles['Price']}>{productToPrice(item!)} zł</p>
+				<Counter
+					number={quantity}
+					onMinusClick={onRemoveItem}
+					onPlusClick={onAddItem}
+				/>
+			</div>
+		</div>
+	);
 };
 
 export { BasketItem };
