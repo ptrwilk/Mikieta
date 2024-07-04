@@ -24,6 +24,7 @@ export type ProductModel = {
 	name: string;
 	price?: number;
 	ingredients: IngredientModel[];
+	additionalIngredients?: IngredientModel[];
 	productType: ProductType;
 	pizzaType?: PizzaType | null;
 	quantity?: number;
@@ -53,6 +54,7 @@ export type IngredientModel = {
 	priceLarge: number;
 	prices: number[];
 	removed?: boolean;
+	quantity?: number;
 };
 
 export type OrderModel = {
@@ -80,11 +82,17 @@ export type RemovedIngredientModel = {
 	ingredientId: Guid;
 };
 
+export type AdditionalIngredientModel = {
+	ingredientId: Guid;
+	quantity: number;
+};
+
 export type ProductQuantityModel = {
 	productId: Guid;
 	quantity: number;
 	pizzaType?: PizzaType;
 	removedIngredients?: RemovedIngredientModel[];
+	additionalIngredients?: AdditionalIngredientModel[];
 };
 
 export type OrderRequestModel = {

@@ -177,6 +177,18 @@ function getEnumIndex(enumObj: any, enumValue: any): number {
 }
 
 export const productToPrice = (product: ProductModel) => {
+	const pizzaTypeIndex =
+		product.pizzaType === PizzaType.Small
+			? 0
+			: product.pizzaType === PizzaType.Medium
+			? 1
+			: 2;
+
+	const ingredientsPrice = sum(
+		(product.additionalIngredients ?? []).map(
+			(x) => x.prices[pizzaTypeIndex] * (x.quantity ?? 0)
+		)
+	);
 	return (
 		((product.productType === ProductType.Pizza
 			? product.pizzaSizePrice[product.pizzaType ?? PizzaType.Small]
@@ -192,7 +204,8 @@ export const productToPrice = (product: ProductModel) => {
 					return isNill(pizzaType) ? 0 : x.prices[index];
 				})
 			)) *
-		(product.quantity || 1)
+			(product.quantity || 1) +
+		ingredientsPrice
 	);
 };
 
@@ -274,7 +287,11 @@ export function areIngredientsEqual(
 			(item1.removed === item2.removed ||
 				(!item1.removed && !item2.removed) ||
 				(item1.removed === undefined && !item2.removed) ||
-				(!item1.removed && item2.removed === undefined))
+				(!item1.removed && item2.removed === undefined)) &&
+			(item1.quantity === item2.quantity ||
+				(!item1.quantity && !item2.quantity) ||
+				(item1.quantity === undefined && !item2.quantity) ||
+				(!item1.quantity && item2.quantity === undefined))
 		);
 	});
 }

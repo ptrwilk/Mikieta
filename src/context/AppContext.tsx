@@ -75,7 +75,11 @@ export const updateBasket = (
 	const equals = (item1: ProductModel, item2: ProductModel) =>
 		item1.id === item2.id &&
 		item1.pizzaType === item2.pizzaType &&
-		areIngredientsEqual(item1.ingredients, item2.ingredients);
+		areIngredientsEqual(item1.ingredients, item2.ingredients) &&
+		areIngredientsEqual(
+			item1.additionalIngredients ?? [],
+			item2.additionalIngredients ?? []
+		);
 
 	let updatedBasked = [...app!.basket];
 

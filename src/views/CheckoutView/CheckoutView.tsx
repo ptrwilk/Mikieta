@@ -404,6 +404,10 @@ const CheckoutView = () => {
 							removedIngredients: x.ingredients
 								.filter((y) => y.removed)
 								.map((y) => ({ ingredientId: y.id } as RemovedIngredientModel)),
+							additionalIngredients: x.additionalIngredients?.map((y) => ({
+								ingredientId: y.id,
+								quantity: y.quantity!,
+							})),
 						} as ProductQuantityModel)
 				),
 				deliveryTiming:
@@ -663,10 +667,7 @@ const CheckoutView = () => {
 										({translateProductType(item.productType, item.pizzaType)})
 									</span>
 								</p>
-								<Ingredients
-									className='italic text-[12px]'
-									ingredients={item.ingredients}
-								/>
+								<Ingredients className='italic text-[12px]' product={item} />
 							</div>
 							<p className='flex-shrink-0'>
 								{productToPrice(item).toFixed(2)} zł

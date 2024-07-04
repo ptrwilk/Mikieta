@@ -15,14 +15,7 @@ const BasketItem: React.FC<IBasketItemProps> = ({
 	onRemoveItem,
 	onAddItem,
 }) => {
-	const {
-		name,
-		productType,
-		pizzaType,
-		description,
-		ingredients = [],
-		quantity,
-	} = item || {};
+	const { name, productType, pizzaType, description, quantity } = item || {};
 	return (
 		<div className={styles['BasketItem']}>
 			<div className={styles['ProductDetails']}>
@@ -33,10 +26,7 @@ const BasketItem: React.FC<IBasketItemProps> = ({
 				{description ? (
 					<p className={styles['Description']}>{description}</p>
 				) : (
-					<Ingredients
-						className='font-light italic'
-						ingredients={ingredients}
-					/>
+					<Ingredients className='font-light italic' product={item} />
 				)}
 			</div>
 			<div className={styles['Right']}>

@@ -304,6 +304,65 @@ test('productToPrice', () => {
 			quantity: 2,
 		})
 	).toBe(24);
+
+	const additionalIngredients = [
+		{
+			name: '1',
+			priceSmall: 1,
+			priceMedium: 2,
+			priceLarge: 3,
+			prices: [1, 2, 3],
+			quantity: 2,
+		},
+		{
+			name: '2',
+			priceSmall: 1.5,
+			priceMedium: 2.5,
+			priceLarge: 3.5,
+			prices: [1.5, 2.5, 3.5],
+			quantity: 1,
+		},
+		{
+			name: '3',
+			priceSmall: 111.5,
+			priceMedium: 211.5,
+			priceLarge: 311.5,
+			prices: [111.5, 211.5, 311.5],
+			quantity: 0,
+		},
+		{
+			name: '4',
+			priceSmall: 111.5,
+			priceMedium: 211.5,
+			priceLarge: 311.5,
+			prices: [111.5, 211.5, 311.5],
+		},
+	];
+
+	expect(
+		productToPrice({
+			...product,
+			price: 12,
+			pizzaType: PizzaType.Small,
+			productType: ProductType.Pizza,
+			quantity: 2,
+			pizzaSizePrice: {
+				[PizzaType.Small]: 12,
+				[PizzaType.Medium]: 15,
+				[PizzaType.Large]: 20,
+			},
+			ingredients: [
+				{
+					name: '1',
+					priceSmall: 1,
+					priceMedium: 2,
+					priceLarge: 3,
+					prices: [1, 2, 3],
+				},
+			],
+			additionalIngredients: additionalIngredients,
+		})
+	).toBe(29.5);
 });
 
 test('getTimeIntervals', () => {
@@ -434,6 +493,27 @@ test('areIngredientsEqual', () => {
 		areIngredientsEqual(
 			[{ ...ingredient, id: '1', removed: true }],
 			[{ ...ingredient, id: '1', removed: false }]
+		)
+	).toBe(false);
+
+	expect(
+		areIngredientsEqual(
+			[{ ...ingredient, id: '1', quantity: 1 }],
+			[{ ...ingredient, id: '1', quantity: 2 }]
+		)
+	).toBe(false);
+
+	expect(
+		areIngredientsEqual(
+			[{ ...ingredient, id: '1', quantity: 0 }],
+			[{ ...ingredient, id: '1' }]
+		)
+	).toBe(true);
+
+	expect(
+		areIngredientsEqual(
+			[{ ...ingredient, id: '1', quantity: 1 }],
+			[{ ...ingredient, id: '1' }]
 		)
 	).toBe(false);
 });
