@@ -177,6 +177,7 @@ function getEnumIndex(enumObj: any, enumValue: any): number {
 }
 
 export const productToPrice = (product: ProductModel) => {
+	return 2;
 	const pizzaTypeIndex =
 		product.pizzaType === PizzaType.Small
 			? 0
