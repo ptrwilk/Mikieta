@@ -28,22 +28,22 @@ const PurchaseDetailsModalView = () => {
 		name,
 		imageUrl,
 		additionalIngredients = [],
-		pizzaSizePrice,
 		quantity,
 		pizzaType,
 	} = app!.purchaseModel || {};
 
 	const [snacks, setSnacks] = useState<ProductModel[]>([]);
 
+	const price = (type?: PizzaType) =>
+		productToPrice({
+			...app!.purchaseModel!,
+			quantity: 1,
+			pizzaType: type || app!.purchaseModel!.pizzaType,
+			additionalIngredients: [],
+		});
+
 	const Price = ({ type }: { type: PizzaType }) => (
-		<p>
-			{pizzaSizePrice &&
-				`${productToPrice({
-					...app!.purchaseModel!,
-					pizzaType: type,
-					additionalIngredients: [],
-				}).toFixed(2)} zł`}
-		</p>
+		<p>{`${price(type).toFixed(2)} zł`}</p>
 	);
 
 	const sizes = [
@@ -147,7 +147,7 @@ const PurchaseDetailsModalView = () => {
 					<div className='p-4'>
 						<div className='flex justify-between'>
 							<p className='font-semibold'>{name}</p>
-							<p>{productToPrice(app!.purchaseModel!).toFixed(2)} zł</p>
+							<p>{price().toFixed(2)} zł</p>
 						</div>
 						<Ingredients product={app!.purchaseModel!} />
 					</div>
