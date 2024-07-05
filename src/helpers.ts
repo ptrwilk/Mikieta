@@ -171,42 +171,57 @@ export function getEnumValue<T extends string>(
 
 export const isNill = (value: any) => value === undefined || value === null;
 
-function getEnumIndex(enumObj: any, enumValue: any): number {
-	const enumValues = Object.values(enumObj);
-	return enumValues.indexOf(enumValue);
-}
+export const productToPrice = (product: ProductModel): number => {
+	if (!product) {
+		throw new Error('Product is undefined or null');
+	}
 
-export const productToPrice = (product: ProductModel) => {
-	return 2;
-	const pizzaTypeIndex =
-		product.pizzaType === PizzaType.Small
-			? 0
-			: product.pizzaType === PizzaType.Medium
-			? 1
-			: 2;
+	const pizzaType = product.pizzaType ?? PizzaType.Small;
+	const pizzaTypeIndex = Object.values(PizzaType).indexOf(pizzaType);
 
-	const ingredientsPrice = sum(
-		(product.additionalIngredients ?? []).map(
-			(x) => x.prices[pizzaTypeIndex] * (x.quantity ?? 0)
-		)
+	if (pizzaTypeIndex === -1) {
+		throw new Error('Invalid pizza type');
+	}
+
+	const basePrice =
+		product.productType === ProductType.Pizza
+			? product.pizzaSizePrice?.[pizzaType] ?? 0
+			: product.price ?? 0;
+
+	const ingredientsPrice = calculateIngredientsPrice(product, pizzaTypeIndex);
+	const additionalIngredientsPrice = calculateAdditionalIngredientsPrice(
+		product,
+		pizzaTypeIndex
 	);
-	return (
-		((product.productType === ProductType.Pizza
-			? product.pizzaSizePrice[product.pizzaType ?? PizzaType.Small]
-			: product.price ?? 0) +
-			sum(
-				product.ingredients.map((x) => {
-					var pizzaType =
-						product.productType === ProductType.Pizza
-							? product.pizzaType ?? PizzaType.Small
-							: undefined;
-					var index = getEnumIndex(PizzaType, pizzaType);
 
-					return isNill(pizzaType) ? 0 : x.prices[index];
-				})
-			)) *
-			(product.quantity || 1) +
-		ingredientsPrice
+	const quantity = Math.max(product.quantity ?? 1, 1); // Ensure quantity is at least 1
+
+	return (basePrice + ingredientsPrice) * quantity + additionalIngredientsPrice;
+};
+
+const calculateIngredientsPrice = (
+	product: ProductModel,
+	pizzaTypeIndex: number
+): number => {
+	return sum(
+		product.ingredients?.map((ingredient) => {
+			if (product.productType !== ProductType.Pizza) {
+				return 0;
+			}
+			return ingredient.prices[pizzaTypeIndex] ?? 0;
+		}) ?? []
+	);
+};
+
+const calculateAdditionalIngredientsPrice = (
+	product: ProductModel,
+	pizzaTypeIndex: number
+): number => {
+	return sum(
+		product.additionalIngredients?.map(
+			(ingredient) =>
+				(ingredient.prices[pizzaTypeIndex] ?? 0) * (ingredient.quantity ?? 0)
+		) ?? []
 	);
 };
 
