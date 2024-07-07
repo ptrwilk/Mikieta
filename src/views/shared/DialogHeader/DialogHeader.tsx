@@ -16,7 +16,7 @@ const DialogHeader: React.FC<IDialogHeaderProps> = ({
   <div
     className={classNames(
       className,
-      "flex justify-between items-center p-4 bg-[var(--color-fourth)]"
+      "flex justify-between items-center p-4 bg-[var(--color-fourth)] z-10"
     )}
   >
     {children}
