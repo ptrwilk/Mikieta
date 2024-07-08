@@ -26,7 +26,7 @@ const FooterView: React.FC<IFooterViewProps> = ({ className }) => {
             </p>
             <p>Telefon: {app!.settings?.phone}</p>
             <p className={styles["Location"]}>
-              <NavLink to="">Mapa dojazdu</NavLink>
+              <NavLink to="/kontakt">Mapa dojazdu</NavLink>
             </p>
           </div>
         </li>
