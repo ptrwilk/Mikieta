@@ -41,3 +41,9 @@
 .Button.Button-Loading {
   cursor: default;
 }
+
+.Button.Button-Circle {
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}

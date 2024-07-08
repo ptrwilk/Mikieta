@@ -1,5 +1,18 @@
 .OrderView {
+  position: relative;
   padding: 6rem 1rem;
+}
+
+.OrderView .Button {
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid var(--color-secondary);
+  animation: moveButton 1.5s infinite ease-in-out;
+}
+
+.OrderView .Button svg {
+  color: var(--color-secondary);
 }
 
 .OrderView .Thanks h2 {
@@ -41,5 +54,15 @@
 
   .OrderView .Status-Title h3 {
     font-size: 30px;
+  }
+}
+
+@keyframes moveButton {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 5px);
   }
 }
