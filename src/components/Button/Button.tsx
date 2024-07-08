@@ -14,6 +14,9 @@ interface IButtonProps {
   disabled?: boolean;
   border?: boolean;
   loading?: boolean;
+  absolute?: boolean;
+  circle?: boolean;
+  size?: number;
   onClick?: () => void;
 }
 
@@ -28,6 +31,9 @@ const Button: React.FC<IButtonProps> = ({
   disabled = false,
   border = false,
   loading,
+  absolute = false,
+  circle,
+  size,
   to,
 }) => {
   const navigate = useNavigate();
@@ -43,15 +49,25 @@ const Button: React.FC<IButtonProps> = ({
   return (
     <button
       onClick={disabled || loading ? undefined : handleClick}
-      className={classNames(styles["Button"], "relative", className, {
-        [styles["Button-tab"]]: tab,
-        [styles["Button-icon"]]: icon,
-        [styles["Button-huge"]]: huge,
-        [styles["Button-light"]]: light,
-        [styles["Button-disabled"]]: disabled,
-        [styles["Button-Border"]]: border,
-        [styles["Button-Loading"]]: loading,
-      })}
+      style={
+        size !== undefined ? { width: `${size}px`, height: `${size}px` } : {}
+      }
+      className={classNames(
+        styles["Button"],
+        { relative: !absolute },
+        { absolute: absolute },
+        className,
+        {
+          [styles["Button-tab"]]: tab,
+          [styles["Button-icon"]]: icon,
+          [styles["Button-huge"]]: huge,
+          [styles["Button-light"]]: light,
+          [styles["Button-disabled"]]: disabled,
+          [styles["Button-Border"]]: border,
+          [styles["Button-Loading"]]: loading,
+          [styles["Button-Circle"]]: circle,
+        }
+      )}
     >
       <Spinner loading={loading} size={huge ? 40 : 25}>
         {children}

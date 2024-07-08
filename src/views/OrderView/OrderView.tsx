@@ -1,18 +1,27 @@
-import { Section, Status } from "@/components";
+import { Button, Section, Status } from "@/components";
 import styles from "./OrderView.module.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DeliveryMethod, OrderStatusModel, OrderStatusType } from "@/types";
 import { get, put } from "@/apihelper";
 import { format } from "date-fns";
 import { useSignalR } from "ptrwilk-packages";
 import { useAppContext } from "@/context/AppContext";
+import { FaArrowDown } from "react-icons/fa";
+import classNames from "classnames";
+import { useMediaQuery } from "react-responsive";
 
 const OrderView = () => {
   const [_, updateApp] = useAppContext();
   const { zamowienieId } = useParams();
 
   const [status, setStatus] = useState<OrderStatusModel | undefined>();
+
+  const isMobile = useMediaQuery({ maxWidth: 500 });
+
+  const [buttonVisible, setButtonVisible] = useState(false);
+
+  const statusTitleRef = useRef<any>();
 
   const updateStatus = async () => {
     const model = (await get(
@@ -48,6 +57,10 @@ const OrderView = () => {
     updateStatus();
   }, []);
 
+  useEffect(() => {
+    setButtonVisible(isMobile);
+  }, [isMobile]);
+
   const items = [
     {
       number: 1,
@@ -74,6 +87,21 @@ const OrderView = () => {
 
   return (
     <Section className={styles["OrderView"]}>
+      {buttonVisible && (
+        <Button
+          className={classNames(styles["Button"])}
+          absolute
+          circle
+          size={50}
+          light
+          onClick={() => {
+            statusTitleRef.current.scrollIntoView({ behavior: "smooth" });
+            setButtonVisible(false);
+          }}
+        >
+          <FaArrowDown />
+        </Button>
+      )}
       <div className={styles["Thanks"]}>
         <h2>Dziękujemy za złożenie zamówienia!</h2>
         {status !== undefined && status!.status !== OrderStatusType.Waiting && (
@@ -85,8 +113,10 @@ const OrderView = () => {
           </p>
         )}
       </div>
-      <div className={styles["Status-Title"]}>
-        <h3>Status Zamówienia</h3>
+      <div ref={statusTitleRef} className={styles["Status-Title"]}>
+        <h3>
+          Status Zamówienia {status?.orderNumber && `#${status?.orderNumber}`}
+        </h3>
         <div className={styles["Hr"]} />
       </div>
       <ul className={styles["Statuses"]}>
