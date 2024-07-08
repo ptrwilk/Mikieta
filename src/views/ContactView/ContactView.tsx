@@ -28,7 +28,7 @@ const ContactView = () => {
             }
             content={
               <div className="text-center">
-                <p className="font-light">Mikieta</p>
+                <p className="font-light">Miketa</p>
                 <p className="font-light">
                   {app!.settings?.street}, {app!.settings?.zipCode}{" "}
                   {app!.settings?.city}
