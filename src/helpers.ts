@@ -1,313 +1,315 @@
-import { ProductModel, PizzaType, ProductType, IngredientModel } from './types';
+import { ProductModel, PizzaType, ProductType, IngredientModel } from "./types";
 
 type Groupable = {
-	[key: string]: any;
+  [key: string]: any;
 };
 
 export function groupBy<T extends Groupable>(
-	items: T[],
-	keyFunction: (item: T) => any
+  items: T[],
+  keyFunction: (item: T) => any
 ): T[][] {
-	const groups: Record<string, T[]> = {};
-	items?.forEach((item) => {
-		const key = keyFunction(item);
-		if (!groups[key]) {
-			groups[key] = [];
-		}
-		groups[key].push(item);
-	});
+  const groups: Record<string, T[]> = {};
+  items?.forEach((item) => {
+    const key = keyFunction(item);
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(item);
+  });
 
-	return Object.values(groups);
+  return Object.values(groups);
 }
 
 export const sum = (numbers: number[]) => {
-	const res = numbers.reduce((accumulator, currentValue) => {
-		return accumulator + currentValue;
-	}, 0);
+  const res = numbers.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  }, 0);
 
-	return res;
+  return res;
 };
 
 export const method2 = (
-	value: string,
-	triggerMasks: string[],
-	destinationMask: string
+  value: string,
+  triggerMasks: string[],
+  destinationMask: string
 ) => {
-	triggerMasks.forEach((mask) => {
-		const newValue = replaceWithMask(value, mask, destinationMask);
+  triggerMasks.forEach((mask) => {
+    const newValue = replaceWithMask(value, mask, destinationMask);
 
-		if (newValue !== value) {
-			value = newValue;
-			return;
-		}
-	});
+    if (newValue !== value) {
+      value = newValue;
+      return;
+    }
+  });
 
-	return value;
+  return value;
 };
 
 export const method3 = (
-	value: string,
-	rules: { triggerMasks: string[]; destinationMask: string }[]
+  value: string,
+  rules: { triggerMasks: string[]; destinationMask: string }[]
 ) => {
-	rules.forEach((rule) => {
-		const newValue = method2(value, rule.triggerMasks, rule.destinationMask);
+  rules.forEach((rule) => {
+    const newValue = method2(value, rule.triggerMasks, rule.destinationMask);
 
-		if (newValue !== value) {
-			value = newValue;
-			return;
-		}
-	});
+    if (newValue !== value) {
+      value = newValue;
+      return;
+    }
+  });
 
-	return value;
+  return value;
 };
 
 export const countDigits = (str: string): number => {
-	const matches = str.match(/\d/g); // Match all digits in the string
-	return matches ? matches.length : 0; // Return the count of digits
+  const matches = str.match(/\d/g); // Match all digits in the string
+  return matches ? matches.length : 0; // Return the count of digits
 };
 
 export const countCharacters = (str: string, character: string): number => {
-	const escapedCharacter = character.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape special characters
-	const regex = new RegExp(escapedCharacter, 'g'); // Create a dynamic regex
-	const matches = str.match(regex); // Match all occurrences of 'character'
-	return matches ? matches.length : 0; // Return the count
+  const escapedCharacter = character.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escape special characters
+  const regex = new RegExp(escapedCharacter, "g"); // Create a dynamic regex
+  const matches = str.match(regex); // Match all occurrences of 'character'
+  return matches ? matches.length : 0; // Return the count
 };
 
 export const isDigit = (str: string): boolean => {
-	return /^\d$/.test(str);
+  return /^\d$/.test(str);
 };
 
 export const maskMatch = (value: string, mask: string): boolean => {
-	if (value.length !== mask.length) {
-		return false;
-	}
+  if (value.length !== mask.length) {
+    return false;
+  }
 
-	const valueDigits = countDigits(value);
-	const maskDigitCount = countCharacters(mask, '#');
+  const valueDigits = countDigits(value);
+  const maskDigitCount = countCharacters(mask, "#");
 
-	if (valueDigits !== maskDigitCount) {
-		return false;
-	}
+  if (valueDigits !== maskDigitCount) {
+    return false;
+  }
 
-	const valueArray = value.split('');
-	const maskArray = mask.split('');
+  const valueArray = value.split("");
+  const maskArray = mask.split("");
 
-	for (var i = 0; i < valueArray.length; i++) {
-		if (maskArray[i] === '#' && !isDigit(valueArray[i])) {
-			return false;
-		}
+  for (var i = 0; i < valueArray.length; i++) {
+    if (maskArray[i] === "#" && !isDigit(valueArray[i])) {
+      return false;
+    }
 
-		if (maskArray[i] !== '#' && maskArray[i] !== valueArray[i]) {
-			return false;
-		}
-	}
+    if (maskArray[i] !== "#" && maskArray[i] !== valueArray[i]) {
+      return false;
+    }
+  }
 
-	return true;
+  return true;
 };
 
 export const replaceWithMask = (
-	value: string,
-	triggerMask: string,
-	destinationMask: string
+  value: string,
+  triggerMask: string,
+  destinationMask: string
 ): string => {
-	if (!maskMatch(value, triggerMask)) {
-		return value;
-	}
+  if (!maskMatch(value, triggerMask)) {
+    return value;
+  }
 
-	const triggerMaskDigits = countCharacters(triggerMask, '#');
-	const destinationMaskDigits = countCharacters(destinationMask, '#');
+  const triggerMaskDigits = countCharacters(triggerMask, "#");
+  const destinationMaskDigits = countCharacters(destinationMask, "#");
 
-	if (triggerMaskDigits !== destinationMaskDigits) {
-		return value;
-	}
+  if (triggerMaskDigits !== destinationMaskDigits) {
+    return value;
+  }
 
-	const valueArray = value.split('');
-	const maskArray = triggerMask.split('');
+  const valueArray = value.split("");
+  const maskArray = triggerMask.split("");
 
-	const values: string[] = [];
-	for (var i = 0; i < valueArray.length; i++) {
-		if (maskArray[i] === '#' && isDigit(valueArray[i])) {
-			values.push(valueArray[i]);
-		}
-	}
+  const values: string[] = [];
+  for (var i = 0; i < valueArray.length; i++) {
+    if (maskArray[i] === "#" && isDigit(valueArray[i])) {
+      values.push(valueArray[i]);
+    }
+  }
 
-	const destinationMaskArray = destinationMask.split('');
+  const destinationMaskArray = destinationMask.split("");
 
-	let result = '';
-	for (var i = 0, j = 0; i < destinationMaskArray.length; i++) {
-		if (destinationMaskArray[i] === '#') {
-			result += values[j];
-			j++;
-		} else {
-			result += destinationMaskArray[i];
-		}
-	}
+  let result = "";
+  for (var i = 0, j = 0; i < destinationMaskArray.length; i++) {
+    if (destinationMaskArray[i] === "#") {
+      result += values[j];
+      j++;
+    } else {
+      result += destinationMaskArray[i];
+    }
+  }
 
-	return result;
+  return result;
 };
 
 export function convertTimeToDate(timeString: string | undefined) {
-	if (timeString === undefined) {
-		return undefined;
-	}
+  if (timeString === undefined) {
+    return undefined;
+  }
 
-	const [hours, minutes] = timeString.split(':');
-	const date = new Date();
-	date.setHours(parseInt(hours, 10));
-	date.setMinutes(parseInt(minutes, 10));
-	date.setSeconds(0);
-	date.setMilliseconds(0);
-	return date;
+  const [hours, minutes] = timeString.split(":");
+  const date = new Date();
+  date.setHours(parseInt(hours, 10));
+  date.setMinutes(parseInt(minutes, 10));
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  return date;
 }
 
 export function getEnumValue<T extends string>(
-	enumObj: any,
-	value: T
+  enumObj: any,
+  value: T
 ): keyof typeof enumObj | undefined {
-	const keys = Object.keys(enumObj) as Array<keyof typeof enumObj>;
-	const index = keys.findIndex((key) => enumObj[key] === value);
-	return index;
+  const keys = Object.keys(enumObj) as Array<keyof typeof enumObj>;
+  const index = keys.findIndex((key) => enumObj[key] === value);
+  return index;
 }
 
 export const isNill = (value: any) => value === undefined || value === null;
 
 export const productToPrice = (product: ProductModel): number => {
-	if (!product) {
-		throw new Error('Product is undefined or null');
-	}
+  if (!product) {
+    throw new Error("Product is undefined or null");
+  }
 
-	const pizzaType = product.pizzaType ?? PizzaType.Small;
-	const pizzaTypeIndex = Object.values(PizzaType).indexOf(pizzaType);
+  const pizzaType = product.pizzaType ?? PizzaType.Small;
+  const pizzaTypeIndex = Object.values(PizzaType).indexOf(pizzaType);
 
-	if (pizzaTypeIndex === -1) {
-		throw new Error('Invalid pizza type');
-	}
+  if (pizzaTypeIndex === -1) {
+    throw new Error("Invalid pizza type");
+  }
 
-	const basePrice =
-		product.productType === ProductType.Pizza
-			? product.pizzaSizePrice?.[pizzaType] ?? 0
-			: product.price ?? 0;
+  const basePrice =
+    product.productType === ProductType.Pizza
+      ? product.pizzaSizePrice?.[pizzaType] ?? 0
+      : product.price ?? 0;
 
-	const ingredientsPrice = calculateIngredientsPrice(product, pizzaTypeIndex);
-	const additionalIngredientsPrice = calculateAdditionalIngredientsPrice(
-		product,
-		pizzaTypeIndex
-	);
+  const ingredientsPrice = calculateIngredientsPrice(product, pizzaTypeIndex);
+  const additionalIngredientsPrice = calculateAdditionalIngredientsPrice(
+    product,
+    pizzaTypeIndex
+  );
 
-	const quantity = Math.max(product.quantity ?? 1, 1); // Ensure quantity is at least 1
+  const quantity = Math.max(product.quantity ?? 1, 1); // Ensure quantity is at least 1
 
-	return (basePrice + ingredientsPrice) * quantity + additionalIngredientsPrice;
+  return (basePrice + ingredientsPrice + additionalIngredientsPrice) * quantity;
 };
 
 const calculateIngredientsPrice = (
-	product: ProductModel,
-	pizzaTypeIndex: number
+  product: ProductModel,
+  pizzaTypeIndex: number
 ): number => {
-	return sum(
-		product.ingredients?.map((ingredient) => {
-			if (product.productType !== ProductType.Pizza) {
-				return 0;
-			}
-			return ingredient.prices[pizzaTypeIndex] ?? 0;
-		}) ?? []
-	);
+  return sum(
+    product.ingredients
+      ?.filter((x) => x.removed !== true)
+      .map((ingredient) => {
+        if (product.productType !== ProductType.Pizza) {
+          return 0;
+        }
+        return ingredient.prices[pizzaTypeIndex] ?? 0;
+      }) ?? []
+  );
 };
 
 const calculateAdditionalIngredientsPrice = (
-	product: ProductModel,
-	pizzaTypeIndex: number
+  product: ProductModel,
+  pizzaTypeIndex: number
 ): number => {
-	return sum(
-		product.additionalIngredients?.map(
-			(ingredient) =>
-				(ingredient.prices[pizzaTypeIndex] ?? 0) * (ingredient.quantity ?? 0)
-		) ?? []
-	);
+  return sum(
+    product.additionalIngredients?.map(
+      (ingredient) =>
+        (ingredient.prices[pizzaTypeIndex] ?? 0) * (ingredient.quantity ?? 0)
+    ) ?? []
+  );
 };
 
 export const getTimeIntervals = (hours?: { from: string; to: string }) => {
-	const { from, to } = hours || {};
+  const { from, to } = hours || {};
 
-	if (!from || !to) {
-		return [];
-	}
+  if (!from || !to) {
+    return [];
+  }
 
-	const res: string[] = [];
+  const res: string[] = [];
 
-	let next = from;
-	let maxNext = 48;
-	let n = 0;
+  let next = from;
+  let maxNext = 48;
+  let n = 0;
 
-	while (isTimeLower(next, to)) {
-		res.push(next.substring(0, next.length - 3));
-		next = addThirtyMinutes(next);
-		n++;
+  while (isTimeLower(next, to)) {
+    res.push(next.substring(0, next.length - 3));
+    next = addThirtyMinutes(next);
+    n++;
 
-		if (n >= maxNext) {
-			throw new Error(
-				`Infinite loop detected in generateTimeIntervals function with from: ${from}, to: ${to}`
-			);
-		}
-	}
-	res.push(to.substring(0, next.length - 3));
+    if (n >= maxNext) {
+      throw new Error(
+        `Infinite loop detected in generateTimeIntervals function with from: ${from}, to: ${to}`
+      );
+    }
+  }
+  res.push(to.substring(0, next.length - 3));
 
-	return res;
+  return res;
 };
 
 function addThirtyMinutes(timeString: string) {
-	const [hours, minutes, seconds] = timeString.split(':').map(Number);
-	const date = new Date();
-	date.setHours(hours, minutes, seconds);
-	date.setMinutes(date.getMinutes() + 30);
-	const newHours = date.getHours().toString().padStart(2, '0');
-	const newMinutes = date.getMinutes().toString().padStart(2, '0');
-	const newSeconds = date.getSeconds().toString().padStart(2, '0');
-	return `${newHours}:${newMinutes}:${newSeconds}`;
+  const [hours, minutes, seconds] = timeString.split(":").map(Number);
+  const date = new Date();
+  date.setHours(hours, minutes, seconds);
+  date.setMinutes(date.getMinutes() + 30);
+  const newHours = date.getHours().toString().padStart(2, "0");
+  const newMinutes = date.getMinutes().toString().padStart(2, "0");
+  const newSeconds = date.getSeconds().toString().padStart(2, "0");
+  return `${newHours}:${newMinutes}:${newSeconds}`;
 }
 
 function isTimeLower(time1: string, time2: string) {
-	const [hours1, minutes1, seconds1] = time1.split(':').map(Number);
-	const [hours2, minutes2, seconds2] = time2.split(':').map(Number);
+  const [hours1, minutes1, seconds1] = time1.split(":").map(Number);
+  const [hours2, minutes2, seconds2] = time2.split(":").map(Number);
 
-	const totalSeconds1 = hours1 * 3600 + minutes1 * 60 + seconds1;
-	const totalSeconds2 = hours2 * 3600 + minutes2 * 60 + seconds2;
+  const totalSeconds1 = hours1 * 3600 + minutes1 * 60 + seconds1;
+  const totalSeconds2 = hours2 * 3600 + minutes2 * 60 + seconds2;
 
-	return totalSeconds1 < totalSeconds2;
+  return totalSeconds1 < totalSeconds2;
 }
 
 export const getDayIndex = () => {
-	const today = new Date();
-	const dayIndex = today.getDay();
-	return dayIndex === 0 ? 6 : dayIndex - 1;
+  const today = new Date();
+  const dayIndex = today.getDay();
+  return dayIndex === 0 ? 6 : dayIndex - 1;
 };
 
 export function areIngredientsEqual(
-	items1: IngredientModel[],
-	items2: IngredientModel[]
+  items1: IngredientModel[],
+  items2: IngredientModel[]
 ): boolean {
-	if (items1.length !== items2.length) {
-		return false;
-	}
+  if (items1.length !== items2.length) {
+    return false;
+  }
 
-	const sortedItems1 = [...items1].sort((a, b) =>
-		(a.id ?? '').localeCompare(b.id ?? '')
-	);
-	const sortedItems2 = [...items2].sort((a, b) =>
-		(a.id ?? '').localeCompare(b.id ?? '')
-	);
+  const sortedItems1 = [...items1].sort((a, b) =>
+    (a.id ?? "").localeCompare(b.id ?? "")
+  );
+  const sortedItems2 = [...items2].sort((a, b) =>
+    (a.id ?? "").localeCompare(b.id ?? "")
+  );
 
-	return sortedItems1.every((item1, index) => {
-		const item2 = sortedItems2[index];
-		return (
-			(item1.id === item2.id || (!item1.id && !item2.id)) &&
-			(item1.removed === item2.removed ||
-				(!item1.removed && !item2.removed) ||
-				(item1.removed === undefined && !item2.removed) ||
-				(!item1.removed && item2.removed === undefined)) &&
-			(item1.quantity === item2.quantity ||
-				(!item1.quantity && !item2.quantity) ||
-				(item1.quantity === undefined && !item2.quantity) ||
-				(!item1.quantity && item2.quantity === undefined))
-		);
-	});
+  return sortedItems1.every((item1, index) => {
+    const item2 = sortedItems2[index];
+    return (
+      (item1.id === item2.id || (!item1.id && !item2.id)) &&
+      (item1.removed === item2.removed ||
+        (!item1.removed && !item2.removed) ||
+        (item1.removed === undefined && !item2.removed) ||
+        (!item1.removed && item2.removed === undefined)) &&
+      (item1.quantity === item2.quantity ||
+        (!item1.quantity && !item2.quantity) ||
+        (item1.quantity === undefined && !item2.quantity) ||
+        (!item1.quantity && item2.quantity === undefined))
+    );
+  });
 }
