@@ -256,7 +256,7 @@ const BasketModalView: FC = () => {
                 {!isBasketEmpty && (
                   <p
                     onClick={handleClearBasket}
-                    className="cursor-pointer text-xs text-secondary hover:text-green-700 underline"
+                    className="cursor-pointer text-xs text-secondary underline"
                   >
                     Wyczyść
                   </p>
