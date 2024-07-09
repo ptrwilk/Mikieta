@@ -27,9 +27,9 @@ function App() {
       <AboutUsView />
       <div className="flex flex-col gap-12 mt-24 mb-24">
         <SubHeader
-          header="Masz pytania?"
-          title="SKONTAKTUJ SIĘ Z NAMI"
-          description="Napisz lub zadzwoń do nas!"
+          header="Masz jakiekolwiek pytania?"
+          title="NAWIĄŻ Z NAMI KONTAKT"
+          description="Napisz do nas lub zadzwoń!"
         />
         <Map />
       </div>

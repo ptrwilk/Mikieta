@@ -16,7 +16,7 @@ const AboutUsView = () => {
       <Section variant="ul">
         <li>
           <AboutUsItem
-            title="Gdzie jesteśmy?"
+            title="Nasza lokalizacja"
             icon={<GrLocation size={100} />}
             content={
               <div

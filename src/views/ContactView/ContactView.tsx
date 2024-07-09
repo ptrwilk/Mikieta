@@ -13,9 +13,9 @@ const ContactView = () => {
   return (
     <Section className={styles["ContactView"]}>
       <SubHeader
-        header="Masz pytania?"
-        title="SKONTAKTUJ SIĘ Z NAMI"
-        description="Napisz lub zadzwoń do nas!"
+        header="Masz jakiekolwiek pytania?"
+        title="NAWIĄŻ Z NAMI KONTAKT"
+        description="Napisz do nas lub zadzwoń!"
       />
       <ul className={styles["Items"]}>
         <li>
