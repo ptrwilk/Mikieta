@@ -53,7 +53,7 @@ const DeliveryView = () => {
 
   return (
     <Section className={styles["DeliveryView"]}>
-      <SubHeader title="SPRAWDŹ GDZIE DOWOZIMY!" />
+      <SubHeader title="SPRAWDŹ CZY DOWOZIMY!" />
       <div className={styles["Form"]}>
         <TextInput caption="Ulica" star captionTop {...street} />
         <TextInput caption="Numer domu" star captionTop {...homeNumber} />

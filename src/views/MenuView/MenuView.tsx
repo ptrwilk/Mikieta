@@ -77,7 +77,7 @@ const MenuView = () => {
 
   return (
     <Section className={styles["MenuView"]}>
-      <SubHeader header="Dowiedz się więcej" title="O NASZYM MENU" />
+      <SubHeader header="Zapoznaj się szczegółowo" title="Z NASZĄ OFERTĄ DAŃ" />
       {isMobile && (
         <ul className={classNames(styles["Tabs"], "flex flex-col gap-4")}>
           {items.map(({ text, productType }, key) => (
@@ -86,7 +86,7 @@ const MenuView = () => {
                 trigger={(expanded) => (
                   <p
                     className={classNames(
-                      { "text-red-700": expanded },
+                      { "text-[var(--color-secondary)]": expanded },
                       "uppercase font-semibold text-xl"
                     )}
                   >
