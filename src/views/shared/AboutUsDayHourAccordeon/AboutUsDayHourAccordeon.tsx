@@ -1,26 +1,28 @@
 import { AboutUsItem, Accordeon, DayHourSpan } from "@/components";
-import { SettingHoursModel } from "@/types";
+import { ClosureModel, DayOfTheWeek, SettingHoursModel } from "@/types";
 
 interface IAboutUsDayHourAccordeonProps {
   title: string;
   icon: any;
   hours?: SettingHoursModel[];
+  closures?: ClosureModel[];
 }
 
 const AboutUsDayHourAccordeon: React.FC<IAboutUsDayHourAccordeonProps> = ({
   title,
   icon,
   hours = [],
+  closures = [],
 }) => {
-  const days = [
-    "Poniedziałek",
-    "Wtorek",
-    "Środa",
-    "Czwartek",
-    "Piątek",
-    "Sobota",
-    "Niedziela",
-  ];
+  const days: { [K in DayOfTheWeek]: string } = {
+    Monday: "Poniedziałek",
+    Tuesday: "Wtorek",
+    Wednesday: "Środa",
+    Thursday: "Czwartek",
+    Friday: "Piątek",
+    Saturday: "Sobota",
+    Sunday: "Niedziela",
+  };
 
   return (
     <AboutUsItem
@@ -34,14 +36,15 @@ const AboutUsDayHourAccordeon: React.FC<IAboutUsDayHourAccordeonProps> = ({
           )}
           content={
             <>
-              {days
+              {Object.keys(days)
                 .filter((_, index) => index !== 0)
                 .map((day, i) => (
                   <DayHourSpan
                     key={i}
-                    text={day}
+                    text={days[day as DayOfTheWeek]}
                     from={hours[i]?.from ?? ""}
                     to={hours[i]?.to ?? ""}
+                    closed={closures.some((x) => x.closedOn === day)}
                   />
                 ))}
             </>

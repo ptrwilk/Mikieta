@@ -59,6 +59,7 @@ const ContactView = () => {
               </div>
             }
             hours={app!.settings?.openingHours}
+            closures={app!.settings?.closures}
           />
         </li>
         <li>
@@ -70,6 +71,7 @@ const ContactView = () => {
               </div>
             }
             hours={app!.settings?.deliveryHours}
+            closures={app!.settings?.closures}
           />
         </li>
       </ul>

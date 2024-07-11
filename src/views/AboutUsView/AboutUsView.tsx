@@ -49,6 +49,7 @@ const AboutUsView = () => {
             title="Godziny otwarcia"
             icon={<MdAccessTime size={100} />}
             hours={app!.settings?.openingHours}
+            closures={app!.settings?.closures}
           />
         </li>
         <li>
