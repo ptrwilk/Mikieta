@@ -1,5 +1,9 @@
 export type Guid = string;
 
+export type ClosureModel = {
+  closedOn: DayOfTheWeek;
+};
+
 export type SettingModel = {
   street?: string;
   city?: string;
@@ -12,6 +16,7 @@ export type SettingModel = {
   adminWebsiteUrl: string;
   openingHours: SettingHoursModel[];
   deliveryHours: SettingHoursModel[];
+  closures: ClosureModel[];
 };
 
 export type SettingHoursModel = {
@@ -136,6 +141,16 @@ export type OrderStatusModel = {
   deliveryMethod: DeliveryMethod;
   canClearBasket: boolean;
 };
+
+export enum DayOfTheWeek {
+  Monday = "Monday",
+  Tuesday = "Tuesday",
+  Wednesday = "Wednesday",
+  Thursday = "Thursday",
+  Friday = "Friday",
+  Saturday = "Saturday",
+  Sunday = "Sunday",
+}
 
 export enum DeliveryCheckErrorType {
   LocationNotFound = "LocationNotFound",
