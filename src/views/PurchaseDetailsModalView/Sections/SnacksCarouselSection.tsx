@@ -21,7 +21,7 @@ const SnacksCarouselSection: React.FC<ISnacksCarouselSectionProps> = ({
       render={(item: ProductModel) => (
         <div className="flex flex-col flex-grow p-4 border">
           <img
-            className="w-full h-[150px] object-fill"
+            className="w-full h-[150px] object-cover"
             src={item.imageUrl ?? src}
           />
           <div className="flex justify-between gap-4 mt-2 mb-4">
