@@ -158,6 +158,7 @@ export enum DeliveryCheckErrorType {
 }
 
 export enum OrderStatusType {
+  Cancelled = "Cancelled",
   Waiting = "Waiting",
   Preparing = "Preparing",
   Ready = "Ready",

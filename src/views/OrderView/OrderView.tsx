@@ -10,6 +10,7 @@ import { useAppContext } from "@/context/AppContext";
 import { FaArrowDown } from "react-icons/fa";
 import classNames from "classnames";
 import { useMediaQuery } from "react-responsive";
+import { error } from "console";
 
 const OrderView = () => {
   const [_, updateApp] = useAppContext();
@@ -61,29 +62,43 @@ const OrderView = () => {
     setButtonVisible(isMobile);
   }, [isMobile]);
 
-  const items = [
-    {
-      number: 1,
-      title: "Oczekiwanie!",
-      text: "Twoje zamówienie oczekuje na potwierdzenie",
-      status: OrderStatusType.Waiting,
-    },
-    {
-      number: 2,
-      title: "W przygotowaniu!",
-      text: "Twoje zamówienie jest w trakcie przygotowywania",
-      status: OrderStatusType.Preparing,
-    },
-    {
-      number: 3,
-      title: "Gotowe!",
-      text:
-        status?.deliveryMethod === DeliveryMethod.Delivery
-          ? "Jesteśmy w drodze do ciebie"
-          : "Twoje zamówienie jest gotowe odbioru",
-      status: OrderStatusType.Ready,
-    },
-  ];
+  if (status === undefined) {
+    return null;
+  }
+
+  const items =
+    status!.status === OrderStatusType.Cancelled
+      ? [
+          {
+            title: "Anulowano!",
+            text: "Twoje zamówienie zostało anulowane",
+            status: OrderStatusType.Cancelled,
+            error: true,
+          },
+        ]
+      : [
+          {
+            number: 1,
+            title: "Oczekiwanie!",
+            text: "Twoje zamówienie oczekuje na potwierdzenie",
+            status: OrderStatusType.Waiting,
+          },
+          {
+            number: 2,
+            title: "W przygotowaniu!",
+            text: "Twoje zamówienie jest w trakcie przygotowywania",
+            status: OrderStatusType.Preparing,
+          },
+          {
+            number: 3,
+            title: "Gotowe!",
+            text:
+              status?.deliveryMethod === DeliveryMethod.Delivery
+                ? "Jesteśmy w drodze do ciebie"
+                : "Twoje zamówienie jest gotowe odbioru",
+            status: OrderStatusType.Ready,
+          },
+        ];
 
   return (
     <Section className={styles["OrderView"]}>
@@ -103,15 +118,21 @@ const OrderView = () => {
         </Button>
       )}
       <div className={styles["Thanks"]}>
-        <h2>Dziękujemy za złożenie zamówienia!</h2>
-        {status !== undefined && status!.status !== OrderStatusType.Waiting && (
-          <p>
-            {status.deliveryMethod === DeliveryMethod.Delivery
-              ? "Twoje zamówienie będzie dostarczone"
-              : "Twoje zamówienie będzie gotowe do odbioru"}{" "}
-            o {format(status!.deliveryAt, "HH:mm")}
-          </p>
-        )}
+        <h2>
+          {status!.status === OrderStatusType.Cancelled
+            ? "Twoje zamówienie zostało anulowane"
+            : "Dziękujemy za złożenie zamówienia!"}
+        </h2>
+        {status !== undefined &&
+          status!.status !== OrderStatusType.Waiting &&
+          status!.status !== OrderStatusType.Cancelled && (
+            <p>
+              {status.deliveryMethod === DeliveryMethod.Delivery
+                ? "Twoje zamówienie będzie dostarczone"
+                : "Twoje zamówienie będzie gotowe do odbioru"}{" "}
+              o {format(status!.deliveryAt, "HH:mm")}
+            </p>
+          )}
       </div>
       <div ref={statusTitleRef} className={styles["Status-Title"]}>
         <h3>

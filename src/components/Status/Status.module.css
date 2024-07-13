@@ -32,6 +32,11 @@
   background: var(--color-secondary);
 }
 
+.Status .Content.Content-selected .Rectangle.Error,
+.Content.Content-selected .Line.Error {
+  background: var(--color-error);
+}
+
 .Status .Content.Content-selected .Rectangle p {
   color: white;
 }
