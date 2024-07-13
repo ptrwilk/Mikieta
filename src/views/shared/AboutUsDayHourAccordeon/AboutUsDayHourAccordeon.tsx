@@ -1,4 +1,5 @@
 import { AboutUsItem, Accordeon, DayHourSpan } from "@/components";
+import { getDayIndex } from "@/helpers";
 import { ClosureModel, DayOfTheWeek, SettingHoursModel } from "@/types";
 
 interface IAboutUsDayHourAccordeonProps {
@@ -24,6 +25,8 @@ const AboutUsDayHourAccordeon: React.FC<IAboutUsDayHourAccordeonProps> = ({
     Sunday: "Niedziela",
   };
 
+  const dayIndex = getDayIndex();
+
   return (
     <AboutUsItem
       title={title}
@@ -31,22 +34,23 @@ const AboutUsDayHourAccordeon: React.FC<IAboutUsDayHourAccordeonProps> = ({
       content={
         <Accordeon
           trigger={() => (
-            //TODO: to nie dziala wcale, zostało przeoczone, trzeba utorzyć ticket
-            <DayHourSpan text="Dzisiaj" from="11:00" to="23:00" />
+            <DayHourSpan
+              text="Dzisiaj"
+              from={hours[dayIndex]?.from ?? ""}
+              to={hours[dayIndex]?.to ?? ""}
+            />
           )}
           content={
             <>
-              {Object.keys(days)
-                .filter((_, index) => index !== 0)
-                .map((day, i) => (
-                  <DayHourSpan
-                    key={i}
-                    text={days[day as DayOfTheWeek]}
-                    from={hours[i]?.from ?? ""}
-                    to={hours[i]?.to ?? ""}
-                    closed={closures.some((x) => x.closedOn === day)}
-                  />
-                ))}
+              {Object.keys(days).map((day, i) => (
+                <DayHourSpan
+                  key={i}
+                  text={days[day as DayOfTheWeek]}
+                  from={hours[i]?.from ?? ""}
+                  to={hours[i]?.to ?? ""}
+                  closed={closures.some((x) => x.closedOn === day)}
+                />
+              ))}
             </>
           }
         />
