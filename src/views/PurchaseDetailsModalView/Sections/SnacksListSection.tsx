@@ -25,7 +25,7 @@ const SnacksListSection: React.FC<ISnacksListSectionProps> = ({
             <li className="flex flex-col p-4 border" key={key}>
               <div className="flex gap-4">
                 <img
-                  className="w-[150px] h-[100px] object-fill"
+                  className="w-[150px] h-[100px] object-cover"
                   src={item.imageUrl ?? src}
                 />
                 <p className="font-medium">{item.name}</p>
