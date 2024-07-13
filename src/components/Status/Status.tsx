@@ -6,9 +6,16 @@ interface IStatusProps {
   text?: string;
   number?: number;
   selected?: boolean;
+  error?: boolean;
 }
 
-const Status: React.FC<IStatusProps> = ({ title, text, number, selected }) => {
+const Status: React.FC<IStatusProps> = ({
+  title,
+  text,
+  number,
+  selected,
+  error,
+}) => {
   return (
     <div className={styles["Status"]}>
       <div
@@ -16,10 +23,16 @@ const Status: React.FC<IStatusProps> = ({ title, text, number, selected }) => {
           [styles["Content-selected"]]: selected,
         })}
       >
-        <div className={styles["Line"]} />
+        <div
+          className={classNames(styles["Line"], { [styles["Error"]]: error })}
+        />
         <div className="flex flex-col gap-3">
           <div className="flex gap-4">
-            <div className={styles["Rectangle"]}>
+            <div
+              className={classNames(styles["Rectangle"], {
+                [styles["Error"]]: error,
+              })}
+            >
               <p>{number}</p>
             </div>
             <p className={styles["Title"]}>{title}</p>
