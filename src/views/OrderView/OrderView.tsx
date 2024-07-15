@@ -10,7 +10,6 @@ import { useAppContext } from "@/context/AppContext";
 import { FaArrowDown } from "react-icons/fa";
 import classNames from "classnames";
 import { useMediaQuery } from "react-responsive";
-import { error } from "console";
 
 const OrderView = () => {
   const [_, updateApp] = useAppContext();
