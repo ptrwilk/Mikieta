@@ -54,7 +54,6 @@ export type DeliveryResponseModel = {
 export type IngredientModel = {
   id?: Guid;
   name: string;
-  priceSmall: number;
   priceMedium: number;
   priceLarge: number;
   prices: number[];
@@ -168,11 +167,13 @@ export enum ProductType {
   Pizza = "Pizza",
   Drink = "Drink",
   Sauce = "Sauce",
-  Snack = "Snack",
+  Desert = "Desert",
+  Salad = "Salad",
+  Macaron = "Macaron",
+  Dinner = "Dinner",
 }
 
 export enum PizzaType {
-  Small = "Small",
   Medium = "Medium",
   Large = "Large",
 }
@@ -199,8 +200,6 @@ export const translateProductType = (
   switch (productType) {
     case ProductType.Pizza:
       switch (pizzaType) {
-        case PizzaType.Small:
-          return "mała";
         case PizzaType.Medium:
           return "średnia";
         case PizzaType.Large:
@@ -209,11 +208,17 @@ export const translateProductType = (
           return "Unknown pizza type";
       }
     case ProductType.Drink:
-      return "drink";
+      return "napój";
     case ProductType.Sauce:
       return "sos";
-    case ProductType.Snack:
-      return "przekąska";
+    case ProductType.Desert:
+      return "deser";
+    case ProductType.Salad:
+      return "sałatka";
+    case ProductType.Macaron:
+      return "makaron";
+    case ProductType.Dinner:
+      return "obiad";
     default:
       return "Unknown product type";
   }

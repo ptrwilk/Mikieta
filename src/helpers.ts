@@ -176,7 +176,7 @@ export const productToPrice = (product: ProductModel): number => {
     throw new Error("Product is undefined or null");
   }
 
-  const pizzaType = product.pizzaType ?? PizzaType.Small;
+  const pizzaType = product.pizzaType ?? PizzaType.Medium;
   const pizzaTypeIndex = Object.values(PizzaType).indexOf(pizzaType);
 
   if (pizzaTypeIndex === -1) {

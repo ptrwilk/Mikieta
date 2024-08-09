@@ -170,24 +170,21 @@ test("productToPrice", () => {
     id: "12",
     name: "Pizza",
     pizzaSizePrice: {
-      [PizzaType.Small]: 12,
       [PizzaType.Medium]: 15,
       [PizzaType.Large]: 20,
     },
     ingredients: [
       {
         name: "1",
-        priceSmall: 1,
         priceMedium: 2,
         priceLarge: 3,
-        prices: [1, 2, 3],
+        prices: [2, 3],
       },
       {
         name: "2",
-        priceSmall: 1.5,
         priceMedium: 2.5,
         priceLarge: 3.5,
-        prices: [1.5, 2.5, 3.5],
+        prices: [2.5, 3.5],
       },
     ],
   };
@@ -202,47 +199,6 @@ test("productToPrice", () => {
       productType: ProductType.Pizza,
       price: 999,
       pizzaSizePrice: {
-        [PizzaType.Small]: 12,
-        [PizzaType.Medium]: 15,
-        [PizzaType.Large]: 20,
-      },
-      pizzaType: PizzaType.Small,
-    })
-  ).toBe(14.5);
-
-  expect(
-    productToPrice({
-      ...product,
-      productType: ProductType.Pizza,
-      price: 999,
-      pizzaSizePrice: {
-        [PizzaType.Small]: 12,
-        [PizzaType.Medium]: 15,
-        [PizzaType.Large]: 20,
-      },
-    })
-  ).toBe(14.5);
-
-  expect(
-    productToPrice({
-      ...product,
-      productType: ProductType.Pizza,
-      pizzaSizePrice: {
-        [PizzaType.Small]: 12,
-        [PizzaType.Medium]: 15,
-        [PizzaType.Large]: 20,
-      },
-      pizzaType: PizzaType.Small,
-    })
-  ).toBe(14.5);
-
-  expect(
-    productToPrice({
-      ...product,
-      productType: ProductType.Pizza,
-      price: 999,
-      pizzaSizePrice: {
-        [PizzaType.Small]: 12,
         [PizzaType.Medium]: 15,
         [PizzaType.Large]: 20,
       },
@@ -256,7 +212,43 @@ test("productToPrice", () => {
       productType: ProductType.Pizza,
       price: 999,
       pizzaSizePrice: {
-        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+    })
+  ).toBe(19.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      pizzaSizePrice: {
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      pizzaType: PizzaType.Medium,
+    })
+  ).toBe(19.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      price: 999,
+      pizzaSizePrice: {
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      pizzaType: PizzaType.Medium,
+    })
+  ).toBe(19.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      price: 999,
+      pizzaSizePrice: {
         [PizzaType.Medium]: 15,
         [PizzaType.Large]: 20,
       },
@@ -267,14 +259,14 @@ test("productToPrice", () => {
   expect(productToPrice({ ...product, price: 12, quantity: 2 })).toBe(24);
 
   expect(
-    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Small })
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Medium })
   ).toBe(12);
 
   expect(
     productToPrice({
       ...product,
       price: 12,
-      pizzaType: PizzaType.Small,
+      pizzaType: PizzaType.Medium,
       quantity: 2,
     })
   ).toBe(24);
@@ -308,34 +300,30 @@ test("productToPrice", () => {
   const additionalIngredients = [
     {
       name: "1",
-      priceSmall: 1,
       priceMedium: 2,
       priceLarge: 3,
-      prices: [1, 2, 3],
+      prices: [2, 3],
       quantity: 2,
     },
     {
       name: "2",
-      priceSmall: 1.5,
       priceMedium: 2.5,
       priceLarge: 3.5,
-      prices: [1.5, 2.5, 3.5],
+      prices: [2.5, 3.5],
       quantity: 1,
     },
     {
       name: "3",
-      priceSmall: 111.5,
       priceMedium: 211.5,
       priceLarge: 311.5,
-      prices: [111.5, 211.5, 311.5],
+      prices: [211.5, 311.5],
       quantity: 0,
     },
     {
       name: "4",
-      priceSmall: 111.5,
       priceMedium: 211.5,
       priceLarge: 311.5,
-      prices: [111.5, 211.5, 311.5],
+      prices: [211.5, 311.5],
     },
   ];
 
@@ -343,52 +331,48 @@ test("productToPrice", () => {
     productToPrice({
       ...product,
       price: 12,
-      pizzaType: PizzaType.Small,
+      pizzaType: PizzaType.Medium,
       productType: ProductType.Pizza,
       quantity: 2,
       pizzaSizePrice: {
-        [PizzaType.Small]: 12,
         [PizzaType.Medium]: 15,
         [PizzaType.Large]: 20,
       },
       ingredients: [
         {
           name: "1",
-          priceSmall: 1,
           priceMedium: 2,
           priceLarge: 3,
-          prices: [1, 2, 3],
+          prices: [2, 3],
         },
       ],
       additionalIngredients: additionalIngredients,
     })
-  ).toBe(33);
+  ).toBe(47);
 
   expect(
     productToPrice({
       ...product,
       price: 12,
-      pizzaType: PizzaType.Small,
+      pizzaType: PizzaType.Medium,
       productType: ProductType.Pizza,
       quantity: 2,
       pizzaSizePrice: {
-        [PizzaType.Small]: 12,
         [PizzaType.Medium]: 15,
         [PizzaType.Large]: 20,
       },
       ingredients: [
         {
           name: "1",
-          priceSmall: 1,
           priceMedium: 2,
           priceLarge: 3,
-          prices: [1, 2, 3],
+          prices: [2, 3],
           removed: true,
         },
       ],
       additionalIngredients: additionalIngredients,
     })
-  ).toBe(31);
+  ).toBe(43);
 });
 
 test("getTimeIntervals", () => {
@@ -475,7 +459,6 @@ test("areIngredientsEqual", () => {
     prices: [],
     priceLarge: 0,
     priceMedium: 0,
-    priceSmall: 0,
   };
 
   expect(

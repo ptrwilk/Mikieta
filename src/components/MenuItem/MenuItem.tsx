@@ -20,7 +20,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ product, onClick }) => {
   const img =
     product.productType === ProductType.Pizza
       ? pizza
-      : product.productType === ProductType.Snack
+      : product.productType === ProductType.Desert
       ? snack
       : product.productType === ProductType.Drink
       ? drink
