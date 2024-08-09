@@ -21,7 +21,7 @@ interface ILayoutProps {
 }
 
 const Layout: React.FC<ILayoutProps> = ({ children, name, basketVisible }) => {
-  const isMobile = useMediaQuery({ maxWidth: 800 });
+  const isMobile = useMediaQuery({ maxWidth: 850 });
 
   const location = useLocation();
 

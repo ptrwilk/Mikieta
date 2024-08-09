@@ -1,5 +1,5 @@
 import styles from "./Logo.module.css";
-import logo from "../../assets/images/miketalogo.png";
+import logo from "../../assets/images/amaliologo.png";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 

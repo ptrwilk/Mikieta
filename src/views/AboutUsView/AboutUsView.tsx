@@ -22,7 +22,7 @@ const AboutUsView = () => {
               <div
                 className={classNames(styles["Content"], styles["Content-1"])}
               >
-                <p className="font-light">Miketa</p>
+                <p className="font-light">Amalio</p>
                 <p className="font-light">{app!.settings?.street}</p>
                 <p className="font-light">
                   {app!.settings?.zipCode} {app!.settings?.city}
