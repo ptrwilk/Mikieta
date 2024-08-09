@@ -18,12 +18,12 @@ const MenuView = () => {
     if (product.productType === ProductType.Pizza) {
       updateApp("purchaseModel", {
         ...product,
-        pizzaType: PizzaType.Small,
+        pizzaType: PizzaType.Medium,
         quantity: 1,
       });
       updateApp(
         "snacks",
-        products.filter((x) => x.productType === ProductType.Snack)
+        products.filter((x) => x.productType === ProductType.Desert)
       );
     } else {
       updateBasket(app!, updateApp, [{ ...product, quantity: 1 }]);
@@ -51,27 +51,45 @@ const MenuView = () => {
   const items = [
     {
       productType: ProductType.Pizza,
-      pizzaType: PizzaType.Small,
+      pizzaType: PizzaType.Medium,
       text: "Pizza",
       index: "0",
     },
     {
-      productType: ProductType.Sauce,
+      productType: ProductType.Dinner,
       pizzaType: null,
-      text: "Sosy do pizzy",
+      text: "Obiady",
       index: "1",
+    },
+    {
+      productType: ProductType.Macaron,
+      pizzaType: null,
+      text: "Makarony",
+      index: "2",
+    },
+    {
+      productType: ProductType.Salad,
+      pizzaType: null,
+      text: "Sałatki",
+      index: "3",
     },
     {
       productType: ProductType.Drink,
       pizzaType: null,
       text: "Napoje",
-      index: "2",
+      index: "4",
     },
     {
-      productType: ProductType.Snack,
+      productType: ProductType.Desert,
       pizzaType: null,
-      text: "Przekąski",
-      index: "3",
+      text: "Desery",
+      index: "5",
+    },
+    {
+      productType: ProductType.Sauce,
+      pizzaType: null,
+      text: "Sosy do pizzy",
+      index: "6",
     },
   ];
 
