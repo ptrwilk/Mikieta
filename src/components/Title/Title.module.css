@@ -1,0 +1,57 @@
+.Title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Title h1,
+.Text {
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.Title h1 {
+  text-transform: uppercase;
+}
+
+.Title .Text {
+  font-size: 1.2rem;
+}
+
+.Title .Text {
+  font-size: 60px;
+  font-family: var(--ff-secondary);
+  color: var(--color-third);
+}
+
+.Title .Button {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .Title .Text {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Title .Text {
+    font-size: 40px;
+  }
+
+  .Title h1 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 530px) {
+  .Title .Text {
+    font-size: 25px;
+  }
+
+  .Title h1 {
+    font-size: 30px;
+  }
+}

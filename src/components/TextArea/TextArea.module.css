@@ -1,0 +1,9 @@
+.TextArea {
+}
+
+.TextArea .Caption {
+  margin-bottom: 0.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
+}

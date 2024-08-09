@@ -4,8 +4,12 @@ import {
   maskMatch,
   method2,
   method3,
+  productToPrice,
   replaceWithMask,
+  getTimeIntervals,
+  areIngredientsEqual,
 } from "./helpers";
+import { ProductModel, PizzaType, ProductType, IngredientModel } from "./types";
 
 test("method", () => {
   expect(
@@ -158,4 +162,384 @@ test("replace with mask", () => {
   expect(replaceWithMask("1 2", "# #", "##")).toBe("12");
   expect(replaceWithMask("+1 2", "+# #", "+##")).toBe("+12");
   expect(replaceWithMask("+12", "+##", "+# #")).toBe("+1 2");
+});
+
+test("productToPrice", () => {
+  var product: ProductModel = {
+    productType: ProductType.Drink,
+    id: "12",
+    name: "Pizza",
+    pizzaSizePrice: {
+      [PizzaType.Small]: 12,
+      [PizzaType.Medium]: 15,
+      [PizzaType.Large]: 20,
+    },
+    ingredients: [
+      {
+        name: "1",
+        priceSmall: 1,
+        priceMedium: 2,
+        priceLarge: 3,
+        prices: [1, 2, 3],
+      },
+      {
+        name: "2",
+        priceSmall: 1.5,
+        priceMedium: 2.5,
+        priceLarge: 3.5,
+        prices: [1.5, 2.5, 3.5],
+      },
+    ],
+  };
+
+  expect(productToPrice({ ...product, price: 0 })).toBe(0);
+
+  expect(productToPrice({ ...product, price: 12 })).toBe(12);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      price: 999,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      pizzaType: PizzaType.Small,
+    })
+  ).toBe(14.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      price: 999,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+    })
+  ).toBe(14.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      pizzaType: PizzaType.Small,
+    })
+  ).toBe(14.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      price: 999,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      pizzaType: PizzaType.Medium,
+    })
+  ).toBe(19.5);
+
+  expect(
+    productToPrice({
+      ...product,
+      productType: ProductType.Pizza,
+      price: 999,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      pizzaType: PizzaType.Large,
+    })
+  ).toBe(26.5);
+
+  expect(productToPrice({ ...product, price: 12, quantity: 2 })).toBe(24);
+
+  expect(
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Small })
+  ).toBe(12);
+
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Small,
+      quantity: 2,
+    })
+  ).toBe(24);
+
+  expect(
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Medium })
+  ).toBe(12);
+
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Medium,
+      quantity: 2,
+    })
+  ).toBe(24);
+
+  expect(
+    productToPrice({ ...product, price: 12, pizzaType: PizzaType.Large })
+  ).toBe(12);
+
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Large,
+      quantity: 2,
+    })
+  ).toBe(24);
+
+  const additionalIngredients = [
+    {
+      name: "1",
+      priceSmall: 1,
+      priceMedium: 2,
+      priceLarge: 3,
+      prices: [1, 2, 3],
+      quantity: 2,
+    },
+    {
+      name: "2",
+      priceSmall: 1.5,
+      priceMedium: 2.5,
+      priceLarge: 3.5,
+      prices: [1.5, 2.5, 3.5],
+      quantity: 1,
+    },
+    {
+      name: "3",
+      priceSmall: 111.5,
+      priceMedium: 211.5,
+      priceLarge: 311.5,
+      prices: [111.5, 211.5, 311.5],
+      quantity: 0,
+    },
+    {
+      name: "4",
+      priceSmall: 111.5,
+      priceMedium: 211.5,
+      priceLarge: 311.5,
+      prices: [111.5, 211.5, 311.5],
+    },
+  ];
+
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Small,
+      productType: ProductType.Pizza,
+      quantity: 2,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      ingredients: [
+        {
+          name: "1",
+          priceSmall: 1,
+          priceMedium: 2,
+          priceLarge: 3,
+          prices: [1, 2, 3],
+        },
+      ],
+      additionalIngredients: additionalIngredients,
+    })
+  ).toBe(33);
+
+  expect(
+    productToPrice({
+      ...product,
+      price: 12,
+      pizzaType: PizzaType.Small,
+      productType: ProductType.Pizza,
+      quantity: 2,
+      pizzaSizePrice: {
+        [PizzaType.Small]: 12,
+        [PizzaType.Medium]: 15,
+        [PizzaType.Large]: 20,
+      },
+      ingredients: [
+        {
+          name: "1",
+          priceSmall: 1,
+          priceMedium: 2,
+          priceLarge: 3,
+          prices: [1, 2, 3],
+          removed: true,
+        },
+      ],
+      additionalIngredients: additionalIngredients,
+    })
+  ).toBe(31);
+});
+
+test("getTimeIntervals", () => {
+  expect(getTimeIntervals({ from: "00:00:00", to: "01:00:00" })).toStrictEqual([
+    "00:00",
+    "00:30",
+    "01:00",
+  ]);
+
+  expect(getTimeIntervals({ from: "00:30:00", to: "01:30:00" })).toStrictEqual([
+    "00:30",
+    "01:00",
+    "01:30",
+  ]);
+
+  expect(getTimeIntervals({ from: "00:30:00", to: "02:00:00" })).toStrictEqual([
+    "00:30",
+    "01:00",
+    "01:30",
+    "02:00",
+  ]);
+
+  expect(getTimeIntervals({ from: "00:00:00", to: "00:00:00" })).toStrictEqual([
+    "00:00",
+  ]);
+
+  expect(getTimeIntervals(undefined)).toStrictEqual([]);
+
+  expect(getTimeIntervals({ from: "00:00:00", to: "23:30:00" })).toStrictEqual([
+    "00:00",
+    "00:30",
+    "01:00",
+    "01:30",
+    "02:00",
+    "02:30",
+    "03:00",
+    "03:30",
+    "04:00",
+    "04:30",
+    "05:00",
+    "05:30",
+    "06:00",
+    "06:30",
+    "07:00",
+    "07:30",
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
+    "21:30",
+    "22:00",
+    "22:30",
+    "23:00",
+    "23:30",
+  ]);
+});
+
+test("areIngredientsEqual", () => {
+  const ingredient: IngredientModel = {
+    name: "",
+    prices: [],
+    priceLarge: 0,
+    priceMedium: 0,
+    priceSmall: 0,
+  };
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", removed: true }],
+      [{ ...ingredient, id: "1", removed: true }]
+    )
+  ).toBe(true);
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", removed: false }],
+      [{ ...ingredient, id: "1", removed: undefined }]
+    )
+  ).toBe(true);
+
+  expect(
+    areIngredientsEqual(
+      [
+        { ...ingredient, id: "1", removed: true },
+        { ...ingredient, id: "2", removed: false },
+      ],
+      [
+        { ...ingredient, id: "1", removed: true },
+        { ...ingredient, id: "2", removed: undefined },
+      ]
+    )
+  ).toBe(true);
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", removed: true }],
+      [
+        { ...ingredient, id: "1", removed: true },
+        { ...ingredient, id: "2", removed: undefined },
+      ]
+    )
+  ).toBe(false);
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", removed: true }],
+      [{ ...ingredient, id: "1", removed: false }]
+    )
+  ).toBe(false);
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", quantity: 1 }],
+      [{ ...ingredient, id: "1", quantity: 2 }]
+    )
+  ).toBe(false);
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", quantity: 0 }],
+      [{ ...ingredient, id: "1" }]
+    )
+  ).toBe(true);
+
+  expect(
+    areIngredientsEqual(
+      [{ ...ingredient, id: "1", quantity: 1 }],
+      [{ ...ingredient, id: "1" }]
+    )
+  ).toBe(false);
 });

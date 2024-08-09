@@ -1,96 +1,121 @@
-import { useLoaderData, useOutletContext } from "react-router-dom";
-import { Button, FilterTextInput, PizzaCard, TreeView } from "../../components";
+import { useLoaderData } from "react-router-dom";
+import { Accordeon, MenuItem, Section } from "../../components";
 import styles from "./MenuView.module.css";
-import { useState } from "react";
-import { PizzaModel } from "../../types";
-import { useAppContext } from "../../context/AppContext";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ProductModel, PizzaType, ProductType } from "@/types";
+import { SubHeader } from "@/components/SubHeader/SubHeader";
+import { useMediaQuery } from "react-responsive";
+import classNames from "classnames";
+import { updateBasket, useAppContext } from "@/context/AppContext";
 
 const MenuView = () => {
   const [app, updateApp] = useAppContext();
+  const products = useLoaderData() as ProductModel[];
 
-  const filters = useOutletContext() as string[];
-  const pizzas = useLoaderData() as PizzaModel[];
+  const isMobile = useMediaQuery({ maxWidth: 920 });
 
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const handleClick = (product: ProductModel) => {
+    if (product.productType === ProductType.Pizza) {
+      updateApp("purchaseModel", {
+        ...product,
+        pizzaType: PizzaType.Small,
+        quantity: 1,
+      });
+      updateApp(
+        "snacks",
+        products.filter((x) => x.productType === ProductType.Snack)
+      );
+    } else {
+      updateBasket(app!, updateApp, [{ ...product, quantity: 1 }]);
+    }
+  };
 
-  const treeViewItems = [
+  const MenuItems = (productType: ProductType) => {
+    return (
+      <ul className={styles["Items"]}>
+        {products
+          .filter((x) => x.productType === productType)
+          .map((product, key) => (
+            <li key={key}>
+              <MenuItem
+                product={product}
+                onClick={() => handleClick(product)}
+              />
+              <div className={styles["Hr"]} />
+            </li>
+          ))}
+      </ul>
+    );
+  };
+
+  const items = [
     {
-      name: "Pizza",
-      path: "pizza",
-      subItems: [
-        { name: "Mała", path: "size=small", index: 0 },
-        { name: "Średnia", path: "size=medium", index: 0 },
-        { name: "Duża", path: "size=big", index: 0 },
-        { name: "Cieńka", path: "crust=thin", index: 1 },
-        { name: "Gruba", path: "crust=thick", index: 1 },
-      ],
+      productType: ProductType.Pizza,
+      pizzaType: PizzaType.Small,
+      text: "Pizza",
+      index: "0",
     },
     {
-      name: "Napoje",
-      path: "drink",
-      subItems: [
-        { name: "Piwo", path: "type=beer", index: 0 },
-        { name: "Grzaniec", path: "type=mulled-wine", index: 0 },
-        { name: "Pozostałe", path: "type=other", index: 0 },
-      ],
+      productType: ProductType.Sauce,
+      pizzaType: null,
+      text: "Sosy do pizzy",
+      index: "1",
     },
-    //TODO: remove subItems and make parent selection working
     {
-      name: "Przekąski",
-      path: "snack",
+      productType: ProductType.Drink,
+      pizzaType: null,
+      text: "Napoje",
+      index: "2",
     },
-    //TODO: remove subItems and make parent selection working
     {
-      name: "Sosy",
-      path: "sauce",
+      productType: ProductType.Snack,
+      pizzaType: null,
+      text: "Przekąski",
+      index: "3",
     },
   ];
 
-  const handleFilterElementSelected = (value: string) => {
-    setSelectedFilters([...selectedFilters, value]);
-  };
-
-  const handleFilterElementClicked = (value: string) => {
-    setSelectedFilters([...selectedFilters].filter((x) => x !== value));
-  };
-
-  const handlePizzaClick = (pizza: PizzaModel) => {
-    const newBasket = [...app!.basket, pizza];
-
-    updateApp("basket", newBasket);
-  };
-
   return (
-    <div className={styles["MenuView"]}>
-      <h2>MENU</h2>
-      <ul className={styles["FilterTabs"]}>
-        {selectedFilters.map((content, key) => (
-          <li key={key}>
-            <Button tab onClick={() => handleFilterElementClicked(content)}>
-              {content}
-            </Button>
-          </li>
-        ))}
-      </ul>
-      <FilterTextInput
-        placeholder="Filtruj"
-        prompts={filters.filter((item) => !selectedFilters.includes(item))}
-        onSelect={handleFilterElementSelected}
-      />
-      <TreeView className={styles["TreeView"]} items={treeViewItems} />
-      <ul className={styles["PizzaCards"]}>
-        {pizzas.map((pizza, key) => (
-          <li key={key}>
-            <PizzaCard
-              name={pizza.name}
-              price={pizza.price}
-              ingredients={pizza.ingredients}
-              onClick={() => handlePizzaClick(pizza)}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Section className={styles["MenuView"]}>
+      <SubHeader header="Zapoznaj się szczegółowo" title="Z NASZĄ OFERTĄ DAŃ" />
+      {isMobile && (
+        <ul className={classNames(styles["Tabs"], "flex flex-col gap-4")}>
+          {items.map(({ text, productType }, key) => (
+            <li key={key}>
+              <Accordeon
+                trigger={(expanded) => (
+                  <p
+                    className={classNames(
+                      { "text-[var(--color-secondary)]": expanded },
+                      "uppercase font-semibold text-xl"
+                    )}
+                  >
+                    {text}
+                  </p>
+                )}
+                content={<>{MenuItems(productType)}</>}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+      {!isMobile && (
+        <Tabs className={styles["Tabs"]} defaultValue="0">
+          <TabsList>
+            {items.map(({ index, text }, key) => (
+              <TabsTrigger key={key} value={index}>
+                {text}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {items.map(({ productType, index }, key) => (
+            <TabsContent key={key} value={index}>
+              {MenuItems(productType)}
+            </TabsContent>
+          ))}
+        </Tabs>
+      )}
+    </Section>
   );
 };
 

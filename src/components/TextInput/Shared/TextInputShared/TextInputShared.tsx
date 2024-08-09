@@ -1,14 +1,19 @@
 import classNames from "classnames";
 import styles from "./TextInputShared.module.css";
 import { useEffect } from "react";
+import { Input } from "@/components/ui/input";
 
 interface ITextInputSharedProps {
   children?: any;
   className?: string;
   placeholder?: string;
   caption?: string;
+  captionTop?: boolean;
   value?: string;
   error?: boolean;
+  errorMessage?: string;
+  star?: boolean;
+  numeric?: boolean;
   onValueChange?: (value: string | undefined) => void;
   onBlur?: () => void;
   onFocus?: () => void;
@@ -17,12 +22,15 @@ interface ITextInputSharedProps {
 }
 
 const TextInputShared: React.FC<ITextInputSharedProps> = ({
-  children,
   className,
   placeholder,
   caption,
+  captionTop,
   value,
   error,
+  errorMessage,
+  star,
+  numeric,
   onValueChange,
   onBlur,
   onFocus,
@@ -33,31 +41,31 @@ const TextInputShared: React.FC<ITextInputSharedProps> = ({
     onErrorChange?.(error ?? false);
   }, [error]);
 
-  const inputElement = (
-    <input
-      placeholder={placeholder}
-      value={value ?? ""}
-      onChange={(e) => onValueChange?.(e.target.value as string)}
-      onBlur={onBlur}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-    ></input>
-  );
-
   return (
     <div
       className={classNames(className, styles["TextInputShared"], {
-        [styles["TextInputShared-error"]]: error,
+        [styles["TextInputShared-Top"]]: captionTop,
       })}
     >
-      {caption && <p className={styles["Caption"]}>{caption}</p>}
-      {children ? (
-        <div className={styles["Input-Wrapper"]}>
-          {inputElement}
-          {children}
-        </div>
-      ) : (
-        inputElement
+      <p
+        className={classNames(styles["Caption"], {
+          [styles["Caption-Error"]]: error,
+        })}
+      >
+        {caption}
+        {star && <span className={styles["Star"]}>*</span>}
+      </p>
+      <Input
+        type={numeric ? "number" : "text"}
+        value={value ?? ""}
+        placeholder={placeholder}
+        onChange={(e) => onValueChange?.(e.target.value as string)}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+      />
+      {errorMessage && error && (
+        <p className={styles["ErrorMessage"]}>{errorMessage}</p>
       )}
     </div>
   );

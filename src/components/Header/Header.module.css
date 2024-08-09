@@ -1,28 +1,26 @@
-.Header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--p-1) var(--p-3);
-    max-width: 1440px;
-    margin: auto;
-    background: white;
-    z-index: 1;
+.Header {
+  display: flex;
+  padding: 1rem 1rem;
 }
 
-.Header ul{
-    display: flex;
-    align-items: center;
-    gap: var(--p-2);
+.Header .Items {
+  padding: 0 3rem;
 }
 
-.Header .Logo{
-    font-weight: var(--fw-9);
+.Header .Items li {
+  display: inline-block;
+  padding: 0.5rem 1rem;
 }
 
-.Header p{
-    color: var(--color-black);
+.Header p,
+.Header a {
+  display: inline-block;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.Header p:hover,
+.Header a:hover {
+  color: var(--color-secondary);
 }

@@ -1,8 +1,50 @@
-.ContactView{
-    display: flex;
-    justify-content: center;
-    gap: 16rem;
-    padding: 3rem 0;
-    margin-top: 10rem;
-    background: #F8F8F8;
+.ContactView {
+  padding: 6rem 1rem;
+}
+
+.ContactView .Items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 6rem;
+}
+
+.ContactView .Circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--color-secondary);
+  border-radius: 50%;
+}
+
+.ContactView .Map {
+  margin-top: 6rem;
+}
+
+.ContactView .Map p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.ContactView .Map iframe {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .ContactView .Items {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .ContactView .Items {
+    grid-template-columns: 1fr;
+  }
 }

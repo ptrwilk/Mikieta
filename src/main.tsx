@@ -1,57 +1,100 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./styles/global.css";
 import "./styles/theme.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AppContextProvider, useAppContext } from "./context/AppContext.tsx";
+import { Layout } from "./Layout.tsx";
 import { MenuView } from "./views/MenuView/MenuView.tsx";
-import { AppContextProvider } from "./context/AppContext.tsx";
-import { PaymentView } from "./views/PaymentView/PaymentView.tsx";
+import { CheckoutView } from "./views/CheckoutView/CheckoutView.tsx";
+import { ReservationView } from "./views/ReservationView/ReservationView.tsx";
+import { ContactView } from "./views/ContactView/ContactView.tsx";
 import { DeliveryView } from "./views/DeliveryView/DeliveryView.tsx";
+import { OrderView } from "./views/OrderView/OrderView.tsx";
+import { get } from "./apihelper.tsx";
+import { SettingModel } from "./types.ts";
+import { ErrorView } from "./views/ErrorView/ErrorView.tsx";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     path: "/",
-    loader: () => {
-      return fetch("http://localhost:5105");
-    },
-    children: [
-      {
-        element: <MenuView />,
-        path: "/",
-        loader: () => {
-          return fetch("http://localhost:5105/pizza?size=small");
-        },
-      },
-      {
-        element: <MenuView />,
-        path: ":pizza",
-        loader: ({ request }) => {
-          const url = new URL(request.url);
-
-          return fetch(`http://localhost:5105${url.pathname}${url.search}`);
-        },
-      },
-      {
-        element: <PaymentView />,
-        path: "payment",
-      },
-      {
-        element: <DeliveryView />,
-        path: "delivery/:deliveryId",
-        loader: ({ params: { deliveryId } }) => {
-          return fetch(`http://localhost:5105/delivery/${deliveryId}`);
-        },
-      },
-    ],
+  },
+  {
+    element: (
+      <Layout basketVisible name="Menu">
+        <MenuView />
+      </Layout>
+    ),
+    path: "/menu",
+    loader: () => get("menu"),
+  },
+  {
+    element: (
+      <Layout name="Kasa">
+        <CheckoutView />
+      </Layout>
+    ),
+    path: "/kasa",
+  },
+  {
+    element: (
+      <Layout name="Rezerwacja">
+        <ReservationView />
+      </Layout>
+    ),
+    path: "/rezerwacja",
+  },
+  {
+    element: (
+      <Layout name="Kontakt">
+        <ContactView />
+      </Layout>
+    ),
+    path: "/kontakt",
+  },
+  {
+    element: (
+      <Layout name="Dostawa">
+        <DeliveryView />
+      </Layout>
+    ),
+    path: "/dostawa",
+  },
+  {
+    element: (
+      <Layout name="Zamówienie">
+        <OrderView />
+      </Layout>
+    ),
+    path: "/zamowienie/:zamowienieId",
+  },
+  {
+    element: <ErrorView />,
+    path: "/*",
   },
 ]);
+
+const SettingsProvider = () => {
+  const [_, updateApp] = useAppContext();
+
+  useEffect(() => {
+    (async () => {
+      const res = (await get("setting")) as SettingModel;
+
+      updateApp("settings", res);
+    })();
+  }, []);
+
+  return <></>;
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AppContextProvider>
       <RouterProvider router={router} />
+      <SettingsProvider />
     </AppContextProvider>
   </React.StrictMode>
 );

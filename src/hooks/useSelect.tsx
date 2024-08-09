@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SelectionOption } from "../components";
-import { hasError } from "./helpers";
+import { validate } from "./helpers";
+import { Validator } from "./types";
 
 export const useSelect = (validators?: Validator<SelectionOption>[]) => {
   const [value, setValue] = useState<SelectionOption | undefined>();
@@ -8,7 +9,7 @@ export const useSelect = (validators?: Validator<SelectionOption>[]) => {
 
   const checkError = (): boolean => {
     if (!error) {
-      const e = hasError(value, validators);
+      const { error: e } = validate(value, validators);
       setError(e);
 
       return e;
@@ -18,7 +19,7 @@ export const useSelect = (validators?: Validator<SelectionOption>[]) => {
   };
 
   const handleValueChange = (value?: SelectionOption) => {
-    const error = hasError(value, validators);
+    const { error } = validate(value, validators);
 
     setError(error);
     setValue(value);

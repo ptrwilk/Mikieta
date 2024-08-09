@@ -1,37 +1,85 @@
-import { MdEmail } from "react-icons/md";
-import { Contact } from "../../components";
+import { SubHeader } from "@/components/SubHeader/SubHeader";
 import styles from "./ContactView.module.css";
-import { FaPhone } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
+import { AboutUsItem, Map, Section } from "@/components";
+import { Phone } from "lucide-react";
+import { MdAccessTime, MdOutlineHome } from "react-icons/md";
+import { GrDeliver } from "react-icons/gr";
+import { AboutUsDayHourAccordeon } from "../shared/AboutUsDayHourAccordeon/AboutUsDayHourAccordeon";
+import { useAppContext } from "@/context/AppContext";
 
 const ContactView = () => {
+  const [app] = useAppContext();
+
   return (
-    <ul className={styles["ContactView"]} id="contact">
-      <li>
-        <Contact
-          icon={<MdEmail size={50} />}
-          title="Email"
-          text1="Napisz do nas!"
-          text2="pizza@pizza.com"
-        />
-      </li>
-      <li>
-        <Contact
-          icon={<FaPhone size={42} />}
-          title="Telefon"
-          text1="Skontaktuj się z nami!"
-          text2="+48 555 444 222"
-        />
-      </li>
-      <li>
-        <Contact
-          icon={<FaLocationDot size={42} />}
-          title="Adres"
-          text1="Zapraszamy do odwiedzenia nas!"
-          text2="ul. Jakas 1, Gliwice 44-100"
-        />
-      </li>
-    </ul>
+    <Section className={styles["ContactView"]}>
+      <SubHeader
+        header="Masz jakiekolwiek pytania?"
+        title="NAWIĄŻ Z NAMI KONTAKT"
+        description="Napisz do nas lub zadzwoń!"
+      />
+      <ul className={styles["Items"]}>
+        <li>
+          <AboutUsItem
+            title="Dane adresowe"
+            icon={
+              <div className={styles["Circle"]}>
+                <MdOutlineHome color="var(--color-secondary)" size={35} />
+              </div>
+            }
+            content={
+              <div className="text-center">
+                <p className="font-light">Miketa</p>
+                <p className="font-light">
+                  {app!.settings?.street}, {app!.settings?.zipCode}{" "}
+                  {app!.settings?.city}
+                </p>
+              </div>
+            }
+          />
+        </li>
+        <li>
+          <AboutUsItem
+            title="Dane kontaktowe"
+            icon={
+              <div className={styles["Circle"]}>
+                <Phone color="var(--color-secondary)" size={30} />
+              </div>
+            }
+            content={
+              <p className="font-light">Telefon: {app!.settings?.phone}</p>
+            }
+          />
+        </li>
+        <li>
+          <AboutUsDayHourAccordeon
+            title="Godziny otwarcia"
+            icon={
+              <div className={styles["Circle"]}>
+                <MdAccessTime color="var(--color-secondary)" size={30} />
+              </div>
+            }
+            hours={app!.settings?.openingHours}
+            closures={app!.settings?.closures}
+          />
+        </li>
+        <li>
+          <AboutUsDayHourAccordeon
+            title="Godziny Dostawy"
+            icon={
+              <div className={styles["Circle"]}>
+                <GrDeliver color="var(--color-secondary)" size={30} />
+              </div>
+            }
+            hours={app!.settings?.deliveryHours}
+            closures={app!.settings?.closures}
+          />
+        </li>
+      </ul>
+      <div className={styles["Map"]}>
+        <p>Mapa dojazdu</p>
+        <Map />
+      </div>
+    </Section>
   );
 };
 

@@ -1,0 +1,30 @@
+.Switch {
+}
+
+.Switch .Caption {
+  margin-bottom: 0.5rem;
+}
+
+.Switch .Star {
+  color: var(--color-error);
+}
+
+.Switch .Content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-self: end;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--color-sixth);
+}
+
+.Switch .Content .Text {
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+
+.Switch .Caption-Huge {
+  font-size: 30px;
+  font-weight: 500;
+}

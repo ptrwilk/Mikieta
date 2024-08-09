@@ -1,25 +1,40 @@
-import { Outlet, useLoaderData } from "react-router-dom";
-import { Header, Hero } from "./components";
-import { BasketDrawerView } from "./views/BasketDrawerView/BasketDrawerView";
-import { ContactView } from "./views/ContactView/ContactView";
+import { useMediaQuery } from "react-responsive";
+import { Button, Header, Hero, Logo, Map, Section, Title } from "./components";
+import { SubHeader } from "./components/SubHeader/SubHeader";
+import { AboutUsView } from "./views/AboutUsView/AboutUsView";
+import { FooterView } from "./views/FooterView/FooterView";
+import classNames from "classnames";
 
 function App() {
-  const filters = useLoaderData() as string[];
+  const isMobile = useMediaQuery({ maxWidth: 800 });
 
   return (
-    <div
-      style={{
-        margin: "auto",
-        marginTop: 64,
-        maxWidth: 1440,
-      }}
-    >
-      <Header />
-      <Hero />
-      <Outlet context={filters} />
-      <ContactView />
-      <BasketDrawerView />
-    </div>
+    <>
+      <Hero>
+        <Section className="flex flex-col justify-center h-full px-4">
+          <div className="flex justify-between mt-32">
+            <Logo />
+            <Header className={classNames({ "mx-auto": !isMobile })} />
+            {!isMobile && (
+              <Button className="self-start flex-shrink-0" huge to="/menu">
+                Zamów online
+              </Button>
+            )}
+          </div>
+          <Title className="flex-grow" />
+        </Section>
+      </Hero>
+      <AboutUsView />
+      <div className="flex flex-col gap-12 mt-24 mb-24">
+        <SubHeader
+          header="Masz jakiekolwiek pytania?"
+          title="NAWIĄŻ Z NAMI KONTAKT"
+          description="Napisz do nas lub zadzwoń!"
+        />
+        <Map />
+      </div>
+      <FooterView />
+    </>
   );
 }
 

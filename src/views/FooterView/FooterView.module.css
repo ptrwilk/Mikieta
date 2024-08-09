@@ -1,0 +1,110 @@
+.FooterView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem 2rem;
+  background: var(--color-fifth);
+}
+
+.FooterView ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.FooterView ul .Logo {
+  align-self: center;
+}
+
+.FooterView ul .Content p {
+  color: var(--color-sixth);
+}
+
+.FooterView ul .Content-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.FooterView ul .Content-2 p {
+  text-align: left;
+}
+
+.FooterView ul .Content-2 .Location {
+  align-self: flex-start;
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+
+.FooterView ul .Content-2 .Location:hover {
+  text-decoration: none;
+}
+
+.FooterView ul .Content-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.FooterView ul .Content-3 svg {
+  color: var(--color-sixth);
+}
+
+.FooterView ul .Content-3 svg:hover {
+  color: var(--color-secondary);
+}
+
+.FooterView ul .Content-4 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.FooterView .Bottom {
+  width: 100%;
+}
+
+.FooterView .Bottom .Hr {
+  height: 0.5px;
+  margin-top: 5rem;
+  background: var(--color-sixth);
+}
+
+.FooterView .Bottom .Text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.FooterView .Bottom .Text .Separator {
+  width: 0.5px;
+  background: var(--color-sixth);
+}
+
+.FooterView .Bottom .Text a {
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--color-sixth);
+}
+
+.FooterView .Bottom .Text a:hover {
+  text-decoration: underline;
+  color: var(--color-secondary);
+}
+
+@media (max-width: 930px) {
+  .FooterView ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .FooterView ul {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

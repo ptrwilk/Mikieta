@@ -1,0 +1,153 @@
+import { Button, Section, Status } from "@/components";
+import styles from "./OrderView.module.css";
+import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { DeliveryMethod, OrderStatusModel, OrderStatusType } from "@/types";
+import { get, put } from "@/apihelper";
+import { format } from "date-fns";
+import { useSignalR } from "ptrwilk-packages";
+import { useAppContext } from "@/context/AppContext";
+import { FaArrowDown } from "react-icons/fa";
+import classNames from "classnames";
+import { useMediaQuery } from "react-responsive";
+
+const OrderView = () => {
+  const [_, updateApp] = useAppContext();
+  const { zamowienieId } = useParams();
+
+  const [status, setStatus] = useState<OrderStatusModel | undefined>();
+
+  const isMobile = useMediaQuery({ maxWidth: 500 });
+
+  const [buttonVisible, setButtonVisible] = useState(false);
+
+  const statusTitleRef = useRef<any>();
+
+  const updateStatus = async () => {
+    const model = (await get(
+      `order/${zamowienieId}/status`
+    )) as OrderStatusModel;
+
+    if (model.canClearBasket) {
+      await put(`order/${zamowienieId}/clear-can-clear-basket`);
+
+      localStorage.removeItem("basket");
+      updateApp("basket", []);
+    }
+
+    setStatus(model);
+  };
+
+  useSignalR(
+    {
+      url: `${import.meta.env.VITE_API_URL}/messageHub`,
+      invoke: { methodName: "Join", args: [zamowienieId!] },
+    },
+    [
+      {
+        methodName: "OrderChanged",
+        callback: () => {
+          updateStatus();
+        },
+      },
+    ]
+  );
+
+  useEffect(() => {
+    updateStatus();
+  }, []);
+
+  useEffect(() => {
+    setButtonVisible(isMobile);
+  }, [isMobile]);
+
+  if (status === undefined) {
+    return null;
+  }
+
+  const items =
+    status!.status === OrderStatusType.Cancelled
+      ? [
+          {
+            title: "Anulowano!",
+            text: "Twoje zamówienie zostało anulowane",
+            status: OrderStatusType.Cancelled,
+            error: true,
+          },
+        ]
+      : [
+          {
+            number: 1,
+            title: "Oczekiwanie!",
+            text: "Twoje zamówienie oczekuje na potwierdzenie",
+            status: OrderStatusType.Waiting,
+          },
+          {
+            number: 2,
+            title: "W przygotowaniu!",
+            text: "Twoje zamówienie jest w trakcie przygotowywania",
+            status: OrderStatusType.Preparing,
+          },
+          {
+            number: 3,
+            title: "Gotowe!",
+            text:
+              status?.deliveryMethod === DeliveryMethod.Delivery
+                ? "Jesteśmy w drodze do ciebie"
+                : "Twoje zamówienie jest gotowe odbioru",
+            status: OrderStatusType.Ready,
+          },
+        ];
+
+  return (
+    <Section className={styles["OrderView"]}>
+      {buttonVisible && (
+        <Button
+          className={classNames(styles["Button"])}
+          absolute
+          circle
+          size={50}
+          light
+          onClick={() => {
+            statusTitleRef.current.scrollIntoView({ behavior: "smooth" });
+            setButtonVisible(false);
+          }}
+        >
+          <FaArrowDown />
+        </Button>
+      )}
+      <div className={styles["Thanks"]}>
+        <h2>
+          {status!.status === OrderStatusType.Cancelled
+            ? "Twoje zamówienie zostało anulowane"
+            : "Dziękujemy za złożenie zamówienia!"}
+        </h2>
+        {status !== undefined &&
+          status!.status !== OrderStatusType.Waiting &&
+          status!.status !== OrderStatusType.Cancelled && (
+            <p>
+              {status.deliveryMethod === DeliveryMethod.Delivery
+                ? "Twoje zamówienie będzie dostarczone"
+                : "Twoje zamówienie będzie gotowe do odbioru"}{" "}
+              o {format(status!.deliveryAt, "HH:mm")}
+            </p>
+          )}
+      </div>
+      <div ref={statusTitleRef} className={styles["Status-Title"]}>
+        <h3>
+          Status Zamówienia {status?.orderNumber && `#${status?.orderNumber}`}
+        </h3>
+        <div className={styles["Hr"]} />
+      </div>
+      <ul className={styles["Statuses"]}>
+        {items.map((item, key) => (
+          <li key={key}>
+            <Status {...item} selected={item.status === status?.status} />
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+};
+
+export { OrderView };

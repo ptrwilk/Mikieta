@@ -1,17 +1,22 @@
 import classNames from "classnames";
 import styles from "./Button.module.css";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "../Spinner/Spinner";
 
 interface IButtonProps {
   children: any;
   className?: string;
-  dark?: boolean;
   tab?: boolean;
   icon?: boolean;
   huge?: boolean;
   light?: boolean;
   to?: string;
   disabled?: boolean;
+  border?: boolean;
+  loading?: boolean;
+  absolute?: boolean;
+  circle?: boolean;
+  size?: number;
   onClick?: () => void;
 }
 
@@ -20,11 +25,15 @@ const Button: React.FC<IButtonProps> = ({
   className,
   tab,
   onClick,
-  dark = true,
   icon = false,
   huge = false,
   light = false,
   disabled = false,
+  border = false,
+  loading,
+  absolute = false,
+  circle,
+  size,
   to,
 }) => {
   const navigate = useNavigate();
@@ -39,18 +48,30 @@ const Button: React.FC<IButtonProps> = ({
 
   return (
     <button
-      onClick={disabled ? undefined : handleClick}
-      className={classNames(styles["Button"], className, {
-        [styles["Button-light"]]: dark === false,
-        [styles["Button-tab"]]: tab,
-        [styles["Button-icon"]]: icon,
-        [styles["Button-huge"]]: huge,
-        //TODO: refactor this
-        [styles["Button-light2"]]: light,
-        [styles["Button-disabled"]]: disabled,
-      })}
+      onClick={disabled || loading ? undefined : handleClick}
+      style={
+        size !== undefined ? { width: `${size}px`, height: `${size}px` } : {}
+      }
+      className={classNames(
+        styles["Button"],
+        { relative: !absolute },
+        { absolute: absolute },
+        className,
+        {
+          [styles["Button-tab"]]: tab,
+          [styles["Button-icon"]]: icon,
+          [styles["Button-huge"]]: huge,
+          [styles["Button-light"]]: light,
+          [styles["Button-disabled"]]: disabled,
+          [styles["Button-Border"]]: border,
+          [styles["Button-Loading"]]: loading,
+          [styles["Button-Circle"]]: circle,
+        }
+      )}
     >
-      {children}
+      <Spinner loading={loading} size={huge ? 40 : 25}>
+        {children}
+      </Spinner>
     </button>
   );
 };
