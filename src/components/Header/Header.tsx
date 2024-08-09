@@ -13,7 +13,7 @@ interface IHeaderProps {
 const Header: React.FC<IHeaderProps> = ({ className, style }) => {
   const { pathname } = useLocation();
 
-  const isMobile = useMediaQuery({ maxWidth: 800 });
+  const isMobile = useMediaQuery({ maxWidth: 850 });
 
   const items = [
     { text: "Start", path: "/" },

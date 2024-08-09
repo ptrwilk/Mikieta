@@ -9,8 +9,8 @@ interface ITitleProps {
 const Title: React.FC<ITitleProps> = ({ className }) => {
   return (
     <div className={classNames(styles["Title"], className)}>
-      <p className={styles["Text"]}>Odkryj wyjątkowy smak...</p>
-      <h1>Najlepsza pizza w Leszczynach</h1>
+      <p className={styles["Text"]}>Stosujemy oryginalne włoskie składniki</p>
+      <h1>Pyszna pizza prosto z pieca opalanego drewnem!</h1>
       <Underline big />
       <Button className={styles["Button"]} huge to="/menu">
         Zobacz Menu

@@ -4,7 +4,7 @@ const ErrorView = () => {
   return (
     <div className="flex flex-col items-center h-screen bg-slate-100">
       <div className="flex flex-col gap-4 px-4 mt-32 max-w-[500px]">
-        <p className="text-center font-semibold text-[24px]">Miketa</p>
+        <p className="text-center font-semibold text-[24px]">Amalio</p>
         <p className="text-center font-bold text-[28px]">
           Przepraszamy, pod tym adresem strona nie istnieje :(
         </p>
