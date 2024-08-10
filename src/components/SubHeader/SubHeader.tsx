@@ -6,16 +6,30 @@ interface ISubHeaderProps {
   header?: string;
   title?: string;
   description?: string;
+  left?: boolean;
 }
 
 const SubHeader: React.FC<ISubHeaderProps> = ({
   header,
   title,
   description,
+  left,
 }) => {
   return (
-    <div className={styles["SubHeader"]}>
-      {header && <p className={styles["Header"]}>{header}</p>}
+    <div
+      className={classNames(styles["SubHeader"], {
+        [styles["SubHeader-Left"]]: left,
+      })}
+    >
+      {header && (
+        <p
+          className={classNames(styles["Header"], {
+            [styles["Header-Left"]]: left,
+          })}
+        >
+          {header}
+        </p>
+      )}
       <h3 className="font-medium text-center">{title}</h3>
       <Underline
         className={classNames(

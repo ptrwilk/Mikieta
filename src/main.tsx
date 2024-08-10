@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import MainView from "./views/MainView/MainView.tsx";
 import "./styles/global.css";
 import "./styles/theme.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -18,7 +18,7 @@ import { ErrorView } from "./views/ErrorView/ErrorView.tsx";
 
 const router = createBrowserRouter([
   {
-    element: <App />,
+    element: <MainView />,
     path: "/",
   },
   {

@@ -4,11 +4,19 @@
   align-items: center;
 }
 
+.SubHeader.SubHeader-Left {
+  align-items: flex-start;
+}
+
 .SubHeader .Header {
   font-size: 30px;
   font-family: var(--ff-secondary);
   color: var(--color-secondary);
   text-align: center;
+}
+
+.SubHeader .Header.Header-Left {
+  text-align: start;
 }
 
 @media (max-width: 530px) {
