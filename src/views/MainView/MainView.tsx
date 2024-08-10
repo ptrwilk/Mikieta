@@ -1,11 +1,20 @@
 import { useMediaQuery } from "react-responsive";
-import { Button, Header, Hero, Logo, Map, Section, Title } from "./components";
-import { SubHeader } from "./components/SubHeader/SubHeader";
-import { AboutUsView } from "./views/AboutUsView/AboutUsView";
-import { FooterView } from "./views/FooterView/FooterView";
+import {
+  Button,
+  Header,
+  Hero,
+  Logo,
+  Map,
+  Section,
+  Title,
+} from "../../components";
+import { SubHeader } from "../../components/SubHeader/SubHeader";
+import { AboutUsView } from "../AboutUsView/AboutUsView";
+import { FooterView } from "../FooterView/FooterView";
 import classNames from "classnames";
+import { LearnMoreSection } from "./Sections/LearnMoreSection";
 
-function App() {
+function MainView() {
   const isMobile = useMediaQuery({ maxWidth: 800 });
 
   return (
@@ -25,6 +34,7 @@ function App() {
         </Section>
       </Hero>
       <AboutUsView />
+      <LearnMoreSection />
       <div className="flex flex-col gap-12 mt-24 mb-24">
         <SubHeader
           header="Masz jakiekolwiek pytania?"
@@ -38,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainView;
