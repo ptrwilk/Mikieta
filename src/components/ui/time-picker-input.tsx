@@ -24,24 +24,21 @@ const TimePickerInput = React.forwardRef<
   HTMLInputElement,
   TimePickerInputProps
 >(
-  (
-    {
-      className,
-      type = "tel",
-      value,
-      id,
-      name,
-      date = new Date(new Date().setHours(0, 0, 0, 0)),
-      setDate,
-      onChange,
-      onKeyDown,
-      picker,
-      onLeftFocus,
-      onRightFocus,
-      ...props
-    },
-    ref
-  ) => {
+  ({
+    className,
+    type = "tel",
+    value,
+    id,
+    name,
+    date = new Date(new Date().setHours(0, 0, 0, 0)),
+    setDate,
+    onChange,
+    onKeyDown,
+    picker,
+    onLeftFocus,
+    onRightFocus,
+    ...props
+  }) => {
     const [flag, setFlag] = React.useState<boolean>(false);
 
     /**
@@ -88,7 +85,6 @@ const TimePickerInput = React.forwardRef<
 
     return (
       <Input
-        ref={ref}
         id={id || picker}
         name={name || picker}
         className={cn(
